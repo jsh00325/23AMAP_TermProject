@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.example.termproject.home.HomeFragment;
 import com.example.termproject.home.HomeItemFragment;
+import com.example.termproject.mypage.MyPageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     // HomeFragment home_frag = new HomeFragment();
     HomeItemFragment home_frag = new HomeItemFragment();    // <--- 테스트용
+    MyPageFragment mypage_frag = new MyPageFragment();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 } else if (itemId == R.id.myPage) {
-
+                    changeFragment(R.id.main_fragment, mypage_frag);
                     return true;
                 }
                 return false;
