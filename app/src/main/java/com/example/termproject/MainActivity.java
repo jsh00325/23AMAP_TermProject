@@ -9,12 +9,17 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.termproject.home.HomeFragment;
+import com.example.termproject.home.HomeItemFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView navbar;
+
+    // HomeFragment home_frag = new HomeFragment();
+    HomeItemFragment home_frag = new HomeItemFragment();    // <--- 테스트용
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,28 +33,35 @@ public class MainActivity extends AppCompatActivity {
 //        ...
 //        ...
 
-//        TODO : 각각의 프래그먼트 만들면 그 프래그먼트 연결하기!
-//        navbar.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                FragmentManager fm = getSupportFragmentManager();
-//                for (int i = 0; i < fm.getBackStackEntryCount(); i++)
-//                    fm.popBackStack();
-//
-//                // TODO: 각각의 프래그먼트 만들어서 이어주기
-//                switch (item.getItemId()) {
-//                    case R.id.home :
-//                        return true;
-//                    case R.id.bookmark:
-//                        return true;
-//                    case R.id.category:
-//                        return true;
-//                    case R.id.myPage:
-//                        return true;
-//                }
-//                return false;
-//            }
-//        });
+
+
+        changeFragment(R.id.main_fragment, home_frag);
+
+        navbar.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                FragmentManager fm = getSupportFragmentManager();
+                for (int i = 0; i < fm.getBackStackEntryCount(); i++)
+                    fm.popBackStack();
+
+                // TODO: 각각의 프래그먼트 만들어서 이어주기
+                int itemId = item.getItemId();
+                if (itemId == R.id.home) {
+                    changeFragment(R.id.main_fragment, home_frag);
+                    return true;
+                } else if (itemId == R.id.bookmark) {
+
+                    return true;
+                } else if (itemId == R.id.category) {
+
+                    return true;
+                } else if (itemId == R.id.myPage) {
+
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     /** address주소의 프래그먼트 슬롯을 frag라는 프래그먼트로 교체

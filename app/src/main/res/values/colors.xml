@@ -20,4 +20,7 @@
     <color name="buttonTheme">#FFE9EDF1</color>
 
 
+    <color name="mainColor">#3366FF</color>
+    <color name="transparent">#00000000</color>
+    <color name="feedBackground">#EAEAEA</color>
 </resources>
