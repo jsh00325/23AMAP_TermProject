@@ -1,31 +1,33 @@
-package com.example.termproject;
+package com.example.termproject.ClubPage;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import de.hdodenhof.circleimageview.CircleImageView;
+
+import androidx.fragment.app.Fragment;
+import com.example.termproject.view.ExpandableHeightGridView;
+import com.example.termproject.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_mypage#newInstance} factory method to
+ * Use the {@link club_Bulletin#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_mypage extends Fragment {
+public class club_Bulletin extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private ExpandableHeightGridView gridview = null;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public fragment_mypage() {
+    public club_Bulletin() {
         // Required empty public constructor
     }
 
@@ -35,16 +37,17 @@ public class fragment_mypage extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_mypage.
+     * @return A new instance of fragment club_Bulletin.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_mypage newInstance(String param1, String param2) {
-        fragment_mypage fragment = new fragment_mypage();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+
+    public static club_Bulletin newInstance(int number, String name) {
+        club_Bulletin postFragment = new club_Bulletin();
+        Bundle bundle = new Bundle();
+        bundle.putInt("number", number);
+        bundle.putString("name", name);
+        postFragment.setArguments(bundle);
+        return postFragment;
     }
 
     @Override
@@ -60,6 +63,6 @@ public class fragment_mypage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mypage, container, false);
+        return inflater.inflate(R.layout.fragment_club__bulletin, container, false);
     }
 }
