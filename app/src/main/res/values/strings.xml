@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">동아리</string>
+    <string name="app_name">TermProject</string>
 
     <!-- 하단 네비게이션 바 관련 string -->
     <string name="menu_home">메인피드</string>
