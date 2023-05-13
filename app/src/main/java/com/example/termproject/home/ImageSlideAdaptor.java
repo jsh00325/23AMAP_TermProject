@@ -1,16 +1,19 @@
 package com.example.termproject.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.termproject.R;
+import com.example.termproject.view.FeedImageViewer;
 
 public class ImageSlideAdaptor extends RecyclerView.Adapter<ImageSlideAdaptor.FeedViewHolder> {
     // https://android-dev.tistory.com/12 참고
@@ -49,6 +52,14 @@ public class ImageSlideAdaptor extends RecyclerView.Adapter<ImageSlideAdaptor.Fe
 
         public void bindSliderImage(String imageURL) {
             Glide.with(context).load(imageURL).into(iv);
+            iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent it = new Intent(context, FeedImageViewer.class);
+                    it.putExtra("ImageURL", imageURL);
+                    context.startActivity(it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                }
+            });
         }
     }
 }
