@@ -15,24 +15,16 @@ import android.widget.LinearLayout;
 
 import com.example.termproject.R;
 
-import me.relex.circleindicator.CircleIndicator3;
-
 public class HomeItemFragment extends Fragment {
     private ViewPager2 sliderViewPager;
     private LinearLayout layoutIndicator;
 
     private Context context;
     String[] images = new String[] {
-            "https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
-            "https://cdn.pixabay.com/photo/2020/11/04/15/29/coffee-beans-5712780_1280.jpg",
-            "https://cdn.pixabay.com/photo/2020/03/08/21/41/landscape-4913841_1280.jpg",
-            "https://cdn.pixabay.com/photo/2020/09/02/18/03/girl-5539094_1280.jpg",
-            "https://cdn.pixabay.com/photo/2014/03/03/16/15/mosque-279015_1280.jpg",
-            "https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
-            "https://cdn.pixabay.com/photo/2020/11/04/15/29/coffee-beans-5712780_1280.jpg",
-            "https://cdn.pixabay.com/photo/2020/03/08/21/41/landscape-4913841_1280.jpg",
-            "https://cdn.pixabay.com/photo/2020/09/02/18/03/girl-5539094_1280.jpg",
-            "https://cdn.pixabay.com/photo/2014/03/03/16/15/mosque-279015_1280.jpg"
+            "https://cdn.pixabay.com/photo/2023/04/22/10/01/insect-7943499_960_720.jpg",
+            "https://cdn.pixabay.com/photo/2023/03/27/17/40/tree-7881297_960_720.jpg",
+            "https://cdn.pixabay.com/photo/2023/04/05/13/01/animal-7901464_960_720.jpg",
+            "https://cdn.pixabay.com/photo/2023/04/21/11/51/flower-7941764_960_720.jpg"
     };
 
     @Override

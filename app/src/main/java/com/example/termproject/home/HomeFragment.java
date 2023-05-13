@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 
 import com.example.termproject.R;
 
-import me.relex.circleindicator.CircleIndicator3;
-
 public class HomeFragment extends Fragment {
     View view;
 

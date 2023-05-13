@@ -2,7 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="mainColor">#3366FF</color>
     <color name="transparent">#00000000</color>
-    <color name="feedBackground">#EAEAEA</color>
+    <color name="ImageBackground">#EFEFEF</color>
+    <color name="gray_7e7e7e">#7E7E7E</color>
+
+
+    <color name="Primary">#3366FF</color>
+    <color name="PrimaryVariant">#D1A2D9</color>
+    <color name="OnPrimary">#F0EDFF</color>
 </resources>

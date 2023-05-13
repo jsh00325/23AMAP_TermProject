@@ -14,14 +14,15 @@
         android:orientation="horizontal"
         android:layout_gravity="center" >
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/home_item_club_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/view_border"
-            android:padding="2dp"
-            android:src="@drawable/mypage"
-            android:layout_marginRight="20dp"/>
+            android:src="@drawable/test_profile_image1"
+            app:civ_border_overlay="true"
+            app:civ_border_color="@color/gray_7e7e7e"
+            app:civ_border_width="1dp"
+            android:layout_marginRight="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/feedBackground"/>
+        android:background="@color/ImageBackground"/>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -97,7 +98,7 @@
         android:text="@string/for_test_long_text"
         android:textSize="16sp"
         android:textColor="@color/black"
-        app:readMoreColor="@color/mainColor"
+        app:readMoreColor="@color/Primary"
         app:readMoreMaxLine="2"
         app:readMoreText="\n...더보기" />
 
