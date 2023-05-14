@@ -26,7 +26,7 @@
     <color name="ImageBackground">#EFEFEF</color>
     <color name="gray_7e7e7e">#7E7E7E</color>
 
-
+    <!-- 전반적인 앱 색상 -->
     <color name="Primary">#3366FF</color>
     <color name="PrimaryVariant">#D1A2D9</color>
     <color name="OnPrimary">#F0EDFF</color>

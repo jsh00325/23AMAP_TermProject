@@ -1,4 +1,4 @@
-package com.example.termproject.mypage;
+package com.example.termproject.MyPage;
 
 import android.os.Bundle;
 

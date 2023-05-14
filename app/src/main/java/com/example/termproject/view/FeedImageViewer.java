@@ -3,6 +3,8 @@ package com.example.termproject.view;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.view.DragEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -10,15 +12,17 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.termproject.R;
+import com.jsibbold.zoomage.ZoomageView;
 
 public class FeedImageViewer extends AppCompatActivity {
     String imageURL;
-    ImageView popUpImageView;
+    ZoomageView popUpImageView;
     RequestOptions options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true);
 
     @Override
@@ -29,8 +33,7 @@ public class FeedImageViewer extends AppCompatActivity {
         Intent it = getIntent();
         imageURL = it.getStringExtra("ImageURL");
 
-        popUpImageView = (ImageView) findViewById(R.id.feed_image_viewer_iv);
-        popUpImageView.setImageResource(R.drawable.test_profile_image1);
+        popUpImageView = (ZoomageView) findViewById(R.id.feed_image_viewer_iv);
         Glide.with(FeedImageViewer.this).load(imageURL).apply(options).into(popUpImageView);
 
         findViewById(R.id.feed_image_viewer_closeBtn).setOnClickListener(closeActivity);

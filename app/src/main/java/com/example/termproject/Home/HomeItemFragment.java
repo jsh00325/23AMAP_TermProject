@@ -1,4 +1,4 @@
-package com.example.termproject.home;
+package com.example.termproject.Home;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -51,6 +51,9 @@ public class HomeItemFragment extends Fragment {
 
         return view;
     }
+    
+    // TODO-프래그먼트 전환 시 ViewPager랑 인디케이터의 색은 유지 되는데,
+    //      크기는 초기화 되는 문제 해결하기
     private void setUpIndicator(int count) {
         ImageView[] indicators = new ImageView[count];
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

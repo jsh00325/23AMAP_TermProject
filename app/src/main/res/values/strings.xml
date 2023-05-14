@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TermProject</string>
+    <string name="app_name">동아리 앱</string>
 
     <!-- 하단 네비게이션 바 관련 string -->
     <string name="menu_home">메인피드</string>
@@ -12,5 +12,9 @@
     <string name="for_test_long_text">
         이 문장은 테스트용 문장입니다. 이 문장은 테스트 용으로 제작되었습니다. 이 문장은 테스트용 문장입니다. 이 문장은 테스트 용으로 제작되었습니다.
         이 문장은 테스트용 문장입니다. 이 문장은 테스트 용으로 제작되었습니다. 이 문장은 테스트용 문장입니다. 이 문장은 테스트 용으로 제작되었습니다.
+        이 문장은 테스트용 문장입니다. 이 문장은 테스트 용으로 제작되었습니다. 이 문장은 테스트용 문장입니다. 이 문장은 테스트 용으로 제작되었습니다.
+        이 문장은 테스트용 문장입니다. 이 문장은 테스트 용으로 제작되었습니다. 이 문장은 테스트용 문장입니다. 이 문장은 테스트 용으로 제작되었습니다.
     </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
