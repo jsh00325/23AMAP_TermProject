@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.termproject.BookMark.BookmarkFragment;
+import com.example.termproject.BookMark.BookmarkItem;
 import com.example.termproject.home.HomeFragment;
 import com.example.termproject.home.HomeItemFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     // HomeFragment home_frag = new HomeFragment();
     HomeItemFragment home_frag = new HomeItemFragment();    // <--- 테스트용
-
+    BookmarkFragment bookmarkFragment = new BookmarkFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         changeFragment(R.id.main_fragment, home_frag);
-
         navbar.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     changeFragment(R.id.main_fragment, home_frag);
                     return true;
                 } else if (itemId == R.id.bookmark) {
-
+                    changeFragment(R.id.main_fragment, bookmarkFragment);
                     return true;
                 } else if (itemId == R.id.category) {
 
