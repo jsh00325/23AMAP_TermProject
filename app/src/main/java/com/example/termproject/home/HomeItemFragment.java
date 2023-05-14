@@ -27,6 +27,11 @@ public class HomeItemFragment extends Fragment {
             "https://cdn.pixabay.com/photo/2020/11/04/15/29/coffee-beans-5712780_1280.jpg",
             "https://cdn.pixabay.com/photo/2020/03/08/21/41/landscape-4913841_1280.jpg",
             "https://cdn.pixabay.com/photo/2020/09/02/18/03/girl-5539094_1280.jpg",
+            "https://cdn.pixabay.com/photo/2014/03/03/16/15/mosque-279015_1280.jpg",
+            "https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
+            "https://cdn.pixabay.com/photo/2020/11/04/15/29/coffee-beans-5712780_1280.jpg",
+            "https://cdn.pixabay.com/photo/2020/03/08/21/41/landscape-4913841_1280.jpg",
+            "https://cdn.pixabay.com/photo/2020/09/02/18/03/girl-5539094_1280.jpg",
             "https://cdn.pixabay.com/photo/2014/03/03/16/15/mosque-279015_1280.jpg"
     };
 
@@ -57,7 +62,7 @@ public class HomeItemFragment extends Fragment {
     private void setUpIndicator(int count) {
         ImageView[] indicators = new ImageView[count];
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(16, 8, 16, 8);
+        params.setMargins(8, 8, 8, 8);
 
         for (int i = 0; i < indicators.length; i++) {
             indicators[i] = new ImageView(context);
