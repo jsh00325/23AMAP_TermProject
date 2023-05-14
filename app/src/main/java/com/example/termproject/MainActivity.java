@@ -14,6 +14,7 @@ import com.example.termproject.BookMark.BookmarkFragment;
 import com.example.termproject.BookMark.BookmarkItem;
 import com.example.termproject.Home.HomeFragment;
 import com.example.termproject.Category.CategoryFragment;
+import com.example.termproject.Home.HomeFragment;
 import com.example.termproject.Home.HomeItemFragment;
 import com.example.termproject.MyPage.MyPageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,7 +23,7 @@ import com.google.android.material.navigation.NavigationBarView;
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView navbar;
 
-    // HomeFragment home_frag = new HomeFragment();
+//     HomeFragment home_frag = new HomeFragment();
     HomeItemFragment home_frag = new HomeItemFragment();    // <--- 테스트용
     BookmarkFragment bookmark_frag = new BookmarkFragment();
     CategoryFragment category_frag = new CategoryFragment();

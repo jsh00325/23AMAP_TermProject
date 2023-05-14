@@ -24,6 +24,8 @@
             android:layout_height="0dp"
             android:layout_weight="30" />
 
+        <!-- TODO : CircleImageView는 그냥 가로 세로 높이 dp로 정해놓아야지
+                    그 크기대로 원 되니까 다른 위젯들이랑 크기 비교해서 크기 고정하는게 좋을 듯 -->
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/bookmark_item_icon"
             android:layout_width="match_parent"
@@ -67,7 +69,6 @@
             android:autoSizeMinTextSize="10sp"
             android:autoSizeStepGranularity="1sp"
             android:autoSizeTextType="uniform"
-            android:fontFamily="@font/notosanskr_light"
             android:includeFontPadding="false"
             android:textColor="@color/black_191919" />
 
@@ -88,7 +89,6 @@
                 android:autoSizeMinTextSize="10dp"
                 android:autoSizeStepGranularity="1dp"
                 android:autoSizeTextType="uniform"
-                android:fontFamily="@font/notosanskr_light"
                 android:includeFontPadding="false"
                 android:textColor="@color/black_191919" />
 
@@ -102,7 +102,6 @@
                 android:autoSizeMinTextSize="10dp"
                 android:autoSizeStepGranularity="1dp"
                 android:autoSizeTextType="uniform"
-                android:fontFamily="@font/notosanskr_light"
                 android:includeFontPadding="false"
                 android:textColor="@color/black_191919" />
 
@@ -122,12 +121,14 @@
             android:layout_height="0dp"
             android:layout_weight="45"/>
 
+        <!-- TODO : 알람 아이콘 없어서 next_btn으로 바꿔놓음
+                    알람 기능 구현 안할꺼면 아예 없애는 것도 나쁘지 않을듯...? -->
         <ImageView
             android:id="@+id/alarm"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="45"
-            android:src="@drawable/icon_alarmon"/>
+            android:src="@drawable/next_btn"/>
 
         <View
             android:layout_width="match_parent"
