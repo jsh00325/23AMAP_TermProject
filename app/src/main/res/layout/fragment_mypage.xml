@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="30dp"
+    android:layout_marginEnd="30dp"
+    android:orientation="vertical"
+    android:weightSum="1455">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="215"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="666">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="100"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/mypage_profile_pic"
+                android:layout_width="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="50dp"
+                android:background="@drawable/round_background_border_main_theme"
+                android:padding="1dp"
+                android:src="@drawable/mypage" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="40" />
+
+        <TextView
+            android:id="@+id/mypage_profile_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="526"
+            android:fontFamily="@font/notosanskr_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/black_191919"
+
+            android:text="사용자 이름"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/user_profile_division"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorDivision"
+        android:orientation="horizontal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="54" />
+
+    <TextView
+        android:id="@+id/mypage_profile_manage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/user_profile_division"
+        android:layout_weight="55"
+        android:text="계정 관리"
+        android:fontFamily="@font/notosanskr_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/black_191919"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="100dp"
+        android:autoSizeMinTextSize="10dp"
+        android:autoSizeStepGranularity="1dp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="54" />
+
+    <TextView
+        android:layout_marginStart="20dp"
+        android:id="@+id/mypage_password_reset"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/black_191919"
+        android:layout_weight="52"
+        android:text="비밀번호 변경"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="100dp"
+        android:autoSizeMinTextSize="10dp"
+        android:autoSizeStepGranularity="1dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="54" />
+
+    <TextView
+        android:layout_marginStart="20dp"
+        android:id="@+id/mypage_log_out"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="52"
+        android:fontFamily="@font/notosanskr_regular"
+        android:includeFontPadding="false"
+        android:text="로그아웃"
+        android:textColor="@color/black_191919"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="100dp"
+        android:autoSizeMinTextSize="10dp"
+        android:autoSizeStepGranularity="1dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="54" />
+    <TextView
+        android:layout_marginStart="20dp"
+        android:id="@+id/mypage_withdrawal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/black_191919"
+        android:layout_weight="52"
+        android:text="회원 탈퇴"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="100dp"
+        android:autoSizeMinTextSize="10dp"
+        android:autoSizeStepGranularity="1dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="54" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="54" />
+
+    <TextView
+        android:id="@+id/mypage_scrap"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/black_191919"
+        android:layout_weight="55"
+        android:text="내가 좋아요한 게시글 보기"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="100dp"
+        android:autoSizeMinTextSize="10dp"
+        android:autoSizeStepGranularity="1dp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="54" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="54" />
+
+    <TextView
+        android:id="@+id/mypage_club_managing"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/gray_dbdbdb"
+        android:layout_weight="55"
+        android:text="동아리 관리하기"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="100dp"
+        android:autoSizeMinTextSize="10dp"
+        android:autoSizeStepGranularity="1dp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>
