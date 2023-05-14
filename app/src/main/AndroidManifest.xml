@@ -15,6 +15,17 @@
         android:theme="@style/Theme.TermProject"
         tools:targetApi="31">
         <activity
+            android:name=".BookMark.BookmarkItem"
+            android:exported="false" />
+        <activity
+            android:name=".UserManagement.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserManagement.MemberInitActivity"
+            android:exported="false"
+            android:label="@string/title_activity_member_init"
+            android:theme="@style/Theme.TermProject" />
+        <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:exported="true">

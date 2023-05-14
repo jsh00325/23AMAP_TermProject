@@ -10,6 +10,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.termproject.BookMark.BookmarkFragment;
+import com.example.termproject.BookMark.BookmarkItem;
+import com.example.termproject.Home.HomeFragment;
 import com.example.termproject.Category.CategoryFragment;
 import com.example.termproject.Home.HomeItemFragment;
 import com.example.termproject.MyPage.MyPageFragment;
@@ -21,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     // HomeFragment home_frag = new HomeFragment();
     HomeItemFragment home_frag = new HomeItemFragment();    // <--- 테스트용
-    MyPageFragment mypage_frag = new MyPageFragment();
+    BookmarkFragment bookmark_frag = new BookmarkFragment();
     CategoryFragment category_frag = new CategoryFragment();
-
+    MyPageFragment mypage_frag = new MyPageFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         changeFragment(R.id.main_fragment, home_frag);
-
         navbar.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     changeFragment(R.id.main_fragment, home_frag);
                     return true;
                 } else if (itemId == R.id.bookmark) {
-
+                    changeFragment(R.id.main_fragment, bookmark_frag);
                     return true;
                 } else if (itemId == R.id.category) {
                     changeFragment(R.id.main_fragment, category_frag);

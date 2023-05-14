@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:weightSum="786"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="24"/>
+
+    <LinearLayout
+        android:layout_width="36dp"
+        android:layout_height="match_parent"
+        android:layout_weight="80"
+        android:orientation="vertical"
+        android:weightSum="140">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/bookmark_item_icon"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="80"
+            android:background="@drawable/round_background_border_main_theme"
+            android:padding="1dp"
+            android:src="@drawable/mypage" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="16"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="592"
+        android:weightSum="140"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="29"/>
+
+        <TextView
+            android:id="@+id/bookmark_item_name"
+            android:layout_width="match_parent"
+            android:layout_weight="48"
+            android:layout_height="0dp"
+            android:text="동아리 명"
+            android:autoSizeMaxTextSize="100sp"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeStepGranularity="1sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/notosanskr_light"
+            android:includeFontPadding="false"
+            android:textColor="@color/black_191919" />
+
+        <LinearLayout
+            android:layout_weight="35"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="592"
+            android:layout_height="0dp">
+
+            <TextView
+                android:id="@+id/bookmark_item_major"
+                android:layout_width="0dp"
+                android:layout_weight="95"
+                android:layout_height="wrap_content"
+                android:text="#대분류"
+                android:autoSizeMaxTextSize="100dp"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeStepGranularity="1dp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/notosanskr_light"
+                android:includeFontPadding="false"
+                android:textColor="@color/black_191919" />
+
+            <TextView
+                android:id="@+id/bookmark_item_minor"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="497"
+                android:text="#소분류"
+                android:autoSizeMaxTextSize="100dp"
+                android:autoSizeMinTextSize="10dp"
+                android:autoSizeStepGranularity="1dp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/notosanskr_light"
+                android:includeFontPadding="false"
+                android:textColor="@color/black_191919" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:weightSum="140"
+        android:orientation="vertical"
+        android:layout_weight="50">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="45"/>
+
+        <ImageView
+            android:id="@+id/alarm"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="45"
+            android:src="@drawable/icon_alarmon"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="45"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="24" />
+
+
+</LinearLayout>
