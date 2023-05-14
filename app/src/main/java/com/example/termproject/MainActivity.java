@@ -2,6 +2,7 @@ package com.example.termproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -9,22 +10,28 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.termproject.home.HomeFragment;
-import com.example.termproject.home.HomeItemFragment;
+import com.example.termproject.Category.CategoryFragment;
+import com.example.termproject.Home.HomeItemFragment;
+import com.example.termproject.MyPage.MyPageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
-
     BottomNavigationView navbar;
 
     // HomeFragment home_frag = new HomeFragment();
     HomeItemFragment home_frag = new HomeItemFragment();    // <--- 테스트용
+    MyPageFragment mypage_frag = new MyPageFragment();
+    CategoryFragment category_frag = new CategoryFragment();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 다크모드 해제
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         navbar = (BottomNavigationView) findViewById(R.id.activity_main_navbar);
 
@@ -53,10 +60,10 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 } else if (itemId == R.id.category) {
-
+                    changeFragment(R.id.main_fragment, category_frag);
                     return true;
                 } else if (itemId == R.id.myPage) {
-
+                    changeFragment(R.id.main_fragment, mypage_frag);
                     return true;
                 }
                 return false;
