@@ -20,7 +20,7 @@ import java.util.ArrayList;
     #2. https://youtu.be/RYM2H0Qzq9I - RecyclerView 완벽 정리       */
 public class CategoryMainAdapter extends RecyclerView.Adapter<CategoryMainAdapter.MainListViewHolder> {
     private Context context;
-    private ArrayList<CategoryMainData> mainList;
+    public ArrayList<CategoryMainData> mainList;
 
     public CategoryMainAdapter(ArrayList<CategoryMainData> mainList) {
         this.mainList = mainList;
@@ -30,7 +30,7 @@ public class CategoryMainAdapter extends RecyclerView.Adapter<CategoryMainAdapte
     @Override
     public MainListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        return new MainListViewHolder(LayoutInflater.from(context).inflate(R.layout.category_main_item, parent,false));
+        return new MainListViewHolder(LayoutInflater.from(context).inflate(R.layout.category_item_mainlist, parent,false));
     }
 
     @Override
@@ -40,6 +40,15 @@ public class CategoryMainAdapter extends RecyclerView.Adapter<CategoryMainAdapte
 
         holder.subView.setLayoutManager(new LinearLayoutManager(context));
         holder.subView.setAdapter(new CategorySubAdapter(cur_data.subList));
+
+        if (cur_data.isOpen) {
+            holder.subView.setVisibility(View.VISIBLE);
+            holder.main_toggle.setImageResource(R.drawable.up_sign);
+        }
+        else {
+            holder.subView.setVisibility(View.GONE);
+            holder.main_toggle.setImageResource(R.drawable.down_sign);
+        }
 
         holder.main_cl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +67,7 @@ public class CategoryMainAdapter extends RecyclerView.Adapter<CategoryMainAdapte
                     holder.main_toggle.setImageResource(R.drawable.up_sign);
                     cur_data.isOpen = true;
                 }
+                notifyDataSetChanged();
             }
         });
     }

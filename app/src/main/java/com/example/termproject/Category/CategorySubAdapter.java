@@ -1,6 +1,8 @@
 package com.example.termproject.Category;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.termproject.MainActivity;
 import com.example.termproject.R;
 
 import java.util.ArrayList;
@@ -27,7 +33,7 @@ public class CategorySubAdapter extends RecyclerView.Adapter<CategorySubAdapter.
     @Override
     public SubListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        return new SubListViewHolder(LayoutInflater.from(context).inflate(R.layout.category_sub_item, parent, false));
+        return new SubListViewHolder(LayoutInflater.from(context).inflate(R.layout.category_item_sublist, parent, false));
     }
 
     @Override
@@ -37,8 +43,18 @@ public class CategorySubAdapter extends RecyclerView.Adapter<CategorySubAdapter.
             @Override
             public void onClick(View view) {
                 String subListKey = subList.get(holder.getAdapterPosition()).subListKey;
-                // TODO : subListKey 값의 동아리 목록
-                Toast.makeText(context, subListKey, Toast.LENGTH_SHORT).show();
+
+                CategoryClublistFragment nxtFragment = new CategoryClublistFragment();
+
+                Bundle args = new Bundle();
+                args.putString("clubSubKey", subListKey);
+                nxtFragment.setArguments(args);
+
+                MainActivity activity = (MainActivity) context;
+                FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.main_fragment, nxtFragment);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
     }
