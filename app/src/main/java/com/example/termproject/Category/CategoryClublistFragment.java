@@ -37,12 +37,10 @@ public class CategoryClublistFragment extends Fragment {
         clubList = (RecyclerView) view.findViewById(R.id.category_clublist_RV);
         clubList.setLayoutManager(new LinearLayoutManager(container.getContext()));
 
-        if (getArguments() != null) {
-            clubSubKey = getArguments().getString("clubSubKey");
-        }
+        if (getArguments() != null) clubSubKey = getArguments().getString("clubSubKey");
 
         ArrayList<CategoryClubData> clubNameList = new ArrayList<>();
-        db.collection("club_category").whereEqualTo("sub_category", clubSubKey).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("club_list").whereEqualTo("sub_category", clubSubKey).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -50,7 +48,7 @@ public class CategoryClublistFragment extends Fragment {
                         String imgURL = doc.getString("image_url");
                         String name = doc.getString("club_name");
                         String main_cat = doc.getString("main_category");
-                        String sub_cat = doc.getString("sub_category_name");
+                        String sub_cat = doc.getString("sub_category");
                         clubNameList.add(new CategoryClubData(imgURL, name, main_cat, sub_cat));
                     }
                     clubList.setAdapter(new CategoryClublistAdapter(clubNameList));

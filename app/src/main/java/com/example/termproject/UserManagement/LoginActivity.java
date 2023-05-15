@@ -44,19 +44,15 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent intent;
-            switch(view.getId()){
-                case R.id.loginButton:
-                    login();
-                    break;
-
-                case R.id.gotopasswordResetButton:
-                     intent = new Intent(LoginActivity.this, PasswordResetActivity.class);
-                     startActivity(intent);
-                    break;
-                case R.id.goToSignUp:
-                    intent = new Intent(LoginActivity.this, SignUpActivity.class);
-                    startActivity(intent);
-                    break;
+            int id = view.getId();
+            if (id == R.id.loginButton) {
+                login();
+            } else if (id == R.id.gotopasswordResetButton) {// TODO : 액티비티 만들어서 연결해두기
+                // intent = new Intent(LoginActivity.this, PasswordResetActivity.class);
+                // startActivity(intent);
+            } else if (id == R.id.goToSignUp) {
+                intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
             }
         }
     };

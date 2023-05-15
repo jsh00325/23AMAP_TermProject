@@ -36,7 +36,7 @@ public class CategoryMainAdapter extends RecyclerView.Adapter<CategoryMainAdapte
     @Override
     public void onBindViewHolder(@NonNull MainListViewHolder holder, int position) {
         CategoryMainData cur_data = mainList.get(position);
-        holder.setTextView(cur_data.text);
+        holder.setTextView(cur_data.text + " 분과");
 
         holder.subView.setLayoutManager(new LinearLayoutManager(context));
         holder.subView.setAdapter(new CategorySubAdapter(cur_data.subList));

@@ -1,18 +1,14 @@
 package com.example.termproject.Category;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,10 +18,10 @@ import com.example.termproject.R;
 import java.util.ArrayList;
 
 public class CategorySubAdapter extends RecyclerView.Adapter<CategorySubAdapter.SubListViewHolder> {
-    private ArrayList<CategorySubData> subList;
+    private ArrayList<String> subList;
     private Context context;
 
-    public CategorySubAdapter(ArrayList<CategorySubData> subList) {
+    public CategorySubAdapter(ArrayList<String> subList) {
         this.subList = subList;
     }
 
@@ -38,11 +34,11 @@ public class CategorySubAdapter extends RecyclerView.Adapter<CategorySubAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull SubListViewHolder holder, int position) {
-        holder.setTextView(subList.get(position).text);
+        holder.setTextView(subList.get(position));
         holder.sub_cl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String subListKey = subList.get(holder.getAdapterPosition()).subListKey;
+                String subListKey = subList.get(holder.getAdapterPosition());
 
                 CategoryClublistFragment nxtFragment = new CategoryClublistFragment();
 
