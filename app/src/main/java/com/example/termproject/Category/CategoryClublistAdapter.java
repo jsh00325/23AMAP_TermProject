@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CategoryClublistAdapter extends RecyclerView.Adapter<CategoryClublistAdapter.ClublistViewHolder> {
-    private ArrayList<CategoryClubData> clubName;
+    final private ArrayList<CategoryClubData> clubName;
     private Context context;
 
     public CategoryClublistAdapter(ArrayList<CategoryClubData> clubName) {
@@ -36,11 +37,16 @@ public class CategoryClublistAdapter extends RecyclerView.Adapter<CategoryClubli
     public void onBindViewHolder(@NonNull ClublistViewHolder holder, int position) {
         CategoryClubData curData = clubName.get(holder.getAdapterPosition());
 
-        if (curData.imageURL == "") holder.clubImageView.setImageResource(R.drawable.mypage);
-        else Glide.with(context).load(curData.imageURL).circleCrop().into(holder.clubImageView);
-        holder.clubNameView.setText(curData.clubName);
-        holder.clubMainCategoryView.setText(curData.mainCategory);
-        holder.clubSubCategoryView.setText(curData.subCategory);
+        if (curData.getImageURL().equals("")) holder.clubImageView.setImageResource(R.drawable.blank_user);
+        else Glide.with(context).load(curData.getImageURL()).circleCrop().into(holder.clubImageView);
+        holder.clubNameView.setText(curData.getClubName());
+        holder.clubMainCategoryView.setText(curData.getMainCategory());
+        holder.clubSubCategoryView.setText(curData.getSubCategory());
+
+        holder.clubView.setOnClickListener(view -> {
+            // TODO : 동아리 소개 액티비티랑 연결
+            Toast.makeText(context, curData.getClubName(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override
@@ -49,6 +55,7 @@ public class CategoryClublistAdapter extends RecyclerView.Adapter<CategoryClubli
     }
 
     public static class ClublistViewHolder extends RecyclerView.ViewHolder {
+        ConstraintLayout clubView;
         CircleImageView clubImageView;
         TextView clubNameView;
         TextView clubMainCategoryView;
@@ -56,6 +63,7 @@ public class CategoryClublistAdapter extends RecyclerView.Adapter<CategoryClubli
 
         public ClublistViewHolder(View itemView) {
             super(itemView);
+            clubView = (ConstraintLayout) itemView.findViewById(R.id.category_clubitem_Cl); 
             clubImageView = (CircleImageView) itemView.findViewById(R.id.category_club_image);
             clubNameView = (TextView) itemView.findViewById(R.id.category_club_name);
             clubMainCategoryView = (TextView) itemView.findViewById(R.id.category_club_main);

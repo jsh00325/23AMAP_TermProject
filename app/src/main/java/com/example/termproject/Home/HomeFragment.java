@@ -18,11 +18,13 @@ public class HomeFragment extends Fragment {
     View view;
     RecyclerView home_feed;
     SwipeRefreshLayout home_srl;
+    Context context;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view =  inflater.inflate(R.layout.fragment_home, container, false);
-        
+        context = container.getContext();
+
         home_feed = (RecyclerView) view.findViewById(R.id.home_recycle_view);
         home_srl = (SwipeRefreshLayout) view.findViewById(R.id.home_srl);
         home_srl.setOnRefreshListener(srl_refresh_listener);
@@ -36,7 +38,7 @@ public class HomeFragment extends Fragment {
         @Override
         public void onRefresh() {
             // TODO : 새로고침 시 실행할 코드
-
+            Toast.makeText(context, "새로고침", Toast.LENGTH_SHORT).show();
             home_srl.setRefreshing(false);
         }
     };

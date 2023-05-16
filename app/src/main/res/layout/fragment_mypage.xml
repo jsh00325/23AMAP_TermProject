@@ -31,7 +31,7 @@
                 android:layout_height="50dp"
                 android:background="@drawable/round_background_border_main_theme"
                 android:padding="1dp"
-                android:src="@drawable/mypage" />
+                android:src="@drawable/blank_user" />
 
         </LinearLayout>
 

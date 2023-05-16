@@ -13,7 +13,7 @@
         android:maxWidth="200dp"
         android:maxHeight="200dp"
         android:adjustViewBounds="true"
-        android:src="@drawable/test_profile_image1"
+        android:src="@drawable/blank_user"
         android:layout_gravity="center_horizontal"/>
     <View
         android:layout_width="match_parent"
