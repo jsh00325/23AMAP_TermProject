@@ -21,7 +21,7 @@ public class CategoryFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_category, container, false);
+        view = inflater.inflate(R.layout.category_fragment, container, false);
 
         mainListView = (RecyclerView) view.findViewById(R.id.category_main_list);
         mainListView.setLayoutManager(new LinearLayoutManager(container.getContext()));

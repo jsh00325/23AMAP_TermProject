@@ -1,18 +1,11 @@
 package com.example.termproject.view;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.view.DragEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.view.Window;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.WindowCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -28,7 +21,7 @@ public class FeedImageViewer extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed_image_viewer);
+        setContentView(R.layout.home_activity_feedimgview);
 
         Intent it = getIntent();
         imageURL = it.getStringExtra("ImageURL");

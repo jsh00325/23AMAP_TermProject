@@ -1,6 +1,5 @@
 package com.example.termproject.UserManagement;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,7 +9,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-import com.example.termproject.MainActivity;
 import com.example.termproject.R;
 /*
 import com.example.termproject.YoonJinTestActivity;
@@ -28,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login_activity);
 
         // Initialize Firebase Auth
         // mAuth = FirebaseAuth.getInstance();

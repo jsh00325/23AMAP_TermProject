@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.termproject.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -30,7 +29,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view =  inflater.inflate(R.layout.fragment_home, container, false);
+        view =  inflater.inflate(R.layout.home_fragment, container, false);
         context = container.getContext();
 
         homeFeed = (RecyclerView) view.findViewById(R.id.home_recycle_view);

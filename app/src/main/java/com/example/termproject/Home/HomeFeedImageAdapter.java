@@ -28,7 +28,7 @@ public class HomeFeedImageAdapter extends RecyclerView.Adapter<HomeFeedImageAdap
     @Override
     public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        return new FeedViewHolder(LayoutInflater.from(context).inflate(R.layout.item_slider, parent, false));
+        return new FeedViewHolder(LayoutInflater.from(context).inflate(R.layout.home_item_imageslider, parent, false));
     }
 
     @Override
