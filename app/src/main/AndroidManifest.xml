@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Post.PostActivity"
+            android:exported="false" />
+        <activity
             android:name=".BookMark.BookmarkItem"
             android:exported="false" />
         <activity
@@ -28,16 +31,17 @@
             android:theme="@style/Theme.TermProject" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".view.FeedImageViewer"
-            android:theme="@style/Theme.MyDialog"/>
+            android:theme="@style/Theme.MyDialog" />
     </application>
 
 </manifest>
