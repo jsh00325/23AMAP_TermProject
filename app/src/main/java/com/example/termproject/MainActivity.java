@@ -1,6 +1,5 @@
 package com.example.termproject;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
@@ -8,18 +7,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.example.termproject.BookMark.BookmarkFragment;
-import com.example.termproject.BookMark.BookmarkItem;
-import com.example.termproject.Category.CategoryClublistFragment;
 import com.example.termproject.Home.HomeFragment;
 import com.example.termproject.Category.CategoryFragment;
-import com.example.termproject.Home.HomeFragment;
-import com.example.termproject.Home.HomeItemFragment;
 import com.example.termproject.MyPage.MyPageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView navbar;
@@ -48,30 +41,27 @@ public class MainActivity extends AppCompatActivity {
 
 
         changeFragment(R.id.main_fragment, home_frag);
-        navbar.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                FragmentManager fm = getSupportFragmentManager();
-                for (int i = 0; i < fm.getBackStackEntryCount(); i++)
-                    fm.popBackStack();
+        navbar.setOnItemSelectedListener(item -> {
+            FragmentManager fm = getSupportFragmentManager();
+            for (int i = 0; i < fm.getBackStackEntryCount(); i++)
+                fm.popBackStack();
 
-                // TODO: 각각의 프래그먼트 만들어서 이어주기
-                int itemId = item.getItemId();
-                if (itemId == R.id.home) {
-                    changeFragment(R.id.main_fragment, home_frag);
-                    return true;
-                } else if (itemId == R.id.bookmark) {
-                    changeFragment(R.id.main_fragment, bookmark_frag);
-                    return true;
-                } else if (itemId == R.id.category) {
-                    changeFragment(R.id.main_fragment, category_frag);
-                    return true;
-                } else if (itemId == R.id.myPage) {
-                    changeFragment(R.id.main_fragment, mypage_frag);
-                    return true;
-                }
-                return false;
+            // TODO: 각각의 프래그먼트 만들어서 이어주기
+            int itemId = item.getItemId();
+            if (itemId == R.id.home) {
+                changeFragment(R.id.main_fragment, home_frag);
+                return true;
+            } else if (itemId == R.id.bookmark) {
+                changeFragment(R.id.main_fragment, bookmark_frag);
+                return true;
+            } else if (itemId == R.id.category) {
+                changeFragment(R.id.main_fragment, category_frag);
+                return true;
+            } else if (itemId == R.id.myPage) {
+                changeFragment(R.id.main_fragment, mypage_frag);
+                return true;
             }
+            return false;
         });
     }
 

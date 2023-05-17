@@ -21,6 +21,7 @@
     <color name="gray_999999">#FF999999</color>
     <color name="gray_707070">#FF707070</color>
     <color name="buttonTheme">#FFE9EDF1</color>
+    <color name="placeholder_gray">#D1D1D1</color>
 
     <color name="mainColor">#3366FF</color>
     <color name="transparent">#00000000</color>
