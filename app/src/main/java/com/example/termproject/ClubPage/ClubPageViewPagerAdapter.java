@@ -24,12 +24,6 @@ public class ClubPageViewPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position) {
-            case 0:
-                return club_information.newInstance(position, name);
-            case 1:
-                return club_Bulletin.newInstance(position , name);
-        }
         return null;
     }
 
