@@ -1,8 +1,11 @@
 package com.example.termproject.Home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +15,9 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.termproject.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -22,6 +28,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     private View view;
+    private ImageButton filterBtn;
     private RecyclerView homeFeed;
     private ShimmerFrameLayout homeFeedLoading;
     private SwipeRefreshLayout homeSrl;
@@ -31,6 +38,12 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view =  inflater.inflate(R.layout.home_fragment, container, false);
         context = container.getContext();
+
+        filterBtn = (ImageButton) view.findViewById(R.id.feed_filter_btn);
+        filterBtn.setOnClickListener(curView -> {
+            Intent it = new Intent(context, HomeFilterActivity.class);
+            getActivity().startActivityForResult(it, 0);
+        });
 
         homeFeed = (RecyclerView) view.findViewById(R.id.home_recycle_view);
         homeFeed.setLayoutManager(new LinearLayoutManager(container.getContext()));
@@ -42,12 +55,12 @@ public class HomeFragment extends Fragment {
             loadHomeFeed();
             homeSrl.setRefreshing(false);
         });
-        loadHomeFeed();
 
+        loadHomeFeed();
         return view;
     }
 
-    private void loadHomeFeed() {
+    public void loadHomeFeed() {
         showShimmer();
 
         // TODO : db에서 글 정보 읽어와서 Adaptor에 넘겨주기!

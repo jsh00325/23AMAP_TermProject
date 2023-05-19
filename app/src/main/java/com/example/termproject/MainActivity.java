@@ -1,12 +1,15 @@
 package com.example.termproject;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.termproject.BookMark.BookmarkFragment;
 import com.example.termproject.Home.HomeFragment;
@@ -15,6 +18,7 @@ import com.example.termproject.MyPage.MyPageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    final int SAVED_FILTER_INFO = RESULT_FIRST_USER + 1;
     BottomNavigationView navbar;
 
     HomeFragment home_frag = new HomeFragment();
@@ -72,5 +76,13 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(address, frag);
         ft.commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == 0) {
+            if (resultCode == SAVED_FILTER_INFO) home_frag.loadHomeFeed();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

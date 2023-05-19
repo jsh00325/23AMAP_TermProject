@@ -12,9 +12,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TermProject"
+        android:theme="@style/Base.Theme.TermProject"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".Home.HomeFilterActivity"
+            android:exported="false"
+            android:theme="@style/HomeFilterAnimation"/>
         <activity
             android:name=".BookMark.BookmarkItem"
             android:exported="false" />
@@ -24,20 +28,20 @@
         <activity
             android:name=".UserManagement.MemberInitActivity"
             android:exported="false"
-            android:label="@string/title_activity_member_init"
-            android:theme="@style/Theme.TermProject" />
+            android:label="@string/title_activity_member_init" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".view.FeedImageViewer"
-            android:theme="@style/Theme.MyDialog"/>
+            android:theme="@style/Theme.MyDialog" />
     </application>
 
 </manifest>

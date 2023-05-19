@@ -10,15 +10,12 @@
         <item name="colorSecondaryVariant">#FF018786</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">#0093CE</item>
-        <!-- Navigation bar color. -->
-        <item name="android:navigationBarColor">@color/transparent</item>
+        <item name="android:statusBarColor">#0093CE</item>
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.TermProject" parent="Base.Theme.TermProject" />
     <style name="Theme.MyDialog" parent="Theme.AppCompat.Dialog" >
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -26,5 +23,16 @@
         <item name="android:windowBackground">#99000000</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="HomeFilterAnimation" parent="Base.Theme.TermProject">
+        <item name="android:windowAnimationStyle">@style/HomeFilter</item>
+    </style>
+
+    <style name="HomeFilter" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/homefilter_open</item>
+        <item name="android:activityOpenExitAnimation">@anim/homefilter_hold</item>
+        <item name="android:activityCloseEnterAnimation">@anim/homefilter_hold</item>
+        <item name="android:activityCloseExitAnimation">@anim/homefilter_close</item>
     </style>
 </resources>

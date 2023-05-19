@@ -30,6 +30,6 @@
 
     <!-- 전반적인 앱 색상 -->
     <color name="Primary">#3366FF</color>
-    <color name="PrimaryVariant">#D1A2D9</color>
+    <color name="PrimaryVariant">#679FFF</color>
     <color name="OnPrimary">#F0EDFF</color>
 </resources>
