@@ -28,7 +28,6 @@
         android:id="@+id/home_srl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/Primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/feed_filter_btn">
 

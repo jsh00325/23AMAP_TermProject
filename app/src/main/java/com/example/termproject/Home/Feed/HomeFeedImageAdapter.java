@@ -1,4 +1,4 @@
-package com.example.termproject.Home;
+package com.example.termproject.Home.Feed;
 
 import android.content.Context;
 import android.content.Intent;

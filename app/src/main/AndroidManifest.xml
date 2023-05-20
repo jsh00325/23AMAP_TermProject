@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Home.HomeFilterActivity"
+            android:name=".Home.Filter.HomeFilterActivity"
             android:exported="false"
             android:theme="@style/HomeFilterAnimation"/>
         <activity
@@ -31,7 +31,6 @@
             android:label="@string/title_activity_member_init" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

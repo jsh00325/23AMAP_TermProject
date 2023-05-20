@@ -1,113 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".Home.HomeAdapter">
+    android:layout_height="match_parent"
+    tools:context=".Home.Feed.HomeFeedAdapter">
 
     <LinearLayout
+        android:id="@+id/home_item_main"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:padding="7dp"
-        android:orientation="horizontal"
-        android:layout_gravity="center" >
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/home_item_clubImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/blank_user"
-            app:civ_border_overlay="true"
-            app:civ_border_color="@color/gray_7e7e7e"
-            app:civ_border_width="1dp"
-            android:layout_marginEnd="10dp" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="64dp"
+            android:padding="7dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center" >
 
-            <TextView
-                android:id="@+id/home_item_clubName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="동아리명"
-                android:textStyle="bold"
-                android:textSize="20sp" />
-            <TextView
-                android:id="@+id/home_item_upTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="날짜"
-                android:textSize="15sp"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/home_item_clubImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/blank_user"
+                app:civ_border_overlay="true"
+                app:civ_border_color="@color/gray_7e7e7e"
+                app:civ_border_width="1dp"
+                android:layout_marginEnd="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/home_item_clubName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="동아리명"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/home_item_upTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="날짜"
+                    android:textSize="15sp"/>
+            </LinearLayout>
         </LinearLayout>
+
+        <!-- 이미지 스와이프를 위한 뷰
+        #1. https://developer.android.com/jetpack/androidx/releases/viewpager2?hl=ko
+        #2. https://haruple.tistory.com/163 (!유용함)
+        #3. https://github.com/haruple97/Open-Source-Library -->
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/home_item_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@color/ImageBackground"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <ImageButton
+                android:id="@+id/home_item_likeBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:adjustViewBounds="true"
+                android:background="@color/transparent"
+                android:scaleType="centerInside"
+                android:src="@drawable/heart"
+                android:contentDescription="좋아요 버튼"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <me.relex.circleindicator.CircleIndicator3
+                android:id="@+id/home_item_circleIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                app:ci_drawable="@drawable/dot_selected_item"
+                app:ci_drawable_unselected="@drawable/dot_item"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+            </me.relex.circleindicator.CircleIndicator3>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!-- 더보기 처리를 해주는 라이브러리
+        #1. https://medium.com/prnd/페이스북처럼-긴-글에-더보기-표시하는-방법-feat-readmoretextview-3bbe30a4112b -->
+        <kr.co.prnd.readmore.ReadMoreTextView
+            android:id="@+id/home_item_postText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/for_test_long_text"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:readMoreColor="@color/Primary"
+            app:readMoreMaxLine="2"
+            app:readMoreText="\n...더보기" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/colorDivision" />
     </LinearLayout>
 
-    <!-- 이미지 스와이프를 위한 뷰
-    #1. https://developer.android.com/jetpack/androidx/releases/viewpager2?hl=ko
-    #2. https://haruple.tistory.com/163 (!유용함)
-    #3. https://github.com/haruple97/Open-Source-Library -->
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/home_item_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="@color/ImageBackground"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-
-        <ImageButton
-            android:id="@+id/home_item_likeBtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:adjustViewBounds="true"
-            android:background="@color/transparent"
-            android:scaleType="centerInside"
-            android:src="@drawable/heart"
-            android:contentDescription="좋아요 버튼"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <me.relex.circleindicator.CircleIndicator3
-            android:id="@+id/home_item_circleIndicator"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            app:ci_drawable="@drawable/dot_selected_item"
-            app:ci_drawable_unselected="@drawable/dot_item"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-        </me.relex.circleindicator.CircleIndicator3>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!-- 더보기 처리를 해주는 라이브러리
-    #1. https://medium.com/prnd/페이스북처럼-긴-글에-더보기-표시하는-방법-feat-readmoretextview-3bbe30a4112b -->
-    <kr.co.prnd.readmore.ReadMoreTextView
-        android:id="@+id/home_item_postText"
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/home_item_shimmer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="@string/for_test_long_text"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        app:readMoreColor="@color/Primary"
-        app:readMoreMaxLine="2"
-        app:readMoreText="\n...더보기" />
+        app:layout_constraintTop_toTopOf="parent" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include layout="@layout/home_item_feed_load" ></include>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:background="@color/colorDivision" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

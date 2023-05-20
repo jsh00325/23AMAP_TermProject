@@ -12,27 +12,40 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.termproject.Home.Feed.HomeFeedAdapter;
+import com.example.termproject.Home.Filter.HomeFilterActivity;
 import com.example.termproject.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private View view;
     private ImageButton filterBtn;
     private RecyclerView homeFeed;
     private ShimmerFrameLayout homeFeedLoading;
     private SwipeRefreshLayout homeSrl;
     private Context context;
+    private List<String> filterList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,11 +64,11 @@ public class HomeFragment extends Fragment {
         homeFeedLoading = (ShimmerFrameLayout) view.findViewById(R.id.home_feed_load);
 
         homeSrl = (SwipeRefreshLayout) view.findViewById(R.id.home_srl);
+        homeSrl.setColorSchemeColors(getResources().getColor(R.color.Primary));
         homeSrl.setOnRefreshListener(() -> {
             loadHomeFeed();
             homeSrl.setRefreshing(false);
         });
-
         loadHomeFeed();
         return view;
     }
@@ -63,13 +76,21 @@ public class HomeFragment extends Fragment {
     public void loadHomeFeed() {
         showShimmer();
 
-        // TODO : db에서 글 정보 읽어와서 Adaptor에 넘겨주기!
-        List<String> forTestPostID = new ArrayList<>(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8"));
-        homeFeed.setAdapter(new HomeAdapter(forTestPostID));
+        // 캐시에 저장된 필터링 정보 불러와서 filters에서 적용
+        filterList = readCacheData("userFilterInfo");
 
-        new Handler().postDelayed(() -> {
+        List<String> postDocumentIDs = new ArrayList<>();
+        db.collection("club_post").whereIn("category", filterList).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
+                for (QueryDocumentSnapshot document : querySnapshot) {
+                    postDocumentIDs.add(document.getId());
+                }
+            } else Log.d("HomeReadPost", "불러오기 실패");
+
+            homeFeed.setAdapter(new HomeFeedAdapter(postDocumentIDs));
             hideShimmer();
-        }, 700);
+        });
     }
 
     private void showShimmer() {
@@ -82,5 +103,36 @@ public class HomeFragment extends Fragment {
         homeFeedLoading.stopShimmer();
         homeFeedLoading.setVisibility(View.GONE);
         homeFeed.setVisibility(View.VISIBLE);
+    }
+
+    private void saveCacheData(String fileName, List<String> data) {
+        try {
+            FileOutputStream fos = context.openFileOutput(fileName, context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(data);
+            oos.close();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private List<String> readCacheData(String fileName) {
+        List<String> dataList = new ArrayList<>();
+        try {
+            FileInputStream fis = context.openFileInput(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            dataList = (List<String>) ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (FileNotFoundException fnfe) {
+            // 파일이 존재하지 않을 때 -> 모두 존재하는 값으로 저장.
+            dataList = new ArrayList<>(Arrays.asList("IT", "인문", "자연", "진로/발명/창업",
+                    "봉사", "밴드", "악기", "노래", "연극", "미술", "요리", "댄스", "사진/영상",
+                    "구기", "라켓", "무술", "익스트림 스포츠", "양궁", "게임", "기독교", "불교", "천주교"));
+            saveCacheData(fileName, dataList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dataList;
     }
 }

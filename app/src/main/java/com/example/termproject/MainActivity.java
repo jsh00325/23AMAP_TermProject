@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView navbar;
 
     HomeFragment home_frag = new HomeFragment();
-//    HomeItemFragment home_frag = new HomeItemFragment();    // <--- 테스트용
     BookmarkFragment bookmark_frag = new BookmarkFragment();
     CategoryFragment category_frag = new CategoryFragment();
     MyPageFragment mypage_frag = new MyPageFragment();
