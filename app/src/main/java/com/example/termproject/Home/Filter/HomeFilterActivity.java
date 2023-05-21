@@ -61,9 +61,14 @@ public class HomeFilterActivity extends AppCompatActivity {
                 for (HomeFilterSubData sub : main.getChildDatas())
                     if (sub.getType() == HomeFilterSubData.CHILD && sub.getChecked())
                         userFilterInfo.add(sub.getSubCategory());
-            saveCacheData("userFilterInfo", userFilterInfo);
-            setResult(SAVED_FILTER_INFO);
-            finish();
+
+            if (userFilterInfo.isEmpty()) {
+                Toast.makeText(this, "적어도 하나의 관심 분야를 선택하세요!", Toast.LENGTH_SHORT).show();
+            } else {
+                saveCacheData("userFilterInfo", userFilterInfo);
+                setResult(SAVED_FILTER_INFO);
+                finish();
+            }
         });
     }
 

@@ -35,23 +35,20 @@ public class CategorySubAdapter extends RecyclerView.Adapter<CategorySubAdapter.
     @Override
     public void onBindViewHolder(@NonNull SubListViewHolder holder, int position) {
         holder.setTextView(subList.get(position));
-        holder.sub_cl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String subListKey = subList.get(holder.getAdapterPosition());
+        holder.sub_cl.setOnClickListener(view -> {
+            String subListKey = subList.get(holder.getAdapterPosition());
 
-                CategoryClublistFragment nxtFragment = new CategoryClublistFragment();
+            CategoryClublistFragment nxtFragment = new CategoryClublistFragment();
 
-                Bundle args = new Bundle();
-                args.putString("clubSubKey", subListKey);
-                nxtFragment.setArguments(args);
+            Bundle args = new Bundle();
+            args.putString("clubSubKey", subListKey);
+            nxtFragment.setArguments(args);
 
-                MainActivity activity = (MainActivity) context;
-                FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.main_fragment, nxtFragment);
-                ft.addToBackStack(null);
-                ft.commit();
-            }
+            MainActivity activity = (MainActivity) context;
+            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.main_fragment, nxtFragment);
+            ft.addToBackStack(null);
+            ft.commit();
         });
     }
 

@@ -61,6 +61,7 @@ public class HomeFragment extends Fragment {
         homeFeed = (RecyclerView) view.findViewById(R.id.home_recycle_view);
         homeFeed.setLayoutManager(new LinearLayoutManager(container.getContext()));
 
+        // TODO : 전체 리사이클러뷰에서는 쉬머 빼기? (각 아이템에 쉬머 적용됨 )
         homeFeedLoading = (ShimmerFrameLayout) view.findViewById(R.id.home_feed_load);
 
         homeSrl = (SwipeRefreshLayout) view.findViewById(R.id.home_srl);

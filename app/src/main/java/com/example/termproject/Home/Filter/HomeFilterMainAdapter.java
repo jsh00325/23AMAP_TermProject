@@ -50,9 +50,11 @@ public class HomeFilterMainAdapter extends RecyclerView.Adapter<HomeFilterMainAd
         return items.size();
     }
     public void clearAll() {
-        for (HomeFilterMainData main : items)
+        for (HomeFilterMainData main : items) {
             for (HomeFilterSubData sub : main.getChildDatas())
                 sub.setChecked(false);
+            main.setChildCount(0);
+        }
         notifyDataSetChanged();
     }
 

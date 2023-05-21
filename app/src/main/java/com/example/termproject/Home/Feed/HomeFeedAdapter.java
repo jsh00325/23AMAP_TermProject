@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,29 +62,12 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
                             DocumentSnapshot doc2 = task2.getResult().getDocuments().get(0);
                             dbData.setClubImageURL(doc2.getString("image_url"));
 
-                            holder.setInfomationToView(dbData);
+                            holder.setInformationToView(dbData);
                             holder.endShimmer();
                         } Log.d("HomeFeed", "동아리 프로필 사진 접근 실패...");
                     });
             } Log.d("HomeFeed", "게시글 접근 실패...");
         });
-    }
-
-    private synchronized HomeFeedData getFeedDataFromDB(String documentID) {
-        HomeFeedData dbData = new HomeFeedData();
-        db.collection("club_post").document(documentID).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-
-                dbData.setClubName(document.getString("club_name"));
-                dbData.setUploadTime(document.getTimestamp("uptime"));
-                dbData.setFeedImageURLs((List<String>)document.get("imageURL"));
-                dbData.setMainText(document.getString("main_text").replace("\\n", "\n"));
-            } else {
-                Toast.makeText(context, "게시글 접근 실패...", Toast.LENGTH_SHORT).show();
-            }
-        });
-        return dbData;
     }
 
     @Override
@@ -116,7 +98,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
             postTextView = (ReadMoreTextView) itemView.findViewById(R.id.home_item_postText);
         }
 
-        private void setInfomationToView(HomeFeedData feedData) {
+        private void setInformationToView(HomeFeedData feedData) {
             if (feedData.getClubImageURL().equals("")) clubImageView.setImageResource(R.drawable.blank_user);
             else Glide.with(context).load(feedData.getClubImageURL()).circleCrop().into(clubImageView);
             clubNameView.setText(feedData.getClubName());

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class ScrapListActivity extends AppCompatActivity implements ScrapListAdapter.ScrapListClickListener {
 
     ArrayList<ScrapItemData> dataList = new ArrayList<>();
-    int[] cat = {R.drawable.png_01, R.drawable.png_02, R.drawable.png_03,R.drawable.png_04,R.drawable.png_05,R.drawable.png_06};
+    int[] cat = {R.drawable.png_06, R.drawable.png_06, R.drawable.png_06,R.drawable.png_06,R.drawable.png_06,R.drawable.png_06};
 
     final ScrapListAdapter adapter = new ScrapListAdapter(dataList);
     static int i = 0;
