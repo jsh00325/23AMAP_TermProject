@@ -21,7 +21,7 @@
             android:fontFamily="@font/notosanskr_medium"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="비밀번호 찾기"
+            android:text="비밀번호 재설정"
             android:textColor="@color/black_191919"
             android:textSize="18dp" />
 
@@ -75,7 +75,7 @@
                 android:layout_weight="561"
                 android:textSize="12sp"
                 android:fontFamily="@font/notosanskr_medium"
-                android:hint="Clubdictionary@knu.ac.kr"
+                android:hint="Clubdictionary@xxx.com"
                 android:includeFontPadding="false"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black_191919" />
@@ -121,60 +121,8 @@
             android:fontFamily="@font/notosanskr_regular"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="회원님의 경북대 웹메일로 임시 비밀번호가 발송됩니다."
+            android:text="회원님의 웹메일로 임시 비밀번호가 발송됩니다."
             android:textColor="@color/maintheme" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="20" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="38"
-            android:orientation="horizontal"
-            android:weightSum="690">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="209" />
-
-            <TextView
-                android:id="@+id/websitemoveTextView"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="237"
-                android:autoSizeMaxTextSize="100dp"
-                android:autoSizeMinTextSize="10dp"
-                android:autoSizeStepGranularity="1dp"
-                android:autoSizeTextType="uniform"
-                android:fontFamily="@font/notosanskr_medium"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:maxLines="1"
-                android:text="경북대 웹메일 이동하기"
-                android:textColor="@color/black_191919"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="38"
-                android:padding="4dp"
-                android:src="@drawable/next_btn" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="207" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1070" />
 
     </LinearLayout>
 
