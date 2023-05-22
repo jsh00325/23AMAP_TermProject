@@ -21,8 +21,10 @@ import android.widget.Toast;
 
 import com.example.termproject.Home.Feed.HomeFeedAdapter;
 import com.example.termproject.Home.Filter.HomeFilterActivity;
+import com.example.termproject.Post.PostActivity;
 import com.example.termproject.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -42,8 +44,8 @@ public class HomeFragment extends Fragment {
     private View view;
     private ImageButton filterBtn;
     private RecyclerView homeFeed;
-    private ShimmerFrameLayout homeFeedLoading;
     private SwipeRefreshLayout homeSrl;
+    private FloatingActionButton homeFab;
     private Context context;
     private List<String> filterList;
 
@@ -61,22 +63,26 @@ public class HomeFragment extends Fragment {
         homeFeed = (RecyclerView) view.findViewById(R.id.home_recycle_view);
         homeFeed.setLayoutManager(new LinearLayoutManager(container.getContext()));
 
-        // TODO : 전체 리사이클러뷰에서는 쉬머 빼기? (각 아이템에 쉬머 적용됨 )
-        homeFeedLoading = (ShimmerFrameLayout) view.findViewById(R.id.home_feed_load);
-
         homeSrl = (SwipeRefreshLayout) view.findViewById(R.id.home_srl);
         homeSrl.setColorSchemeColors(getResources().getColor(R.color.Primary));
         homeSrl.setOnRefreshListener(() -> {
             loadHomeFeed();
             homeSrl.setRefreshing(false);
         });
+
+        // TODO : 관리자 계정이 아니라면 숨기기
+        homeFab = (FloatingActionButton) view.findViewById(R.id.home_fab_writePost);
+        homeFab.setOnClickListener(view1 -> {
+            Intent it = new Intent(context, PostActivity.class);
+            getActivity().startActivityForResult(it, 0);
+            // TODO : 받은 result로 저장되었다면 새로고침
+        });
+        
         loadHomeFeed();
         return view;
     }
 
     public void loadHomeFeed() {
-        showShimmer();
-
         // 캐시에 저장된 필터링 정보 불러와서 filters에서 적용
         filterList = readCacheData("userFilterInfo");
 
@@ -90,20 +96,7 @@ public class HomeFragment extends Fragment {
             } else Log.d("HomeReadPost", "불러오기 실패");
 
             homeFeed.setAdapter(new HomeFeedAdapter(postDocumentIDs));
-            hideShimmer();
         });
-    }
-
-    private void showShimmer() {
-        homeFeedLoading.startShimmer();
-        homeFeedLoading.setVisibility(View.VISIBLE);
-        homeFeed.setVisibility(View.GONE);
-    }
-
-    private void hideShimmer() {
-        homeFeedLoading.stopShimmer();
-        homeFeedLoading.setVisibility(View.GONE);
-        homeFeed.setVisibility(View.VISIBLE);
     }
 
     private void saveCacheData(String fileName, List<String> data) {

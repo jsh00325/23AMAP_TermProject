@@ -11,16 +11,11 @@ public class HomeFeedData {
     private Timestamp uploadTime;
     private List<String> feedImageURLs;
     private String mainText;
+    private boolean like;
+    private int likeCount;
 
     public HomeFeedData() {
 
-    }
-    public HomeFeedData(String clubImageURL, String clubName, Timestamp uploadTime, List<String> feedImageURLs, String mainText) {
-        this.clubImageURL = clubImageURL;
-        this.clubName = clubName;
-        this.uploadTime = uploadTime;
-        this.feedImageURLs = feedImageURLs;
-        this.mainText = mainText;
     }
 
     public String getClubImageURL() {
@@ -34,6 +29,12 @@ public class HomeFeedData {
     }
     public String getMainText() {
         return mainText;
+    }
+    public boolean isLike() {
+        return like;
+    }
+    public int getLikeCount() {
+        return likeCount;
     }
 
     public void setClubImageURL(String clubImageURL) {
@@ -50,6 +51,12 @@ public class HomeFeedData {
     }
     public void setMainText(String mainText) {
         this.mainText = mainText;
+    }
+    public void setLike(boolean like) {
+        this.like = like;
+    }
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
     }
 
     public String convertTimestamp() {

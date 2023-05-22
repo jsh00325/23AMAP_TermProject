@@ -1,4 +1,4 @@
-package com.example.termproject.Category;
+package com.example.termproject.Category.CategoryTree;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.termproject.Category.SubCategoryList.CategoryClublistFragment;
 import com.example.termproject.MainActivity;
 import com.example.termproject.R;
 

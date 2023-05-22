@@ -1,4 +1,4 @@
-package com.example.termproject.Category;
+package com.example.termproject.Category.CategoryTree;
 
 import android.content.Context;
 import android.view.LayoutInflater;

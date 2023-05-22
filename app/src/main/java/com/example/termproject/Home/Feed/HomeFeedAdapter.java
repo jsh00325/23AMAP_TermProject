@@ -16,7 +16,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.example.termproject.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -29,6 +32,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<String> documentIDs;
     private Context context;
+    private FirebaseAuth user = FirebaseAuth.getInstance();
 
     public HomeFeedAdapter(List<String> documentIDs) {
         this.documentIDs = documentIDs;
@@ -44,10 +48,12 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
     @Override
     public void onBindViewHolder(@NonNull HomeFeedViewHolder holder, int position) {
         String documentID = documentIDs.get(position);
+        DocumentReference docRef = db.collection("club_post").document(documentID);
+        String curUserId = "testID";    // TODO: 나중에 user.getUid()로 바꾸기
 
         holder.startShimmer();
         HomeFeedData dbData = new HomeFeedData();
-        db.collection("club_post").document(documentID).get().addOnCompleteListener(task1 -> {
+        docRef.get().addOnCompleteListener(task1 -> {
             if (task1.isSuccessful()) {
                 DocumentSnapshot doc1 = task1.getResult();
 
@@ -55,6 +61,9 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
                 dbData.setUploadTime(doc1.getTimestamp("uptime"));
                 dbData.setFeedImageURLs((List<String>)doc1.get("imageURL"));
                 dbData.setMainText(doc1.getString("main_text").replace("\\n", "\n"));
+                List<String> userLikeList = (List<String>)doc1.get("like_user");
+                dbData.setLike(userLikeList.contains(curUserId));
+                dbData.setLikeCount(userLikeList.size());
 
                 db.collection("club_list").whereEqualTo("club_name", dbData.getClubName()).get()
                     .addOnCompleteListener(task2 -> {
@@ -68,6 +77,21 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
                     });
             } Log.d("HomeFeed", "게시글 접근 실패...");
         });
+
+        holder.likeBtn.setOnClickListener(view -> {
+            if (dbData.isLike()) {
+                dbData.setLike(false);
+                dbData.setLikeCount(dbData.getLikeCount() - 1);
+                holder.setLikeBtn(false);
+                docRef.update("like_user", FieldValue.arrayRemove(curUserId));
+            } else {
+                dbData.setLike(true);
+                dbData.setLikeCount(dbData.getLikeCount() + 1);
+                holder.setLikeBtn(true);
+                docRef.update("like_user", FieldValue.arrayUnion(curUserId));
+            }
+            holder.setLikeCount(dbData.getLikeCount());
+        });
     }
 
     @Override
@@ -76,16 +100,16 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
     }
 
     public class HomeFeedViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout mainItem;
-        ShimmerFrameLayout loadItem;
-        CircleImageView clubImageView;
-        TextView clubNameView, upTimeView;
-        ViewPager2 postImgView;
-        CircleIndicator3 indicator;
-        ImageButton likeBtn;
-        ReadMoreTextView postTextView;
+        private LinearLayout mainItem;
+        private ShimmerFrameLayout loadItem;
+        private CircleImageView clubImageView;
+        private TextView clubNameView, upTimeView, likeCountView;
+        private ViewPager2 postImgView;
+        private CircleIndicator3 indicator;
+        private ImageButton likeBtn;
+        private ReadMoreTextView postTextView;
 
-        public HomeFeedViewHolder(@NonNull View itemView) {
+        private HomeFeedViewHolder(@NonNull View itemView) {
             super(itemView);
             mainItem = (LinearLayout) itemView.findViewById(R.id.home_item_main);
             loadItem = (ShimmerFrameLayout) itemView.findViewById(R.id.home_item_shimmer);
@@ -95,6 +119,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
             postImgView = (ViewPager2) itemView.findViewById(R.id.home_item_viewpager);
             indicator = (CircleIndicator3) itemView.findViewById(R.id.home_item_circleIndicator);
             likeBtn = (ImageButton) itemView.findViewById(R.id.home_item_likeBtn);
+            likeCountView = (TextView) itemView.findViewById(R.id.home_item_likeCount);
             postTextView = (ReadMoreTextView) itemView.findViewById(R.id.home_item_postText);
         }
 
@@ -106,17 +131,31 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
             postImgView.setAdapter(new HomeFeedImageAdapter(feedData.getFeedImageURLs()));
             indicator.setViewPager(postImgView);
             postTextView.setText(feedData.getMainText());
+            setLikeCount(feedData.getLikeCount());
+            setLikeBtn(feedData.isLike());
         }
 
-        public void startShimmer() {
+        private void startShimmer() {
             loadItem.startShimmer();
             loadItem.setVisibility(View.VISIBLE);
             mainItem.setVisibility(View.GONE);
         }
-        public void endShimmer() {
+        private void endShimmer() {
             loadItem.stopShimmer();
             loadItem.setVisibility(View.GONE);
             mainItem.setVisibility(View.VISIBLE);
+        }
+
+        private void setLikeBtn(boolean like) {
+            if (like) likeBtn.setImageResource(R.drawable.heart_fill);
+            else likeBtn.setImageResource(R.drawable.heart_empty);
+        }
+        private void setLikeCount(int count) {
+            String countStr;
+            if (count < 1e3) countStr = Integer.toString(count);
+            else if (count < 1e6) countStr = String.format("%.1fK", count / 1000.0);
+            else countStr = String.format("%.1fM", count / 1000000.0);
+            likeCountView.setText(countStr);
         }
     }
 }
