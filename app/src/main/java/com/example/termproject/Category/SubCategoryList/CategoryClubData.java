@@ -1,4 +1,4 @@
-package com.example.termproject.Category;
+package com.example.termproject.Category.SubCategoryList;
 
 public class CategoryClubData {
     final private String imageURL;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Category.CategoryClublistFragment">
+    tools:context=".Category.SubCategoryList.CategoryClublistFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/category_clubList_RV"

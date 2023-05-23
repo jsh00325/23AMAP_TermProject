@@ -56,11 +56,23 @@
         #1. https://developer.android.com/jetpack/androidx/releases/viewpager2?hl=ko
         #2. https://haruple.tistory.com/163 (!유용함)
         #3. https://github.com/haruple97/Open-Source-Library -->
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/home_item_viewpager"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:background="@color/ImageBackground"/>
+            android:layout_height="wrap_content" >
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/home_item_viewpager"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/ImageBackground"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -74,10 +86,23 @@
                 android:adjustViewBounds="true"
                 android:background="@color/transparent"
                 android:scaleType="centerInside"
-                android:src="@drawable/heart"
+                android:src="@drawable/heart_empty"
                 android:contentDescription="좋아요 버튼"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/home_item_likeCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="18sp"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="3dp"
+                app:layout_constraintStart_toEndOf="@+id/home_item_likeBtn"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <me.relex.circleindicator.CircleIndicator3
@@ -94,7 +119,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <!-- 더보기 처리를 해주는 라이브러리
         #1. https://medium.com/prnd/페이스북처럼-긴-글에-더보기-표시하는-방법-feat-readmoretextview-3bbe30a4112b -->
         <kr.co.prnd.readmore.ReadMoreTextView
@@ -108,7 +132,7 @@
             android:textColor="@color/black"
             app:readMoreColor="@color/Primary"
             app:readMoreMaxLine="2"
-            app:readMoreText="\n...더보기" />
+            app:readMoreText="... 더보기" />
 
         <View
             android:layout_width="match_parent"
@@ -122,6 +146,7 @@
         android:id="@+id/home_item_shimmer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent" >
         <LinearLayout
             android:layout_width="match_parent"

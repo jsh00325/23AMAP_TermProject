@@ -36,6 +36,9 @@
             android:name=".MyPage.ScrapListActivity"
             android:exported="true" />
         <activity
+            android:name=".Post.PostActivity"
+            android:exported="true" />
+        <activity
             android:name=".MyPage.PasswordResetActivity"
             android:exported="false"
             android:label="mypage_pw" />
