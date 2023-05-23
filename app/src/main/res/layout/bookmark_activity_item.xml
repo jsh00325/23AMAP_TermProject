@@ -8,7 +8,7 @@
     android:layout_height="70dp">
 
 
-    <!-- TODO : src의 크기가 생각보다 커졌는데, gpt가 drawble에 있는 mypage를 크기를 줄이라고 함-->
+    <!-- TODO : src의 크기가 생각보다 커졌는데, gpt가 drawble에 있는 mypage를 크기를 줄이라고 함.-->
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/bookmark_item_icon"
