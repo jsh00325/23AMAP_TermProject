@@ -1,146 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearLayout"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/category_clubitem_Cl"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:weightSum="786"
-    android:orientation="horizontal"
-    android:gravity="center_vertical">
+    android:layout_height="70dp">
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="24"/>
+
+    <!-- TODO : src의 크기가 생각보다 커졌는데, gpt가 drawble에 있는 mypage를 크기를 줄이라고 함-->
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/bookmark_item_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/round_background_border_main_theme"
+        android:src="@drawable/mypage"
+        app:civ_border_color="@color/Primary"
+        app:civ_border_overlay="true"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="36dp"
-        android:layout_height="match_parent"
-        android:layout_weight="80"
+        android:id="@+id/clubintro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:orientation="vertical"
-        android:weightSum="140">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="30" />
-
-        <!-- TODO : CircleImageView는 그냥 가로 세로 높이 dp로 정해놓아야지
-                    그 크기대로 원 되니까 다른 위젯들이랑 크기 비교해서 크기 고정하는게 좋을 듯 -->
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/bookmark_item_icon"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="80"
-            android:background="@drawable/round_background_border_main_theme"
-            android:padding="1dp"
-            android:src="@drawable/mypage" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="30" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="16"/>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="592"
-        android:weightSum="140"
-        android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="29"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bookmark_item_icon"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/bookmark_item_name"
-            android:layout_width="match_parent"
-            android:layout_weight="48"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="동아리 명"
-            android:autoSizeMaxTextSize="100sp"
-            android:autoSizeMinTextSize="10sp"
-            android:autoSizeStepGranularity="1sp"
-            android:autoSizeTextType="uniform"
-            android:includeFontPadding="false"
-            android:textColor="@color/black_191919" />
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
 
         <LinearLayout
-            android:layout_weight="35"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="592"
-            android:layout_height="0dp">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/bookmark_item_major"
-                android:layout_width="0dp"
-                android:layout_weight="95"
+                android:id="@+id/bookmark_item_majo"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="#대분류"
-                android:autoSizeMaxTextSize="100dp"
-                android:autoSizeMinTextSize="10dp"
-                android:autoSizeStepGranularity="1dp"
-                android:autoSizeTextType="uniform"
-                android:includeFontPadding="false"
-                android:textColor="@color/black_191919" />
+                android:textSize="16sp"
+                android:fontFamily="@font/notosanskr_light"
+                android:includeFontPadding="false"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:gravity="center"
+                android:text=","
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/bookmark_item_minor"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="497"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="#소분류"
-                android:autoSizeMaxTextSize="100dp"
-                android:autoSizeMinTextSize="10dp"
-                android:autoSizeStepGranularity="1dp"
-                android:autoSizeTextType="uniform"
-                android:includeFontPadding="false"
-                android:textColor="@color/black_191919" />
-
+                android:textSize="16sp"
+                android:fontFamily="@font/notosanskr_light"
+                android:includeFontPadding="false"/>
         </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:weightSum="140"
+        android:layout_width="32dp"
+        android:layout_height="36dp"
+        android:layout_weight="50"
         android:orientation="vertical"
-        android:layout_weight="50">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="45"/>
 
-        <!-- TODO : 알람 아이콘 없어서 next_btn으로 바꿔놓음
-                    알람 기능 구현 안할꺼면 아예 없애는 것도 나쁘지 않을듯...? -->
         <ImageView
-            android:id="@+id/alarm"
+            android:id="@+id/next_btn_bmk"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="45"
-            android:src="@drawable/next_btn"/>
+            android:src="@drawable/next_btn" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="45"/>
 
     </LinearLayout>
 
     <View
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="24" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivision"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
