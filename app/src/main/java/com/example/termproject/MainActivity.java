@@ -18,7 +18,7 @@ import com.example.termproject.MyPage.MyPageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    final int SAVED_FILTER_INFO = RESULT_FIRST_USER + 1;
+    final int HOMEFILTER_REQUEST = 347;
     BottomNavigationView navbar;
 
     HomeFragment home_frag = new HomeFragment();
@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == 0) {
-            if (resultCode == SAVED_FILTER_INFO) home_frag.loadHomeFeed();
+        if(requestCode == HOMEFILTER_REQUEST) {
+            if (resultCode == RESULT_OK) home_frag.loadHomeFeed();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -76,6 +77,11 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
                         } Log.d("HomeFeed", "동아리 프로필 사진 접근 실패...");
                     });
             } Log.d("HomeFeed", "게시글 접근 실패...");
+        });
+
+        holder.clubImageView.setOnClickListener(view -> {
+            // TODO : 동아리 소개 액티비티 연결
+            Toast.makeText(context, dbData.getClubName(), Toast.LENGTH_SHORT).show();
         });
 
         holder.likeBtn.setOnClickListener(view -> {

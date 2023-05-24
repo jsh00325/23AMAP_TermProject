@@ -1,4 +1,4 @@
-package com.example.termproject.view;
+package com.example.termproject.Home.Feed;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +13,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.termproject.R;
 import com.jsibbold.zoomage.ZoomageView;
 
-public class FeedImageViewer extends AppCompatActivity {
+public class HomeFeedImageViewer extends AppCompatActivity {
     String imageURL;
     ZoomageView popUpImageView;
-    RequestOptions options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,15 +26,8 @@ public class FeedImageViewer extends AppCompatActivity {
         imageURL = it.getStringExtra("ImageURL");
 
         popUpImageView = (ZoomageView) findViewById(R.id.feed_image_viewer_iv);
-        Glide.with(FeedImageViewer.this).load(imageURL).apply(options).into(popUpImageView);
+        Glide.with(HomeFeedImageViewer.this).load(imageURL).into(popUpImageView);
 
-        findViewById(R.id.feed_image_viewer_closeBtn).setOnClickListener(closeActivity);
+        findViewById(R.id.feed_image_viewer_closeBtn).setOnClickListener(view ->  { finish(); });
     }
-
-    View.OnClickListener closeActivity = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            finish();
-        }
-    };
 }

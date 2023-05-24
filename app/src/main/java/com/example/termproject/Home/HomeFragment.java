@@ -40,6 +40,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+    final int HOMEFILTER_REQUEST = 347;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private View view;
     private ImageButton filterBtn;
@@ -57,7 +58,7 @@ public class HomeFragment extends Fragment {
         filterBtn = (ImageButton) view.findViewById(R.id.feed_filter_btn);
         filterBtn.setOnClickListener(curView -> {
             Intent it = new Intent(context, HomeFilterActivity.class);
-            getActivity().startActivityForResult(it, 0);
+            getActivity().startActivityForResult(it, HOMEFILTER_REQUEST);
         });
 
         homeFeed = (RecyclerView) view.findViewById(R.id.home_recycle_view);
@@ -74,7 +75,7 @@ public class HomeFragment extends Fragment {
         homeFab = (FloatingActionButton) view.findViewById(R.id.home_fab_writePost);
         homeFab.setOnClickListener(view1 -> {
             Intent it = new Intent(context, PostActivity.class);
-            getActivity().startActivityForResult(it, 0);
+            getActivity().startActivityForResult(it, HOMEFILTER_REQUEST);
             // TODO : 받은 result로 저장되었다면 새로고침
         });
         

@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.FeedImageViewer"
+            android:name=".Home.Feed.HomeFeedImageViewer"
             android:theme="@style/Theme.MyDialog" />
     </application>
 

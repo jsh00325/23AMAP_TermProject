@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.termproject.R;
-import com.example.termproject.view.FeedImageViewer;
 
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class HomeFeedImageAdapter extends RecyclerView.Adapter<HomeFeedImageAdap
 
         Glide.with(context).load(imgURL).into(holder.feedImageView);
         holder.feedImageView.setOnClickListener(view -> {
-            Intent it = new Intent(context, FeedImageViewer.class);
+            Intent it = new Intent(context, HomeFeedImageViewer.class);
             it.putExtra("ImageURL", imgURL);
             context.startActivity(it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         });

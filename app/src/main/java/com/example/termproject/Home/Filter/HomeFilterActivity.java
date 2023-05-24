@@ -23,7 +23,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HomeFilterActivity extends AppCompatActivity {
-    final private int SAVED_FILTER_INFO = RESULT_FIRST_USER + 1;
     private ImageButton closeBtn;
     private Button clearAll, saveFilter;
     private RecyclerView mainRecyclerView;
@@ -50,6 +49,7 @@ public class HomeFilterActivity extends AppCompatActivity {
         mainRecyclerView.setAdapter(filterAdapter);
 
         closeBtn.setOnClickListener(view -> {
+            setResult(RESULT_CANCELED);
             finish();
         });
         clearAll.setOnClickListener(view -> {
@@ -66,7 +66,7 @@ public class HomeFilterActivity extends AppCompatActivity {
                 Toast.makeText(this, "적어도 하나의 관심 분야를 선택하세요!", Toast.LENGTH_SHORT).show();
             } else {
                 saveCacheData("userFilterInfo", userFilterInfo);
-                setResult(SAVED_FILTER_INFO);
+                setResult(RESULT_OK);
                 finish();
             }
         });

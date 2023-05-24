@@ -5,7 +5,7 @@
     android:id="@+id/feed_image_viewer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.FeedImageViewer">
+    tools:context=".Home.Feed.HomeFeedImageViewer">
 
     <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/feed_image_viewer_iv"
