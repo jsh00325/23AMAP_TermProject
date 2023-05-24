@@ -30,10 +30,10 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_activity);
 
-        hashTag = findViewById(R.id.hashTag);
-        contents = findViewById(R.id.contents);
-
-        upload = findViewById(R.id.upload);
+//        hashTag = findViewById(R.id.hashTag);
+//        contents = findViewById(R.id.contents);
+//
+//        upload = findViewById(R.id.upload);
         upload.setOnClickListener(onClickListener);
     }
 
