@@ -1,6 +1,7 @@
 package com.example.termproject.Home.Feed;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
+import com.example.termproject.ClubPage.ClubActivity;
 import com.example.termproject.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -80,8 +82,9 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
         });
 
         holder.clubImageView.setOnClickListener(view -> {
-            // TODO : 동아리 소개 액티비티 연결
-            Toast.makeText(context, dbData.getClubName(), Toast.LENGTH_SHORT).show();
+            Intent it = new Intent(context, ClubActivity.class);
+            it.putExtra("club_name", dbData.getClubName());
+            context.startActivity(it);
         });
 
         holder.likeBtn.setOnClickListener(view -> {

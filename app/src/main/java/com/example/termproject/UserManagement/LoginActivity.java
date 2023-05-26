@@ -73,8 +73,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.goToSignUp).setOnClickListener(view -> {
-            Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+            //startActivity(intent);
         });
     }
 

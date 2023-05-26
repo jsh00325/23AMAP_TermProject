@@ -1,6 +1,7 @@
 package com.example.termproject.Category.SubCategoryList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.termproject.ClubPage.ClubActivity;
 import com.example.termproject.R;
 
 import java.util.ArrayList;
@@ -45,7 +47,9 @@ public class CategoryClublistAdapter extends RecyclerView.Adapter<CategoryClubli
 
         holder.clubView.setOnClickListener(view -> {
             // TODO : 동아리 소개 액티비티랑 연결
-            Toast.makeText(context, curData.getClubName(), Toast.LENGTH_SHORT).show();
+            Intent it = new Intent(context, ClubActivity.class);
+            it.putExtra("club_name", curData.getClubName());
+            context.startActivity(it);
         });
     }
 

@@ -15,9 +15,13 @@ import com.example.termproject.BookMark.BookmarkFragment;
 import com.example.termproject.Home.HomeFragment;
 import com.example.termproject.Category.CategoryFragment;
 import com.example.termproject.MyPage.MyPageFragment;
+import com.example.termproject.UserManagement.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final int HOMEFILTER_REQUEST = 347;
     BottomNavigationView navbar;
 
@@ -36,11 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
         navbar = (BottomNavigationView) findViewById(R.id.activity_main_navbar);
 
-//        TODO : 유저의 로그인 확인하고, 로그아웃이면 로그아웃 액티비티 실행
-//        ...
-//        ...
-//        ...
-
+        // TODO : 유저의 로그인 확인하고, 로그아웃이면 로그아웃 액티비티 실행
+        if (user == null) {
+            Intent it = new Intent(this, LoginActivity.class);
+            startActivity(it);
+        }
 
 
         changeFragment(R.id.main_fragment, home_frag);

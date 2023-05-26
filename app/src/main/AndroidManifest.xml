@@ -23,7 +23,7 @@
             android:name=".BookMark.BookmarkItem"
             android:exported="false" />
         <activity
-            android:name=".UserManagement.SignUpActivity"
+            android:name=".ClubPage.ClubActivity"
             android:exported="false" />
         <activity
             android:name=".UserManagement.MemberInitActivity"
