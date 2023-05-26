@@ -1,44 +1,24 @@
 package com.example.termproject.UserManagement;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.termproject.R;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-/*
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.example.termproject.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Properties;
-import java.util.Random;
-
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
- */
 
 public class SignUpActivity extends AppCompatActivity {
 
-    /*
+
     private FirebaseAuth mAuth;
     private FirebaseFirestore mDb;
 
-     */
     private static final String TAG = "SignUpActivity";
     private Long mLastClickTime = 10000L;
     Toolbar toolbar;
@@ -65,7 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-/*
+
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         mDb = FirebaseFirestore.getInstance();
@@ -103,7 +83,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
- */
+
     }
 
     /*
