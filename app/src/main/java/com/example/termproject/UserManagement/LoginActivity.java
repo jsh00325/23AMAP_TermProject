@@ -1,27 +1,30 @@
 package com.example.termproject.UserManagement;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+import android.text.TextWatcher;
+import android.text.Editable;
+import android.graphics.Color;
 
 import com.example.termproject.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import com.example.termproject.R;
+import com.example.termproject.UserManagement.SignUpActivity;
+import com.example.termproject.UserManagement.PasswordResetActivity;
 
 
 public class LoginActivity extends AppCompatActivity {
-    // private FirebaseAuth mAuth;
     private static final String TAG = "LoginActivity";
-    private TextView id;
-    private TextView password;
-
+    private EditText id;
+    private EditText password;
+    private Button loginButton;
     private FirebaseAuth mAuth;
 
     @Override
@@ -33,10 +36,37 @@ public class LoginActivity extends AppCompatActivity {
 
         id = findViewById(R.id.idEditText_login);
         password = findViewById(R.id.passwordEditText_login);
+        loginButton = findViewById(R.id.loginButton);
 
-        findViewById(R.id.loginButton).setOnClickListener(view -> {
-            // 사용자가 입력한 아이디와 비밀번호 가져오기
+        TextWatcher loginTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String inputId = id.getText().toString().trim();
+                String inputPassword = password.getText().toString().trim();
+
+                if (!inputId.isEmpty() && !inputPassword.isEmpty()) {
+                    loginButton.setBackgroundColor(Color.parseColor("#00BFFF"));
+                } else {
+
+                    loginButton.setBackgroundColor(Color.GRAY);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+
+        id.addTextChangedListener(loginTextWatcher);
+        password.addTextChangedListener(loginTextWatcher);
+
+        loginButton.setOnClickListener(view -> {
             String inputId = id.getText().toString().trim();
             String inputPassword = password.getText().toString().trim();
 
