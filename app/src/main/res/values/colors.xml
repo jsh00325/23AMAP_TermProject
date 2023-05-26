@@ -27,6 +27,7 @@
     <color name="transparent">#00000000</color>
     <color name="ImageBackground">#EFEFEF</color>
     <color name="gray_7e7e7e">#7E7E7E</color>
+    <color name="skyBlue">#00BFFF</color>
 
     <!-- 전반적인 앱 색상 -->
     <color name="Primary">#3366FF</color>
