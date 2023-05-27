@@ -92,7 +92,6 @@ public class SignUpActivity extends AppCompatActivity {
 
             if (password.equals(check)) {
                 signUp(email, password);
-                profileUpdate();
             } else {
                 Toast.makeText(getApplicationContext(), "비밀번호 확인을 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
             }
@@ -102,44 +101,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    private void profileUpdate() {
-
-        String name = nameEditText.getText().toString();
-        String schoolNum = schoolNumEditText.getText().toString();
-        String department = departmentEditText.getText().toString();
-        String phoneNum = phoneNumEditText.getText().toString();
-
-
-        if (name.length() > 0 && schoolNum.length() == 10 && department.length() > 0 && phoneNum.length() >= 10) {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-            if (user != null) {
-                //이름, 학번, 학과, 전화번호
-                MemberInfo memberInfo = new MemberInfo(user.getUid(), name, schoolNum, department, phoneNum);
-                db.collection("users").document(user.getUid()).set(memberInfo)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully written!");
-                                //회원 등록 성공 로직
-                                Toast.makeText(getApplicationContext(), "회원 정보 등록에 성공하였습니다!!", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error writing document", e);
-                                Toast.makeText(getApplicationContext(), "회원 정보 등록에 실패하였습니다", Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-            }
-
-        } else {
-            Toast.makeText(getApplicationContext(), "회원 정보 등록에 실패했습니다.", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private boolean isValidEmail(String email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
@@ -178,12 +139,52 @@ public class SignUpActivity extends AppCompatActivity {
                             // 회원가입 성공
                             Toast.makeText(getApplicationContext(), "이메일로 인증을 완료해주세요.", Toast.LENGTH_SHORT).show();
                             sendEmailVerification();
+                            profileUpdate();
                         } else {
                             // 회원가입 실패
                             Toast.makeText(getApplicationContext(), "회원가입에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
+
+    private void profileUpdate() {
+
+        String name = nameEditText.getText().toString();
+        String schoolNum = schoolNumEditText.getText().toString();
+        String department = departmentEditText.getText().toString();
+        String phoneNum = phoneNumEditText.getText().toString();
+
+
+        if (name.length() > 0 && schoolNum.length() == 10 && department.length() > 0 && phoneNum.length() >= 10) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            if (user != null) {
+                //이름, 학번, 학과, 전화번호
+                MemberInfo memberInfo = new MemberInfo(user.getUid(), name, schoolNum, department, phoneNum);
+                db.collection("users").document(user.getUid()).set(memberInfo)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                                //회원 등록 성공 로직
+                                Toast.makeText(getApplicationContext(), "회원 정보가 임시저장 되었습니다. 이메일 인증 후 등록됩니다", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                                Toast.makeText(getApplicationContext(), "회원 정보 임시 저장에 실패하였습니다", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+            }
+
+        } else {
+            Toast.makeText(getApplicationContext(), "회원 정보 등록에 실패했습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // 이메일 인증 메일 전송
@@ -207,6 +208,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     // 이메일 인증 완료 시 회원 등록 처리
+
+    /*
     private void registerUserAfterEmailVerification() {
         // 현재 사용자 가져오기
         FirebaseUser user = mAuth.getCurrentUser();
@@ -222,6 +225,7 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "이메일 인증을 완료해주세요.", Toast.LENGTH_SHORT).show();
         }
     }
+    */
 
     // onStart() - 기존 사용자 관련 안 함.
 

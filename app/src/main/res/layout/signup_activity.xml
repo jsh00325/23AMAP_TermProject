@@ -292,7 +292,7 @@
         android:background="@drawable/rectangular_background_button"
         android:fontFamily="@font/notosanskr_medium"
         android:includeFontPadding="false"
-        android:text="다음"
+        android:text="가입"
         android:textColor="@color/maintheme"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent" />
