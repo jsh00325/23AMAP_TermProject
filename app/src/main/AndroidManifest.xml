@@ -32,10 +32,6 @@
             android:name=".ClubPage.ClubActivity"
             android:exported="false" />
         <activity
-            android:name=".UserManagement.MemberInitActivity"
-            android:exported="false"
-            android:label="@string/title_activity_member_init" />
-        <activity
             android:name=".UserManagement.LoginActivity"
             android:exported="true" />
         <activity

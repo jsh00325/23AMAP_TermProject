@@ -19,6 +19,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.termproject.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseUser mUser;
     private static final String TAG = "SignUpActivity";
     private Long mLastClickTime = 10000L;
+    private EditText nameEditText, schoolNumEditText, departmentEditText, phoneNumEditText;
     Toolbar toolbar;
 
 
@@ -77,6 +80,11 @@ public class SignUpActivity extends AppCompatActivity {
         passwordcheckText = findViewById(R.id.passwordcheckEditText);
         signUpButton = findViewById(R.id.startButton);
 
+        nameEditText = findViewById(R.id.nameText);
+        schoolNumEditText = findViewById(R.id.snumText);
+        departmentEditText = findViewById(R.id.majorText);
+        phoneNumEditText = findViewById(R.id.numberText);
+
         signUpButton.setOnClickListener(view -> {
             String email = emailEditText.getText().toString();
             String password = passwordEditText.getText().toString();
@@ -84,6 +92,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             if (password.equals(check)) {
                 signUp(email, password);
+                profileUpdate();
             } else {
                 Toast.makeText(getApplicationContext(), "비밀번호 확인을 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
             }
@@ -91,6 +100,45 @@ public class SignUpActivity extends AppCompatActivity {
 
         //random 이 부분 일단 제외
 
+    }
+
+    private void profileUpdate() {
+
+        String name = nameEditText.getText().toString();
+        String schoolNum = schoolNumEditText.getText().toString();
+        String department = departmentEditText.getText().toString();
+        String phoneNum = phoneNumEditText.getText().toString();
+
+
+        if (name.length() > 0 && schoolNum.length() == 10 && department.length() > 0 && phoneNum.length() >= 10) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            if (user != null) {
+                //이름, 학번, 학과, 전화번호
+                MemberInfo memberInfo = new MemberInfo(user.getUid(), name, schoolNum, department, phoneNum);
+                db.collection("users").document(user.getUid()).set(memberInfo)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                                //회원 등록 성공 로직
+                                Toast.makeText(getApplicationContext(), "회원 정보 등록에 성공하였습니다!!", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                                Toast.makeText(getApplicationContext(), "회원 정보 등록에 실패하였습니다", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+            }
+
+        } else {
+            Toast.makeText(getApplicationContext(), "회원 정보 등록에 실패했습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private boolean isValidEmail(String email) {
