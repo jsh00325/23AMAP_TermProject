@@ -49,6 +49,9 @@
             android:exported="false"
             android:label="mypage_pw" />
         <activity
+            android:name=".UserManagement.SignUpActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
