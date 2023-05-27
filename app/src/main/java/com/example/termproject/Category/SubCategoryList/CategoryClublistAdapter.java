@@ -46,7 +46,6 @@ public class CategoryClublistAdapter extends RecyclerView.Adapter<CategoryClubli
         holder.clubSubCategoryView.setText(curData.getSubCategory());
 
         holder.clubView.setOnClickListener(view -> {
-            // TODO : 동아리 소개 액티비티랑 연결
             Intent it = new Intent(context, ClubActivity.class);
             it.putExtra("club_name", curData.getClubName());
             context.startActivity(it);

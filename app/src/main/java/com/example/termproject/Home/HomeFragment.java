@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.termproject.ClubApply.ClubApplyActivity;
+import com.example.termproject.ClubApply.ClubApplyWatchActivity;
 import com.example.termproject.Home.Feed.HomeFeedAdapter;
 import com.example.termproject.Home.Filter.HomeFilterActivity;
 import com.example.termproject.Post.PostActivity;
@@ -76,6 +78,7 @@ public class HomeFragment extends Fragment {
         homeFab.setOnClickListener(view1 -> {
             Intent it = new Intent(context, PostActivity.class);
             getActivity().startActivityForResult(it, HOMEFILTER_REQUEST);
+
             // TODO : 받은 result로 저장되었다면 새로고침
         });
         

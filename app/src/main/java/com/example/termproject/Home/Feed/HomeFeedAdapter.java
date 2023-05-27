@@ -52,7 +52,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
     public void onBindViewHolder(@NonNull HomeFeedViewHolder holder, int position) {
         String documentID = documentIDs.get(position);
         DocumentReference docRef = db.collection("club_post").document(documentID);
-        String curUserId = "testID";    // TODO: 나중에 user.getUid()로 바꾸기
+        String curUserId = user.getUid();
 
         holder.startShimmer();
         HomeFeedData dbData = new HomeFeedData();
@@ -81,7 +81,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
             } Log.d("HomeFeed", "게시글 접근 실패...");
         });
 
-        holder.clubImageView.setOnClickListener(view -> {
+        holder.clubInfoLayout.setOnClickListener(view -> {
             Intent it = new Intent(context, ClubActivity.class);
             it.putExtra("club_name", dbData.getClubName());
             context.startActivity(it);
@@ -110,6 +110,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
 
     public class HomeFeedViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout mainItem;
+        private LinearLayout clubInfoLayout;
         private ShimmerFrameLayout loadItem;
         private CircleImageView clubImageView;
         private TextView clubNameView, upTimeView, likeCountView;
@@ -121,6 +122,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
         private HomeFeedViewHolder(@NonNull View itemView) {
             super(itemView);
             mainItem = (LinearLayout) itemView.findViewById(R.id.home_item_main);
+            clubInfoLayout = (LinearLayout) itemView.findViewById(R.id.home_item_clubInfo);
             loadItem = (ShimmerFrameLayout) itemView.findViewById(R.id.home_item_shimmer);
             clubImageView = (CircleImageView) itemView.findViewById(R.id.home_item_clubImage);
             clubNameView = (TextView) itemView.findViewById(R.id.home_item_clubName);

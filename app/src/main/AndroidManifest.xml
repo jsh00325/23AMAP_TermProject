@@ -16,9 +16,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ClubApply.ClubApplyWatchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ClubApply.ClubApplyActivity"
+            android:exported="false" />
+        <activity
             android:name=".Home.Filter.HomeFilterActivity"
             android:exported="false"
-            android:theme="@style/HomeFilterAnimation"/>
+            android:theme="@style/HomeFilterAnimation" />
         <activity
             android:name=".BookMark.BookmarkItem"
             android:exported="false" />
@@ -47,11 +53,12 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".Home.Feed.HomeFeedImageViewer"
+            android:name=".view.FeedImageViewer"
             android:theme="@style/Theme.MyDialog" />
     </application>
 

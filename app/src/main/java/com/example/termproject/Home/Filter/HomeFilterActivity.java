@@ -80,7 +80,6 @@ public class HomeFilterActivity extends AppCompatActivity {
         filters.add(new HomeFilterMainData("종교", new ArrayList<>(Arrays.asList("기독교", "불교", "천주교"))));
     }
 
-    // TODO : 캐시에서 읽은 값 체크해두기...
     private void checkFromFilterData(List<String> data) {
         for (HomeFilterMainData main : filters) {
             for (HomeFilterSubData sub : main.getChildDatas()) {

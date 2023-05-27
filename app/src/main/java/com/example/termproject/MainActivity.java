@@ -40,12 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
         navbar = (BottomNavigationView) findViewById(R.id.activity_main_navbar);
 
-        // TODO : 유저의 로그인 확인하고, 로그아웃이면 로그아웃 액티비티 실행
         if (user == null) {
             Intent it = new Intent(this, LoginActivity.class);
             startActivity(it);
         }
-
 
         changeFragment(R.id.main_fragment, home_frag);
         navbar.setOnItemSelectedListener(item -> {
@@ -53,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < fm.getBackStackEntryCount(); i++)
                 fm.popBackStack();
 
-            // TODO: 각각의 프래그먼트 만들어서 이어주기
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
                 changeFragment(R.id.main_fragment, home_frag);
