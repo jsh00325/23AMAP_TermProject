@@ -35,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseFirestore mDb;
     private EditText emailEditText;
     private EditText passwordEditText;
+    private EditText passwordcheckText;
     private Button signUpButton;
     private FirebaseUser mUser;
     private static final String TAG = "SignUpActivity";
@@ -73,12 +74,19 @@ public class SignUpActivity extends AppCompatActivity {
 
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
+        passwordcheckText = findViewById(R.id.passwordcheckEditText);
         signUpButton = findViewById(R.id.startButton);
 
         signUpButton.setOnClickListener(view -> {
             String email = emailEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            signUp(email, password);
+            String check = passwordcheckText.getText().toString();
+
+            if (password.equals(check)) {
+                signUp(email, password);
+            } else {
+                Toast.makeText(getApplicationContext(), "비밀번호 확인을 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+            }
         });
 
         //random 이 부분 일단 제외
