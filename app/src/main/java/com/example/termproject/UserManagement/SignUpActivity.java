@@ -137,15 +137,35 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // 회원가입 성공
-                            Toast.makeText(getApplicationContext(), "이메일로 인증을 완료해주세요.", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "이메일로 인증을 완료해주세요.", Toast.LENGTH_SHORT).show();
                             sendEmailVerification();
-                            profileUpdate();
                         } else {
                             // 회원가입 실패
                             Toast.makeText(getApplicationContext(), "회원가입에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
+
+    // 이메일 인증 메일 전송
+    private void sendEmailVerification() {
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if (user != null) {
+            user.sendEmailVerification()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            // 이메일 인증 메일 전송 성공
+                            //Toast.makeText(getApplicationContext(), "이메일로 인증 링크가 전송되었습니다.", Toast.LENGTH_SHORT).show();
+                            profileUpdate();
+                        } else {
+                            // 이메일 인증 메일 전송 실패
+                            Toast.makeText(getApplicationContext(), "이메일 전송에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            Toast.makeText(getApplicationContext(), "회원가입에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void profileUpdate() {
@@ -169,7 +189,9 @@ public class SignUpActivity extends AppCompatActivity {
                             public void onSuccess(Void aVoid) {
                                 Log.d(TAG, "DocumentSnapshot successfully written!");
                                 //회원 등록 성공 로직
-                                Toast.makeText(getApplicationContext(), "회원 정보가 임시저장 되었습니다. 이메일 인증 후 등록됩니다", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "이메일 인증으로 회원가입을 완료하세요", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                                startActivity(intent);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -187,25 +209,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    // 이메일 인증 메일 전송
-    private void sendEmailVerification() {
-        FirebaseUser user = mAuth.getCurrentUser();
 
-        if (user != null) {
-            user.sendEmailVerification()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            // 이메일 인증 메일 전송 성공
-                            Toast.makeText(getApplicationContext(), "이메일로 인증 링크가 전송되었습니다.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // 이메일 인증 메일 전송 실패
-                            Toast.makeText(getApplicationContext(), "이메일 전송에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        } else {
-            Toast.makeText(getApplicationContext(), "회원가입에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     // 이메일 인증 완료 시 회원 등록 처리
 
