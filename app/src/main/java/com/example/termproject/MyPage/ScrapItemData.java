@@ -1,37 +1,21 @@
 package com.example.termproject.MyPage;
 
+import java.util.List;
+
 public class ScrapItemData {
-    int image1;
-    int image2;
-    int image3;
+    private List<String> imageUrls;
 
-    public ScrapItemData(int image1, int image2, int image3) {
-        this.image1 = image1;
-        this.image2 = image2;
-        this.image3 = image3;
+    public ScrapItemData(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
     }
 
-    public int getImage1() {
-        return image1;
+    public List<String> getImageUrls() {
+        return imageUrls;
     }
 
-    public void setImage1(int image1) {
-        this.image1 = image1;
-    }
-
-    public int getImage2() {
-        return image2;
-    }
-
-    public void setImage2(int image2) {
-        this.image2 = image2;
-    }
-
-    public int getImage3() {
-        return image3;
-    }
-
-    public void setImage3(int image3) {
-        this.image3 = image3;
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
     }
 }
+
+

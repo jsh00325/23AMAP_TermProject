@@ -12,6 +12,15 @@ import com.example.termproject.R;
 
 public class ClubInfo extends Fragment {
 
+    public static ClubInfo newInstance(int number, String name) {
+        ClubInfo clubinfoFragment = new ClubInfo();
+        Bundle bundle = new Bundle();
+        bundle.putInt("number", number);
+        bundle.putString("name", name);
+        clubinfoFragment.setArguments(bundle);
+        return clubinfoFragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

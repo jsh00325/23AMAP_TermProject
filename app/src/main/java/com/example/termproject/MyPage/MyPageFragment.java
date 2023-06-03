@@ -15,6 +15,10 @@ import com.example.termproject.MyPage.PasswordResetActivity;
 import com.example.termproject.R;
 import com.example.termproject.UserManagement.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
@@ -23,6 +27,7 @@ public class MyPageFragment extends Fragment {
     TextView passwordResetTextView, logoutTextView, deleteTextView, myScrapList;
 
     String type;
+    TextView profileNameTextView;
     private FirebaseAuth mAuth ;
 
     public MyPageFragment() {
@@ -41,6 +46,27 @@ public class MyPageFragment extends Fragment {
         myScrapList = view.findViewById(R.id.mypage_scrap);
 
         mAuth = FirebaseAuth.getInstance();
+
+        profileNameTextView = view.findViewById(R.id.mypage_profile_name);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Retrieve user document from "users" collection
+            DocumentReference userRef = FirebaseFirestore.getInstance().collection("users").document(user.getUid());
+            userRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null && document.exists()) {
+                        String name = document.getString("name");
+                        profileNameTextView.setText(name);
+                    }
+                } else {
+                    // Handle error
+                    // ...
+                }
+            });
+        }
+
+
 
         passwordResetTextView.setOnClickListener(new View.OnClickListener() {
             @Override
