@@ -49,8 +49,24 @@ public class ClubApplyWatchAdapter extends RecyclerView.Adapter<ClubApplyWatchAd
                 holder.applyText.setText(doc.getString("introduceText"));
 
                 String curUserID = doc.getString("userId");
-                // TODO : 유저 ID로 연동해서 유저 정보 보여주기...
 
+                db.collection("users").document(curUserID).get().addOnCompleteListener(userTask -> {
+                    if(userTask.isSuccessful()) {
+                        DocumentSnapshot userDoc = userTask.getResult();
+
+                        holder.userNameView.setText(userDoc.getString("name"));
+
+                        String major = userDoc.getString("department");
+                        String schoolNumber = userDoc.getString("schoolNum");
+
+                        holder.userInfoView.setText(major + " " + schoolNumber.substring(0, 2));
+
+                        //============ DB에서 정보 가져오기 종료 ============//
+
+                    } else Log.d("ClubApplyWatchAdapter", "DB에서 불러오기 실패");
+                }).addOnFailureListener(e -> {
+                    Log.e("ClubApplyWatchAdapter", "유저 정보 불러오기 중 오류", e);
+                });
             } else Log.d("ClubApplyWatchAdapter", "DB에서 불러오기 실패");
         }).addOnFailureListener(e -> {
             Log.e("ClubApplyWatchAdapter", "정보 불러오기 중 오류", e);
