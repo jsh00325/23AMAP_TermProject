@@ -43,6 +43,9 @@
             android:name=".Post.PostActivity"
             android:exported="true" />
         <activity
+            android:name=".ClubPage.Feed.ClubpageFeed"
+            android:exported="true" />
+        <activity
             android:name=".MyPage.PasswordResetActivity"
             android:exported="false"
             android:label="mypage_pw" />
