@@ -1,10 +1,12 @@
 package com.example.termproject.Post;
 
+import java.util.List;
+
 public class PostData {
     private String category;
     private String club_name;
     private String imageURL;
-    private String like_user;
+    private List<String> like_users;
     private String main_text;
     private String uptime;
     private String userID;
@@ -13,11 +15,11 @@ public class PostData {
         // Default constructor required for Firebase
     }
 
-    public PostData(String category, String club_name, String imageURL, String like_user, String main_text, String uptime, String userID) {
+    public PostData(String category, String club_name, String imageURL, List<String> like_users, String main_text, String uptime, String userID) {
         this.category = category;
         this.club_name = club_name;
         this.imageURL = imageURL;
-        this.like_user = like_user;
+        this.like_users = like_users;
         this.main_text = main_text;
         this.uptime = uptime;
         this.userID = userID;
@@ -35,8 +37,8 @@ public class PostData {
         return imageURL;
     }
 
-    public String getLike_user() {
-        return like_user;
+    public List<String> getLike_users() {
+        return like_users;
     }
 
     public String getMain_text() {

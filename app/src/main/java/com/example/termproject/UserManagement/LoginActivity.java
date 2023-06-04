@@ -15,15 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.termproject.MainActivity;
+import com.example.termproject.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import com.example.termproject.R;
-
-
 public class LoginActivity extends AppCompatActivity {
-    // private FirebaseAuth mAuth;
-    private static final String TAG = "LoginActivity";
     private TextView id;
     private TextView password;
     private Button loginButton;
@@ -57,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
                 if (!inputId.isEmpty() && !inputPassword.isEmpty()) {
                     loginButton.setBackgroundColor(Color.parseColor("#00BFFF"));
                 } else {
-
                     loginButton.setBackgroundColor(Color.GRAY);
                 }
             }
@@ -73,20 +68,13 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(view -> {
             // 사용자가 입력한 아이디와 비밀번호 가져오기
-
             String inputId = id.getText().toString().trim();
             String inputPassword = password.getText().toString().trim();
-
-            // 이메일 형식인지 확인
-            if (!isEmailValid(inputId)) {
-                Toast.makeText(LoginActivity.this, "유효한 이메일을 입력해주세요.", Toast.LENGTH_SHORT).show();
-                return; // 유효하지 않은 이메일인 경우, 함수를 종료하고 다시 입력받도록 합니다.
-            }
 
             // 아이디와 비밀번호 유효성 검사
             if (inputId.isEmpty() || inputPassword.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "아이디와 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
-            }  else {
+            } else {
                 // Firebase Authentication을 사용한 로그인 처리
                 mAuth.signInWithEmailAndPassword(inputId, inputPassword)
                         .addOnCompleteListener(this, task -> {
@@ -120,9 +108,5 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
             startActivity(intent);
         });
-    }
-
-    private boolean isEmailValid(String email) {
-        return email.contains("@");
     }
 }

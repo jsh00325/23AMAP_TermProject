@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,53 +16,66 @@
         android:theme="@style/Base.Theme.TermProject"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
             android:name=".ClubApply.ClubApplyWatchActivity"
             android:exported="false" />
+
         <activity
             android:name=".ClubApply.ClubApplyActivity"
             android:exported="false" />
+
         <activity
             android:name=".Home.Filter.HomeFilterActivity"
             android:exported="false"
             android:theme="@style/HomeFilterAnimation" />
+
         <activity
             android:name=".BookMark.BookmarkItem"
             android:exported="false" />
+
         <activity
             android:name=".ClubPage.ClubActivity"
             android:exported="false" />
+
         <activity
             android:name=".UserManagement.LoginActivity"
             android:exported="true" />
+
         <activity
             android:name=".MyPage.ScrapListActivity"
             android:exported="true" />
+
         <activity
             android:name=".Post.PostActivity"
             android:exported="true" />
+
         <activity
             android:name=".ClubPage.Feed.ClubpageFeed"
             android:exported="true" />
+
         <activity
-            android:name=".MyPage.PasswordResetActivity"
-            android:exported="false"
-            android:label="mypage_pw" />
+            android:name=".UserManagement.PasswordResetActivity"
+            android:label="Password Reset"
+            android:parentActivityName=".UserManagement.LoginActivity" />
+
         <activity
             android:name=".UserManagement.SignUpActivity"
             android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".view.FeedImageViewer"
             android:theme="@style/Theme.MyDialog" />
+
     </application>
 
 </manifest>

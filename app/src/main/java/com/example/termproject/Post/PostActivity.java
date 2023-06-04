@@ -24,6 +24,7 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.firebase.firestore.FieldValue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -109,6 +110,7 @@ public class PostActivity extends AppCompatActivity {
                         uploadPost(category, clubName, postContent);
                     }
                 })
+
                 .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -118,10 +120,10 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void uploadPost(final String category, final String clubName, final String postContent) {
-        String[] likeUsers = {
-                "testID",
-                // Add more like users if needed
-        };
+        List<String> likeUsers = new ArrayList<>();
+        likeUsers.add("testID");
+        // Add more like users if needed
+
         String userID = "test123";
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 a hh:mm:ss", Locale.getDefault());
@@ -129,12 +131,11 @@ public class PostActivity extends AppCompatActivity {
 
         Map<String, Object> postData = new HashMap<>();
         postData.put("category", category);
-        postData.put("club_name", clubName);
+        postData.put("clubName", clubName);
         postData.put("like_users", likeUsers);
         postData.put("main_text", postContent);
         postData.put("uptime", uptime);
         postData.put("userID", userID);
-        postData.put("numImages", imagesList.size());
 
         // Firestore에 게시물 데이터 추가
         clubPostCollection.add(postData)
@@ -147,6 +148,21 @@ public class PostActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> {
                     // 게시물 추가 실패 시 처리
+                    Toast.makeText(PostActivity.this, "게시물 업로드 실패", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void saveImageUrl(String postId, List<String> imageUrls) {
+        // 게시물 문서 참조
+        DocumentReference postRef = clubPostCollection.document(postId);
+
+        // Firestore에 이미지 URL 저장
+        postRef.update("imageURL", imageUrls)
+                .addOnSuccessListener(aVoid -> {
+                    // 이미지 URL 저장 완료
+                })
+                .addOnFailureListener(e -> {
+                    // 이미지 URL 저장 실패
                 });
     }
 
@@ -157,6 +173,7 @@ public class PostActivity extends AppCompatActivity {
         // 이미지 업로드를 위한 변수 초기화
         int numImages = imagesList.size();
         AtomicInteger uploadedImagesCount = new AtomicInteger(0);
+        List<String> imageUrls = new ArrayList<>(); // Image URLs
 
         for (int i = 0; i < numImages; i++) {
             final Bitmap imageBitmap = imagesList.get(i);
@@ -172,15 +189,14 @@ public class PostActivity extends AppCompatActivity {
             uploadTask.addOnSuccessListener(taskSnapshot -> {
                 imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
                     String imageUrl = uri.toString();
-
-                    // Firestore에 이미지 URL 저장
-                    saveImageUrl(postId, finalI, imageUrl);
+                    imageUrls.add(imageUrl); // Add URL to the list
 
                     // 이미지 업로드 완료 수 증가
                     int count = uploadedImagesCount.incrementAndGet();
 
                     // 마지막 이미지 업로드 완료 시 처리
                     if (count == numImages) {
+                        saveImageUrl(postId, imageUrls); // Save image URLs to Firestore
                         Toast.makeText(PostActivity.this, "게시물이 올라갔습니다.", Toast.LENGTH_SHORT).show();
                         imagesList.clear();
                         imageAdapter.notifyDataSetChanged();
@@ -195,23 +211,9 @@ public class PostActivity extends AppCompatActivity {
     }
 
 
-    private void saveImageUrl(String postId, int imageIndex, String imageUrl) {
-        // 게시물 문서 참조
-        DocumentReference postRef = clubPostCollection.document(postId);
 
-        // 이미지 URL 저장
-        Map<String, Object> imageUrlsData = new HashMap<>();
-        imageUrlsData.put(String.valueOf(imageIndex), imageUrl);
 
-        // Firestore에 이미지 URL 업데이트
-        postRef.set(imageUrlsData, SetOptions.merge())
-                .addOnSuccessListener(aVoid -> {
-                    // 이미지 URL 저장 완료
-                })
-                .addOnFailureListener(e -> {
-                    // 이미지 URL 저장 실패
-                });
-    }
+
 
     private void openFileChooser() {
         Intent intent = new Intent();
