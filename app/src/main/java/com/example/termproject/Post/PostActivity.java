@@ -17,11 +17,10 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.termproject.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -31,11 +30,16 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PostActivity extends AppCompatActivity {
-    private EditText editText;
+    private EditText editTextCategory;
+    private EditText editTextClubName;
+    private EditText editTextTextMultiLine;
     private ImageButton postButton;
     private ImageButton backButton;
     private ImageButton imageButton3;
@@ -46,14 +50,17 @@ public class PostActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
-    private DatabaseReference databaseReference;
+    private FirebaseFirestore firestore;
+    private CollectionReference clubPostCollection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_activity);
 
-        editText = findViewById(R.id.editTextTextMultiLine);
+        editTextCategory = findViewById(R.id.editTextCategory);
+        editTextClubName = findViewById(R.id.editTextClubName);
+        editTextTextMultiLine = findViewById(R.id.editTextTextMultiLine);
         postButton = findViewById(R.id.imageButton2);
         backButton = findViewById(R.id.imageButton);
         imageButton3 = findViewById(R.id.imageButton3);
@@ -63,7 +70,9 @@ public class PostActivity extends AppCompatActivity {
         imageAdapter = new ImageAdapter(imagesList);
         recyclerView.setAdapter(imageAdapter);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("club_post");
+        // Firestore 초기화
+        firestore = FirebaseFirestore.getInstance();
+        clubPostCollection = firestore.collection("club_post");
 
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +103,10 @@ public class PostActivity extends AppCompatActivity {
                 .setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String postContent = editText.getText().toString();
-                        uploadPost(postContent);
+                        String category = editTextCategory.getText().toString();
+                        String clubName = editTextClubName.getText().toString();
+                        String postContent = editTextTextMultiLine.getText().toString();
+                        uploadPost(category, clubName, postContent);
                     }
                 })
                 .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
@@ -106,9 +117,7 @@ public class PostActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void uploadPost(final String postContent) {
-        String category = "자연";
-        String clubName = "코스모스";
+    private void uploadPost(final String category, final String clubName, final String postContent) {
         String[] likeUsers = {
                 "testID",
                 // Add more like users if needed
@@ -118,65 +127,90 @@ public class PostActivity extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 a hh:mm:ss", Locale.getDefault());
         final String uptime = dateFormat.format(new Date());
 
-        final DatabaseReference postRef = databaseReference.push();
-        postRef.child("category").setValue(category);
-        postRef.child("club_name").setValue(clubName);
-        postRef.child("like_users").setValue(likeUsers);
-        postRef.child("main_text").setValue(postContent);
-        postRef.child("uptime").setValue(uptime);
-        postRef.child("userID").setValue(userID);
+        Map<String, Object> postData = new HashMap<>();
+        postData.put("category", category);
+        postData.put("club_name", clubName);
+        postData.put("like_users", likeUsers);
+        postData.put("main_text", postContent);
+        postData.put("uptime", uptime);
+        postData.put("userID", userID);
+        postData.put("numImages", imagesList.size());
 
-        // Save the number of images to be uploaded
-        postRef.child("numImages").setValue(imagesList.size());
+        // Firestore에 게시물 데이터 추가
+        clubPostCollection.add(postData)
+                .addOnSuccessListener(documentReference -> {
+                    // 게시물 문서 ID
+                    String postId = documentReference.getId();
 
-        // Upload images to Firebase Storage and get the download URLs
-        for (int i = 0; i < imagesList.size(); i++) {
+                    // 이미지 업로드
+                    uploadImages(postId);
+                })
+                .addOnFailureListener(e -> {
+                    // 게시물 추가 실패 시 처리
+                });
+    }
+
+    private void uploadImages(String postId) {
+        // Firebase Storage 참조 가져오기
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+
+        // 이미지 업로드를 위한 변수 초기화
+        int numImages = imagesList.size();
+        AtomicInteger uploadedImagesCount = new AtomicInteger(0);
+
+        for (int i = 0; i < numImages; i++) {
             final Bitmap imageBitmap = imagesList.get(i);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] imageData = baos.toByteArray();
 
             final String imageName = "image_" + i + ".jpg";
-            final StorageReference imageRef = FirebaseStorage.getInstance().getReference().child("images").child(postRef.getKey()).child(imageName);
+            final StorageReference imageRef = storageRef.child("images/" + postId + "/" + imageName);
 
-            final int finalI = i;
             UploadTask uploadTask = imageRef.putBytes(imageData);
+            final int finalI = i;
             uploadTask.addOnSuccessListener(taskSnapshot -> {
                 imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
                     String imageUrl = uri.toString();
 
-                    // Update the image URL in Firebase database
-                    postRef.child("imageURLs").child(String.valueOf(finalI)).setValue(imageUrl);
+                    // Firestore에 이미지 URL 저장
+                    saveImageUrl(postId, finalI, imageUrl);
 
-                    // Check if all images have been uploaded
-                    postRef.child("numImages").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            int numImages = dataSnapshot.getValue(Integer.class);
-                            if (numImages > 0) {
-                                numImages--;
-                                postRef.child("numImages").setValue(numImages);
+                    // 이미지 업로드 완료 수 증가
+                    int count = uploadedImagesCount.incrementAndGet();
 
-                                // If all images have been uploaded, show the success message and finish the activity
-                                if (numImages == 0) {
-                                    Toast.makeText(PostActivity.this, "게시물이 올라갔습니다.", Toast.LENGTH_SHORT).show();
-                                    imagesList.clear();
-                                    imageAdapter.notifyDataSetChanged();
-                                    finish();
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            // Handle database error
-                        }
-                    });
+                    // 마지막 이미지 업로드 완료 시 처리
+                    if (count == numImages) {
+                        Toast.makeText(PostActivity.this, "게시물이 올라갔습니다.", Toast.LENGTH_SHORT).show();
+                        imagesList.clear();
+                        imageAdapter.notifyDataSetChanged();
+                        finish();
+                    }
                 });
             }).addOnFailureListener(e -> {
-                // Handle the image upload failure
+                // 이미지 업로드 실패 시 처리
+                e.printStackTrace();
             });
         }
+    }
+
+
+    private void saveImageUrl(String postId, int imageIndex, String imageUrl) {
+        // 게시물 문서 참조
+        DocumentReference postRef = clubPostCollection.document(postId);
+
+        // 이미지 URL 저장
+        Map<String, Object> imageUrlsData = new HashMap<>();
+        imageUrlsData.put(String.valueOf(imageIndex), imageUrl);
+
+        // Firestore에 이미지 URL 업데이트
+        postRef.set(imageUrlsData, SetOptions.merge())
+                .addOnSuccessListener(aVoid -> {
+                    // 이미지 URL 저장 완료
+                })
+                .addOnFailureListener(e -> {
+                    // 이미지 URL 저장 실패
+                });
     }
 
     private void openFileChooser() {

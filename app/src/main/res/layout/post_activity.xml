@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".Post.PostActivity">
 
+    <!-- 상단 버튼 레이아웃 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="60dp">
@@ -42,11 +43,34 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- 카테고리 입력란 -->
+    <EditText
+        android:id="@+id/editTextCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Category"
+        android:ems="10"
+        android:padding="10dp"
+        android:inputType="text" />
+
+    <!-- 클럽 이름 입력란 -->
+    <EditText
+        android:id="@+id/editTextClubName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Club Name"
+        android:ems="10"
+        android:padding="10dp"
+        android:inputType="text" />
+
+    <!-- 게시물 내용 입력란 -->
     <EditText
         android:id="@+id/editTextTextMultiLine"
         android:layout_width="match_parent"
         android:layout_height="350dp"
+        android:hint="Main Text"
         android:ems="10"
+        android:padding="10dp"
         android:gravity="start|top"
         android:inputType="textMultiLine" />
 
@@ -58,6 +82,7 @@
         android:background="@color/colorDivision"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <!-- 이미지 선택 및 표시 영역 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="140dp">
@@ -79,7 +104,6 @@
             android:src="@drawable/post"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
