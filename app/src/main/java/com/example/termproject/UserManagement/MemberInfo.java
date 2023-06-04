@@ -12,7 +12,7 @@ public class MemberInfo {
     private String schoolNum;
     private String department;
     private String phoneNum;
-    private Map<String, List<String>> bookMark;
+    private ArrayList<String> bookMark;
     private String filteringBinary;
     private ArrayList<Boolean> checked;
     private ArrayList<String> scrap;
@@ -23,7 +23,7 @@ public class MemberInfo {
     public MemberInfo(){}
 
     public MemberInfo(String uid, String name, String schoolNum, String department, String phoneNum,
-                      Map<String, List<String>> bookMark, String filteringBinary, ArrayList<Boolean> checked,
+                      ArrayList<String> bookMark, String filteringBinary, ArrayList<Boolean> checked,
                       ArrayList<String> scrap, ArrayList<String> questionList, ArrayList<String> alarmList,
                       ArrayList<String> filtering) {
         this.Uid = uid;
@@ -47,7 +47,7 @@ public class MemberInfo {
         this.department = department;
         this.phoneNum = phoneNum;
 
-        this.bookMark = new HashMap<>();
+        this.bookMark = new ArrayList<>();
         this.filteringBinary = null;
         this.checked = new ArrayList<Boolean>(Arrays.asList(false, false));
         this.scrap = new ArrayList<>();
@@ -88,8 +88,8 @@ public class MemberInfo {
         this.phoneNum = phoneNum;
     }
 
-    public Map<String, List<String>> getBookMark() {return bookMark;}
-    public void setBookMark(Map<String, List<String>> bookMark) {
+    public ArrayList<String> getBookMark() {return bookMark;}
+    public void setBookMark(ArrayList<String> bookMark) {
         this.bookMark = bookMark;
     }
 

@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,8 +41,7 @@ public class BookmarkFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentSnapshot userDoc;
     DocumentReference userRef;
-    Map<String, List<String>> bookMark = new HashMap<>();
-
+    ArrayList<String>  bookMark = new ArrayList<>();
     ArrayList<BookmarkItem> bookmarkItemList = new ArrayList<>();
     int tenCnt = 0;
 
@@ -91,23 +91,19 @@ public class BookmarkFragment extends Fragment {
                         else Log.d("task", "실패");
                     }
                 });
-
-        //굳이 안 적어도 되는 코드, 나중에 지울게
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         return view;
     }
 
     public void getBookMarkClubList(){
-        bookMark = (Map<String, List<String>>) userDoc.get("bookMark");
+        bookMark = (ArrayList<String>) userDoc.get("bookMark");
         bookmarkItemList.clear();
         ArrayList<String> clubList = new ArrayList<>();
-        for(String minor : bookMark.keySet()){
-            List<String> minorList = bookMark.get(minor);
-            for(String club : minorList){
+        //파이썬 dict 같음
+
+            for(String club : bookMark){
                 clubList.add(club);
             }
-        }
+
         Log.d("user", "여기까진 왔다..1");
         tenCnt = clubList.size() / 10;
         if(clubList.size() % 10 == 0) tenCnt--;
