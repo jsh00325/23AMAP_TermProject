@@ -2,6 +2,7 @@ package com.example.termproject.ClubPage;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -18,6 +19,11 @@ import com.example.termproject.R;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,23 +32,53 @@ import java.util.Map;
 
 public class ClubActivity extends AppCompatActivity {
 
-    ImageButton apply_btn;
-    Map<String, List<String>> bookMark = new HashMap<>();
     boolean bookMarked;
+    ImageButton bookmark;
+    DocumentSnapshot document;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     String name;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.clubpage_activity);
-
+        TextView nametext = findViewById(R.id.nameTextView);
         Toolbar toolbar = findViewById(R.id.club_activity_toolbar);
+        bookmark = findViewById(R.id.bookMark);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String currentUserUid = user.getUid();
+        name = getIntent().getStringExtra("club_name");
+        db.collection("users")
+                .document(currentUserUid)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        document = task.getResult();
+                        if (document != null && document.exists()) {
+                            // 현재 사용자의 문서에서 bookMark 배열 가져오기
+                            List<String> bookMarkList = (List<String>) document.get("bookMark");
+
+                            // name과 같은 문자열이 있는지 확인
+                            bookMarked = bookMarkList != null && bookMarkList.contains(name);
+
+                            if (bookMarked) {
+                                setbookmark(bookMarked);
+                            } else {
+                                setbookmark(bookMarked);
+                            }
+                        }
+                    } else {
+                        Log.d("ClubPost", "Error getting document: ", task.getException());
+                    }
+                });
 
         ImageButton dropDownMenu = findViewById(R.id.cp_item_dropdown_menu);
 
+        nametext.setText(name);
+        Log.d("ClubActivity", "Received club_name: " + name);
         /*
          * 만약 해당 동아리 계정이 아니면
          * dropDownMenu.setVisibility(View.GONE);
@@ -52,8 +88,33 @@ public class ClubActivity extends AppCompatActivity {
          *
          * */
 
+        bookmark.setOnClickListener(view -> {
+            if (bookMarked) {
+                bookMarked = false;
+                setbookmark(bookMarked);
 
+                document.getReference().update("bookMark", FieldValue.arrayRemove(name))
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                // 업데이트가 성공적으로 완료된 경우 실행할 코드
+                            } else {
+                                // 업데이트가 실패한 경우 실행할 코드
+                            }
+                        });
+            } else {
+                bookMarked = true;
+                setbookmark(bookMarked);
 
+                document.getReference().update("bookMark", FieldValue.arrayUnion(name))
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                // 업데이트가 성공적으로 완료된 경우 실행할 코드
+                            } else {
+                                // 업데이트가 실패한 경우 실행할 코드
+                            }
+                        });
+            }
+        });
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.club_activity_collapsebar);
         collapsingToolbarLayout.setTitle("동아리 페이지");
 
@@ -87,6 +148,12 @@ public class ClubActivity extends AppCompatActivity {
         }).attach();
 
         tabLayout.setTabTextColors(R.color.gray_dbdbdb, R.color.maintheme);
+    }
+    private void setbookmark(boolean book) {
+        if (book)
+            bookmark.setImageResource(R.drawable.png_bookmark_selected);
+        else
+            bookmark.setImageResource(R.drawable.png_bookmark);
     }
 
 }
