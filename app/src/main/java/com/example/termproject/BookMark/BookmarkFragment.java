@@ -1,6 +1,8 @@
 package com.example.termproject.BookMark;
 
 
+import static androidx.core.content.PackageManagerCompat.LOG_TAG;
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -9,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +48,8 @@ public class BookmarkFragment extends Fragment {
     ArrayList<BookmarkItem> bookmarkItemList = new ArrayList<>();
     int tenCnt = 0;
 
+    private SwipeRefreshLayout bookmarkSrl;
+
     public BookmarkFragment() {
         // Required empty public constructor
     }
@@ -61,6 +66,42 @@ public class BookmarkFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.fragment_bookmark_recyclerview);
         recyclerView.setHasFixedSize(true); //기존 성능 강화
+
+        //새로고침 시도 중...
+        bookmarkSrl = (SwipeRefreshLayout) view.findViewById(R.id.bookmark_srl);
+        bookmarkSrl.setOnRefreshListener(() -> {
+            db.collection("users").document(user.getUid()).get().
+                    addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful()){
+                                userDoc = task.getResult();
+                                userRef = userDoc.getReference();
+                                if(!userDoc.exists()){
+                                    db.collection("club_list").document(user.getUid()).get()
+                                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if(task.isSuccessful()){
+                                                        Log.d("user", "동아리입니다");
+                                                        userDoc = task.getResult();
+                                                        userRef = userDoc.getReference();
+                                                        getBookMarkClubList();
+                                                    }
+                                                }
+                                            });
+                                }
+                                else {
+                                    Log.d("user", "유저입니다");
+                                    getBookMarkClubList();
+                                }
+                            }
+                            else Log.d("task", "실패");
+                        }
+                    });
+            bookmarkSrl.setRefreshing(false);
+        });
+
 
         db.collection("users").document(user.getUid()).get().
                 addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -91,6 +132,7 @@ public class BookmarkFragment extends Fragment {
                         else Log.d("task", "실패");
                     }
                 });
+
         return view;
     }
 
@@ -183,4 +225,5 @@ public class BookmarkFragment extends Fragment {
 
         }
     }
+
 }
