@@ -27,6 +27,7 @@ import com.example.termproject.Post.PostActivity;
 import com.example.termproject.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -90,16 +91,15 @@ public class HomeFragment extends Fragment {
         // 캐시에 저장된 필터링 정보 불러와서 filters에서 적용
         filterList = readCacheData("userFilterInfo");
 
+        // TODO : uptime을 기준으로 정렬하기
         List<String> postDocumentIDs = new ArrayList<>();
-        db.collection("club_post").whereIn("category", filterList).get().addOnCompleteListener(task -> {
+        db.collection("club_post").whereIn("category", filterList).orderBy("uptime", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 QuerySnapshot querySnapshot = task.getResult();
-                for (QueryDocumentSnapshot document : querySnapshot) {
+                for (QueryDocumentSnapshot document : querySnapshot)
                     postDocumentIDs.add(document.getId());
-                }
+                homeFeed.setAdapter(new HomeFeedAdapter(postDocumentIDs));
             } else Log.d("HomeReadPost", "불러오기 실패");
-
-            homeFeed.setAdapter(new HomeFeedAdapter(postDocumentIDs));
         });
     }
 
