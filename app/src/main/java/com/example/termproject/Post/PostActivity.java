@@ -19,12 +19,11 @@ import android.widget.Toast;
 import com.example.termproject.R;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.firebase.firestore.FieldValue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -105,7 +104,7 @@ public class PostActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String category = editTextCategory.getText().toString();
-                        String clubName = editTextClubName.getText().toString();
+                        String clubName = editTextClubName.getText().toString().replace(" ", "_");
                         String postContent = editTextTextMultiLine.getText().toString();
                         uploadPost(category, clubName, postContent);
                     }
@@ -126,15 +125,15 @@ public class PostActivity extends AppCompatActivity {
 
         String userID = "test123";
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 a hh:mm:ss", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         final String uptime = dateFormat.format(new Date());
 
         Map<String, Object> postData = new HashMap<>();
         postData.put("category", category);
-        postData.put("clubName", clubName);
-        postData.put("like_users", likeUsers);
+        postData.put("club_name", clubName);
+        postData.put("like_user", likeUsers);
         postData.put("main_text", postContent);
-        postData.put("uptime", uptime);
+        postData.put("uptime", FieldValue.serverTimestamp());
         postData.put("userID", userID);
 
         // Firestore에 게시물 데이터 추가
@@ -209,11 +208,6 @@ public class PostActivity extends AppCompatActivity {
             });
         }
     }
-
-
-
-
-
 
     private void openFileChooser() {
         Intent intent = new Intent();
