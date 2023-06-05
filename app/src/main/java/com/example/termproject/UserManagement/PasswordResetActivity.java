@@ -8,9 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.example.termproject.R;
-
-
 import com.google.firebase.auth.FirebaseAuth;
 
 public class PasswordResetActivity extends AppCompatActivity {
@@ -21,12 +20,12 @@ public class PasswordResetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_activity);
+        setContentView(R.layout.passwordreset_activity);
 
         mAuth = FirebaseAuth.getInstance();
 
-        emailEditText = findViewById(R.id.idEditText_login);
-        resetButton = findViewById(R.id.loginButton);
+        emailEditText = findViewById(R.id.emailEditText);
+        resetButton = findViewById(R.id.resetButton);
 
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
