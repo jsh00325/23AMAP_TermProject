@@ -79,8 +79,6 @@ public class HomeFragment extends Fragment {
         homeFab.setOnClickListener(view1 -> {
             Intent it = new Intent(context, PostActivity.class);
             getActivity().startActivityForResult(it, HOMEFILTER_REQUEST);
-
-            // TODO : 받은 result로 저장되었다면 새로고침
         });
         
         loadHomeFeed();
@@ -91,7 +89,6 @@ public class HomeFragment extends Fragment {
         // 캐시에 저장된 필터링 정보 불러와서 filters에서 적용
         filterList = readCacheData("userFilterInfo");
 
-        // TODO : uptime을 기준으로 정렬하기
         List<String> postDocumentIDs = new ArrayList<>();
         db.collection("club_post").whereIn("category", filterList).orderBy("uptime", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

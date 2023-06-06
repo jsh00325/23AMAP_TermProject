@@ -53,13 +53,11 @@ public class CategoryMainAdapter extends RecyclerView.Adapter<CategoryMainAdapte
         holder.main_cl.setOnClickListener(view -> {
             // 펼쳐져 있는 아이템 클릭 -> 서브 리스트 닫기
             if (cur_data.getIsOpen()) {
-                // TODO : 서브 리스트 닫는 애니메이션 & 토글 이미지 애니메이션
                 holder.subView.setVisibility(View.GONE);
                 holder.main_toggle.setImageResource(R.drawable.down_sign);
             }
             // 닫혀진 아이템 클릭 -> 서브 리스트 열기
             else {
-                // TODO : 서브 리스트 여는 애니메이션 & 토글 이미지 애니메이션
                 holder.subView.setVisibility(View.VISIBLE);
                 holder.main_toggle.setImageResource(R.drawable.up_sign);
             }

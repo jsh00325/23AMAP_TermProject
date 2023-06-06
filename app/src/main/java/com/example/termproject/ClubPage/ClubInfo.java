@@ -65,7 +65,7 @@ public class ClubInfo extends Fragment {
                     clubInfoName.setText(document.getString("club_name"));
                     //clubInfoSimple.setText(document.getString("simple_intro")); 없다
                     clubInfoButton.setText("신청 버튼");
-                    clubInfoDetail.setText(document.getString("description"));
+                    clubInfoDetail.setText(document.getString("description").replace("\\n", "\n"));
                 }
             } else {
                 // 문서 가져오기 실패 처리

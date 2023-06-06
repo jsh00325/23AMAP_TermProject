@@ -199,6 +199,7 @@ public class PostActivity extends AppCompatActivity {
                         Toast.makeText(PostActivity.this, "게시물이 올라갔습니다.", Toast.LENGTH_SHORT).show();
                         imagesList.clear();
                         imageAdapter.notifyDataSetChanged();
+                        setResult(RESULT_OK);
                         finish();
                     }
                 });
