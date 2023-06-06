@@ -78,6 +78,9 @@
         <activity
             android:name=".view.FeedImageViewer"
             android:theme="@style/Theme.MyDialog" />
+        <activity
+            android:name=".ClubPage.Feed.ClubpageFeedImageViewer"
+            android:theme="@style/Theme.MyDialog" />
 
     </application>
 
