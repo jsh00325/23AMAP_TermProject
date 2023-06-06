@@ -1,5 +1,6 @@
 package com.example.termproject.ClubPage;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.termproject.ClubApply.ClubApplyActivity;
+import com.example.termproject.MyPage.PasswordResetActivity;
 import com.example.termproject.R;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -69,6 +72,14 @@ public class ClubInfo extends Fragment {
                 }
             } else {
                 // 문서 가져오기 실패 처리
+            }
+        });
+        clubInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ClubApplyActivity.class);
+                intent.putExtra("club_name", club_name);
+                view.getContext().startActivity(intent);
             }
         });
 

@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.termproject.BookMark.BookmarkFragment;
 import com.example.termproject.Home.HomeFragment;
