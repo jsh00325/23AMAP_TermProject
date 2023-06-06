@@ -60,7 +60,9 @@
         android:id="@+id/clubapply_inputLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toTopOf="@+id/clubapply_submissionBtn"
         app:layout_constraintTop_toBottomOf="@+id/clubapply_watch_top">
 
@@ -100,10 +102,11 @@
     <Button
         android:id="@+id/clubapply_submissionBtn"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:text="신청하기"
-        android:layout_margin="10dp"
-        android:backgroundTint="@color/Primary"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
