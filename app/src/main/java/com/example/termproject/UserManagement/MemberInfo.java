@@ -13,31 +13,22 @@ public class MemberInfo {
     private String department;
     private String phoneNum;
     private ArrayList<String> bookMark;
-    private String filteringBinary;
-    private ArrayList<Boolean> checked;
-    private ArrayList<String> scrap;
-    private ArrayList<String> questionList;
-    private ArrayList<String> alarmList;
-    private ArrayList<String> filtering;
+    private ArrayList<String> adminCategory;
+    private ArrayList<String> adminClub;
 
     public MemberInfo(){}
 
     public MemberInfo(String uid, String name, String schoolNum, String department, String phoneNum,
-                      ArrayList<String> bookMark, String filteringBinary, ArrayList<Boolean> checked,
-                      ArrayList<String> scrap, ArrayList<String> questionList, ArrayList<String> alarmList,
-                      ArrayList<String> filtering) {
+                      ArrayList<String> bookMark, ArrayList<String> adminCategory,
+                      ArrayList<String> adminClub) {
         this.Uid = uid;
         this.name = name;
         this.schoolNum = schoolNum;
         this.department = department;
         this.phoneNum = phoneNum;
         this.bookMark = bookMark;
-        this.filteringBinary = filteringBinary;
-        this.checked = checked;
-        this.scrap = scrap;
-        this.questionList = questionList;
-        this.alarmList = alarmList;
-        this.filtering = filtering;
+        this.adminCategory = adminCategory;
+        this.adminClub = adminClub;
     }
 
     public MemberInfo(String uid, String name, String schoolNum, String department, String phoneNum) {
@@ -48,12 +39,8 @@ public class MemberInfo {
         this.phoneNum = phoneNum;
 
         this.bookMark = new ArrayList<>();
-        this.filteringBinary = null;
-        this.checked = new ArrayList<Boolean>(Arrays.asList(false, false));
-        this.scrap = new ArrayList<>();
-        this.questionList = new ArrayList<>();
-        this.alarmList = new ArrayList<>();
-        this.filtering = new ArrayList<>();
+        this.adminCategory = new ArrayList<>();
+        this.adminClub = new ArrayList<>();
     }
 
     public String getName() {
@@ -93,13 +80,6 @@ public class MemberInfo {
         this.bookMark = bookMark;
     }
 
-    public String getFilteringBinary() {
-        return filteringBinary;
-    }
-    public void setFilteringBinary(String filteringBinary) { this.filteringBinary = filteringBinary;}
-
-    public ArrayList<Boolean> getChecked(){return checked;}
-    public void setChecked(ArrayList<Boolean> checked) {this.checked = checked;}
 
     public String getUid() {
         return Uid;
@@ -109,33 +89,18 @@ public class MemberInfo {
         Uid = uid;
     }
 
-    public ArrayList<String> getScrap() {
-        return scrap;
+
+    public ArrayList<String> getadminCategory() {
+        return adminCategory;
     }
 
-    public void setScrap(ArrayList<String> scrap) {
-        this.scrap = scrap;
+    public void setadminCategory(ArrayList<String> adminCategory) {
+        this.adminCategory = adminCategory;
     }
 
-    public ArrayList<String> getQuestionList() {
-        return questionList;
+    public ArrayList<String> getadminClub() {
+        return adminClub;
     }
-
-    public void setQuestionList(ArrayList<String> questionList) {
-        this.questionList = questionList;
-    }
-
-    public ArrayList<String> getAlarmList() {
-        return alarmList;
-    }
-
-    public void setAlarmList(ArrayList<String> alarmList) {
-        this.alarmList = alarmList;
-    }
-
-    public ArrayList<String> getFiltering() {
-        return filtering;
-    }
-    public void setFiltering(ArrayList<String> filtering) { this.filtering = filtering;}
+    public void setadminClub(ArrayList<String> adminClub) { this.adminClub = adminClub;}
 }
 
