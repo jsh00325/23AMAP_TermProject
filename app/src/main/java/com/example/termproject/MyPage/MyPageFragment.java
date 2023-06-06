@@ -7,11 +7,15 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.example.termproject.MyPage.PasswordResetActivity;
+import android.widget.Toast;
+
+import com.example.termproject.ClubApply.ClubApplyActivity;
+import com.example.termproject.ClubApply.ClubApplyWatchActivity;
 import com.example.termproject.R;
 import com.example.termproject.UserManagement.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,15 +24,17 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Objects;
+import java.util.List;
 
 public class MyPageFragment extends Fragment {
 
-    TextView passwordResetTextView, logoutTextView, deleteTextView, myScrapList;
+    TextView passwordResetTextView, logoutTextView, deleteTextView, myScrapList, clubmanage;
 
-    String type;
+    String type, admin;
     TextView profileNameTextView;
     private FirebaseAuth mAuth ;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DocumentSnapshot document;
 
     public MyPageFragment() {
     }
@@ -44,8 +50,10 @@ public class MyPageFragment extends Fragment {
         deleteTextView = view.findViewById(R.id.mypage_withdrawal);
 
         myScrapList = view.findViewById(R.id.mypage_scrap);
+        clubmanage = view.findViewById(R.id.mypage_club_managing);
 
         mAuth = FirebaseAuth.getInstance();
+
 
         profileNameTextView = view.findViewById(R.id.mypage_profile_name);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -66,7 +74,29 @@ public class MyPageFragment extends Fragment {
             });
         }
 
+        String currentUserUid = user.getUid();
+        db.collection("users")
+                .document(currentUserUid)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        document = task.getResult();
+                        if (document != null && document.exists()) {
+                            // 현재 사용자의 문서에서 bookMark 배열 가져오기
+                            admin = (String)document.get("adminClub");
 
+                            if (admin.isEmpty()) {
+                                clubmanage.setVisibility(View.GONE);
+                                Toast.makeText(getActivity(), "adminClub이 비어있습니다.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                clubmanage.setVisibility(View.VISIBLE);
+                            }
+
+                        }
+                    } else {
+                        Log.d("ClubPost", "Error getting document: ", task.getException());
+                    }
+                });
 
         passwordResetTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +105,14 @@ public class MyPageFragment extends Fragment {
                 view.getContext().startActivity(intent);
             }
         });
-
+        clubmanage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ClubApplyWatchActivity.class);
+                intent.putExtra("club_name", admin);
+                view.getContext().startActivity(intent);
+            }
+        });
         logoutTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
