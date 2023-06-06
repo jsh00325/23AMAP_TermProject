@@ -18,6 +18,8 @@ import com.example.termproject.ClubApply.ClubApplyActivity;
 import com.example.termproject.ClubApply.ClubApplyWatchActivity;
 import com.example.termproject.R;
 import com.example.termproject.UserManagement.LoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -142,7 +144,11 @@ public class MyPageFragment extends Fragment {
                         .setTitle("알람 팝업")
                         .setMessage("탈퇴하시겠습니까?")
                         .setPositiveButton("삭제", (dialogInterface, i) -> {
-//                            Objects.requireNonNull(mAuth.getCurrentUser()).delete();
+                            // TODO : 회원탈퇴 -> 정보를 지워야 하나...(일단 보류)
+                            user.delete().addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) Log.d("deleteuser", "회원 탈퇴 성공");
+                            });
+
                             Intent intent = new Intent(getActivity(), LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             requireActivity().finish();
