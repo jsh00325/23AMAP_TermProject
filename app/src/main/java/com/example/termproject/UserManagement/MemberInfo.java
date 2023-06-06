@@ -1,4 +1,6 @@
 package com.example.termproject.UserManagement;
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+
 import com.google.firebase.firestore.CollectionReference;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,21 +8,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 public class MemberInfo {
-    // 없어서 만듦. 회원이 가진 정보 내역 - ojs
+    // 회원이 가진 정보 내역 - ojs
     private String Uid;
     private String name;
     private String schoolNum;
     private String department;
     private String phoneNum;
     private ArrayList<String> bookMark;
-    private ArrayList<String> adminCategory;
-    private ArrayList<String> adminClub;
+    private String adminCategory;
+    private String adminClub;
 
     public MemberInfo(){}
 
     public MemberInfo(String uid, String name, String schoolNum, String department, String phoneNum,
-                      ArrayList<String> bookMark, ArrayList<String> adminCategory,
-                      ArrayList<String> adminClub) {
+                      ArrayList<String> bookMark, String adminCategory,
+                      String adminClub) {
         this.Uid = uid;
         this.name = name;
         this.schoolNum = schoolNum;
@@ -39,8 +41,8 @@ public class MemberInfo {
         this.phoneNum = phoneNum;
 
         this.bookMark = new ArrayList<>();
-        this.adminCategory = new ArrayList<>();
-        this.adminClub = new ArrayList<>();
+        this.adminCategory = "";
+        this.adminClub = "";
     }
 
     public String getName() {
@@ -90,17 +92,17 @@ public class MemberInfo {
     }
 
 
-    public ArrayList<String> getadminCategory() {
+    public String getadminCategory() {
         return adminCategory;
     }
 
-    public void setadminCategory(ArrayList<String> adminCategory) {
+    public void setadminCategory(String adminCategory) {
         this.adminCategory = adminCategory;
     }
 
-    public ArrayList<String> getadminClub() {
+    public String getadminClub() {
         return adminClub;
     }
-    public void setadminClub(ArrayList<String> adminClub) { this.adminClub = adminClub;}
+    public void setadminClub(String adminClub) { this.adminClub = adminClub;}
 }
 
