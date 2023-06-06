@@ -44,6 +44,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/plus"
         android:tint="@color/white"
+        android:visibility="gone"
         android:backgroundTint="@color/Primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

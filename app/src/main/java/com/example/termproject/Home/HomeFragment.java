@@ -79,23 +79,26 @@ public class HomeFragment extends Fragment {
         });
 
         homeFab = (FloatingActionButton) view.findViewById(R.id.home_fab_writePost);
-        homeFab.setOnClickListener(view1 -> {
-            Intent it = new Intent(context, PostActivity.class);
-            getActivity().startActivityForResult(it, HOMEFILTER_REQUEST);
-        });
+
 
         // 관리자 계정이 아니라면 숨기기
         db.collection("users").document(user.getUid()).get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
                 String adminClub = documentSnapshot.getString("adminClub");
-
+                String adminCategory = documentSnapshot.getString("adminCategory");
                 try {
-                    if (adminClub.equals("")) homeFab.setVisibility(View.GONE);
+                    if (!adminClub.equals("")) {
+                        homeFab.setVisibility(View.VISIBLE);
+                        homeFab.setOnClickListener(view1 -> {
+                            Intent it = new Intent(context, PostActivity.class);
+                            it.putExtra("club_category", adminCategory);
+                            it.putExtra("club_name", adminClub);
+                            getActivity().startActivityForResult(it, HOMEFILTER_REQUEST);
+                        });
+                    }
                 } catch (NullPointerException e) {
                     Log.d("HomeFragmentAdmin", "Admin 정보가 존재하지 않음");
-                    homeFab.setVisibility(View.GONE);
                 }
-
             } else {
                 Log.d("HomeFragmentAdmin", "user정보가 존재하지 않음");
             }
