@@ -8,6 +8,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -77,7 +79,11 @@ public class PostActivity extends AppCompatActivity {
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showConfirmationDialog();
+                if (imagesList.size() < 1) {
+                    Toast.makeText(PostActivity.this, "사진을 한 장 이상 첨부하세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    showConfirmationDialog();
+                }
             }
         });
 
@@ -183,7 +189,19 @@ public class PostActivity extends AppCompatActivity {
             final String imageName = "image_" + i + ".jpg";
             final StorageReference imageRef = storageRef.child("images/" + postId + "/" + imageName);
 
-            UploadTask uploadTask = imageRef.putBytes(imageData);
+            // 이미지 회전 정보 확인
+            Uri imageUri = getImageUri(imageBitmap);
+            int rotation = getRotationFromExif(imageUri);
+
+            // 이미지 회전 처리
+            Bitmap rotatedBitmap = rotateImage(imageBitmap, rotation);
+
+            // 회전된 이미지를 업로드
+            ByteArrayOutputStream rotatedBaos = new ByteArrayOutputStream();
+            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, rotatedBaos);
+            byte[] rotatedImageData = rotatedBaos.toByteArray();
+
+            UploadTask uploadTask = imageRef.putBytes(rotatedImageData);
             final int finalI = i;
             uploadTask.addOnSuccessListener(taskSnapshot -> {
                 imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
@@ -207,6 +225,46 @@ public class PostActivity extends AppCompatActivity {
                 e.printStackTrace();
             });
         }
+    }
+
+    private Uri getImageUri(Bitmap bitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Title", null);
+        return Uri.parse(path);
+    }
+
+    private int getRotationFromExif(Uri imageUri) {
+        int rotation = 0;
+        try {
+            ExifInterface exifInterface = new ExifInterface(imageUri.getPath());
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotation = 90;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotation = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotation = 270;
+                    break;
+                default:
+                    rotation = 0;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return rotation;
+    }
+
+    private Bitmap rotateImage(Bitmap bitmap, int rotation) {
+        if (rotation != 0) {
+            Matrix matrix = new Matrix();
+            matrix.postRotate(rotation);
+            return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        }
+        return bitmap;
     }
 
     private void openFileChooser() {
