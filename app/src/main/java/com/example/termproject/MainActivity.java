@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.termproject.BookMark.BookmarkFragment;
 import com.example.termproject.Home.HomeFragment;
@@ -38,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         navbar = (BottomNavigationView) findViewById(R.id.activity_main_navbar);
+
+        if (user == null) {
+            Intent it = new Intent(this, LoginActivity.class);
+            startActivity(it);
+            finish();
+        }
 
         changeFragment(R.id.main_fragment, home_frag);
         navbar.setOnItemSelectedListener(item -> {
@@ -69,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         if (user == null) {
             Intent it = new Intent(this, LoginActivity.class);
             startActivity(it);
+            finish();
         }
     }
 

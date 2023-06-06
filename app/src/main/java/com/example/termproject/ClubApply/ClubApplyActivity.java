@@ -8,11 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.termproject.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -23,7 +25,7 @@ import java.util.Map;
 
 public class ClubApplyActivity extends AppCompatActivity {
     private String clubName;
-    private FirebaseAuth user = FirebaseAuth.getInstance();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private TextView clubNameView;
     private ImageButton closeBtn;
@@ -61,6 +63,7 @@ public class ClubApplyActivity extends AppCompatActivity {
                 Log.w("clubApplyDB", "신청 정보 저장 에러...", e);
             });
 
+            Toast.makeText(this, clubName + "에 신청을 완료했습니다", Toast.LENGTH_SHORT).show();
             finish();
         });
     }

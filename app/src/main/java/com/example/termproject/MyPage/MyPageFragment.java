@@ -87,7 +87,7 @@ public class MyPageFragment extends Fragment {
 
                             if (admin.isEmpty()) {
                                 clubmanage.setVisibility(View.GONE);
-                                Toast.makeText(getActivity(), "adminClub이 비어있습니다.", Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(getActivity(), "adminClub이 비어있습니다.", Toast.LENGTH_SHORT).show();
                             } else {
                                 clubmanage.setVisibility(View.VISIBLE);
                             }

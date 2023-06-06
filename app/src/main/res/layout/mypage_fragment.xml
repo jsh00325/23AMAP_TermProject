@@ -185,6 +185,7 @@
         android:textColor="@color/black_191919"
         android:layout_weight="55"
         android:text="동아리 관리하기"
+        android:visibility="gone"
         android:autoSizeTextType="uniform"
         android:autoSizeMaxTextSize="100dp"
         android:autoSizeMinTextSize="10dp"
