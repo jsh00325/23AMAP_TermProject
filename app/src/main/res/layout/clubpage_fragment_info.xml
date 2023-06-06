@@ -1,110 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginStart="30dp"
-    android:layout_marginEnd="30dp">
-
-    <ImageView
-        android:id="@+id/club_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxWidth="200dp"
-        android:maxHeight="200dp"
-        android:adjustViewBounds="true"
-        android:src="@drawable/blank_user"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <View
-        android:id="@+id/division"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/colorDivision"
-        app:layout_constraintTop_toBottomOf="@id/club_image" />
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp">
 
-    <TextView
-        android:id="@+id/profile_manage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="대분류 > 소분류"
-        android:fontFamily="@font/notosanskr_regular"
-        android:includeFontPadding="false"
-        android:textColor="@color/black_191919"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMaxTextSize="100dp"
-        android:autoSizeMinTextSize="10dp"
-        android:autoSizeStepGranularity="1dp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/division"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <ImageView
+            android:id="@+id/club_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:maxHeight="200dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/blank_user"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/club_info_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="동아리명"
-        android:fontFamily="@font/notosanskr_regular"
-        android:includeFontPadding="false"
-        android:textColor="@color/black_191919"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMaxTextSize="100dp"
-        android:autoSizeMinTextSize="10dp"
-        android:autoSizeStepGranularity="1dp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/profile_manage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        <View
+            android:id="@+id/division"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorDivision"
+            app:layout_constraintTop_toBottomOf="@id/club_image" />
 
-    <TextView
-        android:id="@+id/club_info_simple"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="간단소개"
-        android:fontFamily="@font/notosanskr_regular"
-        android:includeFontPadding="false"
-        android:textColor="@color/black_191919"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMaxTextSize="100dp"
-        android:autoSizeMinTextSize="10dp"
-        android:autoSizeStepGranularity="1dp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/club_info_name"
-        app:layout_constraintStart_toStartOf="@+id/club_info_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        <TextView
+            android:id="@+id/profile_manage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="대분류 > 소분류"
+            android:fontFamily="@font/notosanskr_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/black_191919"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="100dp"
+            android:autoSizeMinTextSize="10dp"
+            android:autoSizeStepGranularity="1dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/division"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/club_info_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="신청 버튼"
-        android:autoSizeTextType="uniform"
-        app:layout_constraintTop_toBottomOf="@id/club_info_simple"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        <TextView
+            android:id="@+id/club_info_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="동아리명"
+            android:fontFamily="@font/notosanskr_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/black_191919"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="100dp"
+            android:autoSizeMinTextSize="10dp"
+            android:autoSizeStepGranularity="1dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/profile_manage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
 
-    <TextView
-        android:id="@+id/club_info_detail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="자세한 소개"
-        android:fontFamily="@font/notosanskr_regular"
-        android:includeFontPadding="false"
-        android:textColor="@color/black_191919"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMaxTextSize="100dp"
-        android:autoSizeMinTextSize="10dp"
-        android:autoSizeStepGranularity="1dp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/club_info_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        <TextView
+            android:id="@+id/club_info_simple"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="간단소개"
+            android:fontFamily="@font/notosanskr_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/black_191919"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="100dp"
+            android:autoSizeMinTextSize="10dp"
+            android:autoSizeStepGranularity="1dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/club_info_name"
+            app:layout_constraintStart_toStartOf="@+id/club_info_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/club_info_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="신청 버튼"
+            android:autoSizeTextType="uniform"
+            app:layout_constraintTop_toBottomOf="@id/club_info_simple"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/club_info_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="자세한 소개"
+            android:fontFamily="@font/notosanskr_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/black_191919"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="100dp"
+            android:autoSizeMinTextSize="10dp"
+            android:autoSizeStepGranularity="1dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/club_info_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

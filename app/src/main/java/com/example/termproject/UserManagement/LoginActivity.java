@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -108,5 +109,20 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
             startActivity(intent);
         });
+    }
+
+    long time = 0;
+    @Override
+    public void onBackPressed() {
+        // super.onBackPressed();
+        if(System.currentTimeMillis()-time>=1000) {
+            time=System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(),"뒤로 가기 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
+        else if(System.currentTimeMillis()-time<1000){ // 뒤로 가기 한번 더 눌렀을때의 시간간격 텀이 1초
+            finishAffinity();
+            System.runFinalization();
+            System.exit(0);
+        }
     }
 }

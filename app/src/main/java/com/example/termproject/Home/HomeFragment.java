@@ -25,8 +25,11 @@ import com.example.termproject.Home.Feed.HomeFeedAdapter;
 import com.example.termproject.Home.Filter.HomeFilterActivity;
 import com.example.termproject.Post.PostActivity;
 import com.example.termproject.R;
+import com.example.termproject.UserManagement.LoginActivity;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -45,6 +48,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     final int HOMEFILTER_REQUEST = 347;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private View view;
     private ImageButton filterBtn;
     private RecyclerView homeFeed;
@@ -74,13 +78,32 @@ public class HomeFragment extends Fragment {
             homeSrl.setRefreshing(false);
         });
 
-        // TODO : 관리자 계정이 아니라면 숨기기
         homeFab = (FloatingActionButton) view.findViewById(R.id.home_fab_writePost);
-        homeFab.setOnClickListener(view1 -> {
-            Intent it = new Intent(context, PostActivity.class);
-            getActivity().startActivityForResult(it, HOMEFILTER_REQUEST);
 
-            // TODO : 받은 result로 저장되었다면 새로고침
+
+        // 관리자 계정이 아니라면 숨기기
+        db.collection("users").document(user.getUid()).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String adminClub = documentSnapshot.getString("adminClub");
+                String adminCategory = documentSnapshot.getString("adminCategory");
+                try {
+                    if (!adminClub.equals("")) {
+                        homeFab.setVisibility(View.VISIBLE);
+                        homeFab.setOnClickListener(view1 -> {
+                            Intent it = new Intent(context, PostActivity.class);
+                            it.putExtra("club_category", adminCategory);
+                            it.putExtra("club_name", adminClub);
+                            getActivity().startActivityForResult(it, HOMEFILTER_REQUEST);
+                        });
+                    }
+                } catch (NullPointerException e) {
+                    Log.d("HomeFragmentAdmin", "Admin 정보가 존재하지 않음");
+                }
+            } else {
+                Log.d("HomeFragmentAdmin", "user정보가 존재하지 않음");
+            }
+        }).addOnFailureListener(e -> {
+            Log.e("HomeFragmentAdmin", "관리자 정보 확인 오류", e);
         });
         
         loadHomeFeed();
@@ -91,7 +114,6 @@ public class HomeFragment extends Fragment {
         // 캐시에 저장된 필터링 정보 불러와서 filters에서 적용
         filterList = readCacheData("userFilterInfo");
 
-        // TODO : uptime을 기준으로 정렬하기
         List<String> postDocumentIDs = new ArrayList<>();
         db.collection("club_post").whereIn("category", filterList).orderBy("uptime", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.example.termproject.BookMark.BookmarkFragment;
 import com.example.termproject.Home.HomeFragment;
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         if (user == null) {
             Intent it = new Intent(this, LoginActivity.class);
             startActivity(it);
+            finish();
         }
 
         changeFragment(R.id.main_fragment, home_frag);
@@ -69,6 +70,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (user == null) {
+            Intent it = new Intent(this, LoginActivity.class);
+            startActivity(it);
+            finish();
+        }
+    }
+
     /** address주소의 프래그먼트 슬롯을 frag라는 프래그먼트로 교체
      *  @param address 프래그먼트 슬롯의 주소
      *  @param frag 변경할 프래그먼트   */
@@ -80,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == HOMEFILTER_REQUEST) {
+        if (requestCode == HOMEFILTER_REQUEST) {
             if (resultCode == RESULT_OK) home_frag.loadHomeFeed();
         }
         super.onActivityResult(requestCode, resultCode, data);

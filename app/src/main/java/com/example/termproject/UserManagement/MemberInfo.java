@@ -1,4 +1,6 @@
 package com.example.termproject.UserManagement;
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+
 import com.google.firebase.firestore.CollectionReference;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,38 +8,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 public class MemberInfo {
-    // 없어서 만듦. 회원이 가진 정보 내역 - ojs
+    // 회원이 가진 정보 내역 - ojs
     private String Uid;
     private String name;
     private String schoolNum;
     private String department;
     private String phoneNum;
     private ArrayList<String> bookMark;
-    private String filteringBinary;
-    private ArrayList<Boolean> checked;
-    private ArrayList<String> scrap;
-    private ArrayList<String> questionList;
-    private ArrayList<String> alarmList;
-    private ArrayList<String> filtering;
+    private String adminCategory;
+    private String adminClub;
 
     public MemberInfo(){}
 
     public MemberInfo(String uid, String name, String schoolNum, String department, String phoneNum,
-                      ArrayList<String> bookMark, String filteringBinary, ArrayList<Boolean> checked,
-                      ArrayList<String> scrap, ArrayList<String> questionList, ArrayList<String> alarmList,
-                      ArrayList<String> filtering) {
+                      ArrayList<String> bookMark, String adminCategory,
+                      String adminClub) {
         this.Uid = uid;
         this.name = name;
         this.schoolNum = schoolNum;
         this.department = department;
         this.phoneNum = phoneNum;
         this.bookMark = bookMark;
-        this.filteringBinary = filteringBinary;
-        this.checked = checked;
-        this.scrap = scrap;
-        this.questionList = questionList;
-        this.alarmList = alarmList;
-        this.filtering = filtering;
+        this.adminCategory = adminCategory;
+        this.adminClub = adminClub;
     }
 
     public MemberInfo(String uid, String name, String schoolNum, String department, String phoneNum) {
@@ -48,12 +41,8 @@ public class MemberInfo {
         this.phoneNum = phoneNum;
 
         this.bookMark = new ArrayList<>();
-        this.filteringBinary = null;
-        this.checked = new ArrayList<Boolean>(Arrays.asList(false, false));
-        this.scrap = new ArrayList<>();
-        this.questionList = new ArrayList<>();
-        this.alarmList = new ArrayList<>();
-        this.filtering = new ArrayList<>();
+        this.adminCategory = "";
+        this.adminClub = "";
     }
 
     public String getName() {
@@ -93,13 +82,6 @@ public class MemberInfo {
         this.bookMark = bookMark;
     }
 
-    public String getFilteringBinary() {
-        return filteringBinary;
-    }
-    public void setFilteringBinary(String filteringBinary) { this.filteringBinary = filteringBinary;}
-
-    public ArrayList<Boolean> getChecked(){return checked;}
-    public void setChecked(ArrayList<Boolean> checked) {this.checked = checked;}
 
     public String getUid() {
         return Uid;
@@ -109,33 +91,18 @@ public class MemberInfo {
         Uid = uid;
     }
 
-    public ArrayList<String> getScrap() {
-        return scrap;
+
+    public String getadminCategory() {
+        return adminCategory;
     }
 
-    public void setScrap(ArrayList<String> scrap) {
-        this.scrap = scrap;
+    public void setadminCategory(String adminCategory) {
+        this.adminCategory = adminCategory;
     }
 
-    public ArrayList<String> getQuestionList() {
-        return questionList;
+    public String getadminClub() {
+        return adminClub;
     }
-
-    public void setQuestionList(ArrayList<String> questionList) {
-        this.questionList = questionList;
-    }
-
-    public ArrayList<String> getAlarmList() {
-        return alarmList;
-    }
-
-    public void setAlarmList(ArrayList<String> alarmList) {
-        this.alarmList = alarmList;
-    }
-
-    public ArrayList<String> getFiltering() {
-        return filtering;
-    }
-    public void setFiltering(ArrayList<String> filtering) { this.filtering = filtering;}
+    public void setadminClub(String adminClub) { this.adminClub = adminClub;}
 }
 

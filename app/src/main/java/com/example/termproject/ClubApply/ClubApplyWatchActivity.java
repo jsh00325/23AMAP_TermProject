@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.termproject.R;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -30,7 +31,7 @@ public class ClubApplyWatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.clubapply_activity_watch);
 
-        clubName = "New Club"; // TODO : 인텐트로 동아리 이름 받아오기...
+        clubName = getIntent().getStringExtra("club_name"); // 인텐트에서 동아리 이름 받아오기
 
         clubNameView = (TextView) findViewById(R.id.clubapply_watch_clubName);
         clubNameView.setText(clubName);
@@ -42,7 +43,7 @@ public class ClubApplyWatchActivity extends AppCompatActivity {
         applyRecycle.setLayoutManager(new LinearLayoutManager(this));
 
         List<String> applyDocIDs = new ArrayList<>();
-        db.collection("club_apply").whereEqualTo("clubName", clubName).get().addOnCompleteListener(task -> {
+        db.collection("club_apply").whereEqualTo("clubName", clubName).orderBy("applyTime").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()){
                 QuerySnapshot querySnapshot = task.getResult();
                 for (QueryDocumentSnapshot document : querySnapshot)
