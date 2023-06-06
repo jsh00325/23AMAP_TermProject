@@ -27,6 +27,7 @@ import com.example.termproject.Post.PostActivity;
 import com.example.termproject.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -45,6 +46,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     final int HOMEFILTER_REQUEST = 347;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth user = FirebaseAuth.getInstance();
     private View view;
     private ImageButton filterBtn;
     private RecyclerView homeFeed;
@@ -74,11 +76,29 @@ public class HomeFragment extends Fragment {
             homeSrl.setRefreshing(false);
         });
 
-        // TODO : 관리자 계정이 아니라면 숨기기
         homeFab = (FloatingActionButton) view.findViewById(R.id.home_fab_writePost);
         homeFab.setOnClickListener(view1 -> {
             Intent it = new Intent(context, PostActivity.class);
             getActivity().startActivityForResult(it, HOMEFILTER_REQUEST);
+        });
+
+        // 관리자 계정이 아니라면 숨기기
+        db.collection("users").document(user.getUid()).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String adminClub = documentSnapshot.getString("adminClub");
+
+                try {
+                    if (adminClub.equals("")) homeFab.setVisibility(View.GONE);
+                } catch (NullPointerException e) {
+                    Log.d("HomeFragmentAdmin", "Admin 정보가 존재하지 않음");
+                    homeFab.setVisibility(View.GONE);
+                }
+
+            } else {
+                Log.d("HomeFragmentAdmin", "user정보가 존재하지 않음");
+            }
+        }).addOnFailureListener(e -> {
+            Log.e("HomeFragmentAdmin", "관리자 정보 확인 오류", e);
         });
         
         loadHomeFeed();

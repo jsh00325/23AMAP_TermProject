@@ -30,7 +30,7 @@ public class ClubApplyWatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.clubapply_activity_watch);
 
-        clubName = "New Club"; // TODO : 인텐트로 동아리 이름 받아오기...
+        clubName = getIntent().getStringExtra("club_name"); // 인텐트에서 동아리 이름 받아오기
 
         clubNameView = (TextView) findViewById(R.id.clubapply_watch_clubName);
         clubNameView.setText(clubName);

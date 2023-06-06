@@ -59,7 +59,7 @@ public class ClubApplyWatchAdapter extends RecyclerView.Adapter<ClubApplyWatchAd
                         String major = userDoc.getString("department");
                         String schoolNumber = userDoc.getString("schoolNum");
 
-                        holder.userInfoView.setText(major + " " + schoolNumber.substring(0, 2));
+                        holder.userInfoView.setText(major + " " + schoolNumber.substring(2, 4));
 
                         //============ DB에서 정보 가져오기 종료 ============//
 

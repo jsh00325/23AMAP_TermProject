@@ -35,7 +35,7 @@ public class ClubApplyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.clubapply_activity);
 
-        clubName = "New Club"; // TODO : 인텐트에서 동아리 이름 받아오기
+        clubName = getIntent().getStringExtra("club_name"); // 인텐트에서 동아리 이름 받아오기
         clubNameView = (TextView) findViewById(R.id.clubapply_clubName);
         clubNameView.setText(clubName);
 
