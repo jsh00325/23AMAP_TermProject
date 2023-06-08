@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -60,6 +61,7 @@ public class ClubApplyWatchAdapter extends RecyclerView.Adapter<ClubApplyWatchAd
                         String schoolNumber = userDoc.getString("schoolNum");
 
                         holder.userInfoView.setText(major + " " + schoolNumber.substring(2, 4));
+                        holder.fullLayout.setVisibility(View.VISIBLE);
 
                         //============ DB에서 정보 가져오기 종료 ============//
 
@@ -90,10 +92,12 @@ public class ClubApplyWatchAdapter extends RecyclerView.Adapter<ClubApplyWatchAd
     }
 
     public class WatchViewHolder extends RecyclerView.ViewHolder {
+        private LinearLayout fullLayout;
         private TextView userNameView, userInfoView, timeView, applyText, deleteBtn;
 
         public WatchViewHolder(@NonNull View itemView) {
             super(itemView);
+            fullLayout = (LinearLayout) itemView.findViewById(R.id.clubapply_item_fullsize);
             userNameView = (TextView) itemView.findViewById(R.id.clubapply_item_name);
             userInfoView = (TextView) itemView.findViewById(R.id.clubapply_item_subInfo);
             timeView = (TextView) itemView.findViewById(R.id.clubapply_item_time);
