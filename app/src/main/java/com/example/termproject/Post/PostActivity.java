@@ -19,6 +19,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.termproject.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
@@ -39,9 +41,6 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PostActivity extends AppCompatActivity {
-    private EditText editTextCategory;
-    private EditText editTextClubName;
-    private EditText editTextTextMultiLine;
     private ImageButton postButton;
     private ImageButton backButton;
     private ImageButton imageButton3;
@@ -54,15 +53,15 @@ public class PostActivity extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
     private CollectionReference clubPostCollection;
+    private String adminCategory;
+    private String adminClub;
+    private EditText editTextTextMultiLine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_activity);
 
-        editTextCategory = findViewById(R.id.editTextCategory);
-        editTextClubName = findViewById(R.id.editTextClubName);
-        editTextTextMultiLine = findViewById(R.id.editTextTextMultiLine);
         postButton = findViewById(R.id.imageButton2);
         backButton = findViewById(R.id.imageButton);
         imageButton3 = findViewById(R.id.imageButton3);
@@ -71,6 +70,11 @@ public class PostActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         imageAdapter = new ImageAdapter(imagesList);
         recyclerView.setAdapter(imageAdapter);
+        editTextTextMultiLine = findViewById(R.id.editTextTextMultiLine);
+
+        Intent intent = getIntent();
+        adminCategory = intent.getStringExtra("club_category");
+        adminClub = intent.getStringExtra("club_name");
 
         // Firestore 초기화
         firestore = FirebaseFirestore.getInstance();
@@ -109,9 +113,9 @@ public class PostActivity extends AppCompatActivity {
                 .setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String category = editTextCategory.getText().toString();
-                        String clubName = editTextClubName.getText().toString().replace(" ", "_");
-                        String postContent = editTextTextMultiLine.getText().toString();
+                        String category = adminCategory;
+                        String clubName = adminClub.replace(" ", "_");
+                        String postContent = editTextTextMultiLine.getText().toString(); // Get text from EditText
                         uploadPost(category, clubName, postContent);
                     }
                 })
@@ -126,10 +130,10 @@ public class PostActivity extends AppCompatActivity {
 
     private void uploadPost(final String category, final String clubName, final String postContent) {
         List<String> likeUsers = new ArrayList<>();
-        likeUsers.add("testID");
         // Add more like users if needed
 
-        String userID = "test123";
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userID = currentUser.getUid();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         final String uptime = dateFormat.format(new Date());

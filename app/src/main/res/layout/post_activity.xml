@@ -43,26 +43,6 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 카테고리 입력란 -->
-    <EditText
-        android:id="@+id/editTextCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Category"
-        android:ems="10"
-        android:padding="10dp"
-        android:inputType="text" />
-
-    <!-- 클럽 이름 입력란 -->
-    <EditText
-        android:id="@+id/editTextClubName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Club Name"
-        android:ems="10"
-        android:padding="10dp"
-        android:inputType="text" />
-
     <!-- 게시물 내용 입력란 -->
     <EditText
         android:id="@+id/editTextTextMultiLine"
