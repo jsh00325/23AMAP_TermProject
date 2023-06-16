@@ -52,9 +52,11 @@ public class LoginActivity extends AppCompatActivity {
                 String inputPassword = password.getText().toString().trim();
 
                 if (!inputId.isEmpty() && !inputPassword.isEmpty()) {
-                    loginButton.setBackgroundColor(Color.parseColor("#00BFFF"));
+                    loginButton.setEnabled(true);
+                    loginButton.setBackground(getResources().getDrawable(R.drawable.login_check));
                 } else {
-                    loginButton.setBackgroundColor(Color.GRAY);
+                    loginButton.setEnabled(true);
+                    loginButton.setBackground(getResources().getDrawable(R.drawable.login_uncheck));
                 }
             }
 
