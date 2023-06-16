@@ -8,7 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
   
-    <color name="maintheme">#FF3B64DF</color>
+    <color name="maintheme">#E82F2F</color>
     <color name="backgroundcolor">#FFf0f0f0</color>
     <color name="colorDivision">#FFEDEDED</color>
     <color name="colorDivisionMain">#B8B8B8</color>
@@ -24,14 +24,13 @@
     <color name="buttonTheme">#FFE9EDF1</color>
     <color name="placeholder_gray">#D1D1D1</color>
 
-    <color name="mainColor">#3366FF</color>
     <color name="transparent">#00000000</color>
     <color name="ImageBackground">#EFEFEF</color>
     <color name="gray_7e7e7e">#7E7E7E</color>
     <color name="skyBlue">#00BFFF</color>
 
     <!-- 전반적인 앱 색상 -->
-    <color name="Primary">#3366FF</color>
-    <color name="PrimaryVariant">#679FFF</color>
+    <color name="Primary">#E82F2F</color>
+    <color name="PrimaryVariant">#FD7F7F</color>
     <color name="OnPrimary">#F0EDFF</color>
 </resources>

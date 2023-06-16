@@ -69,6 +69,7 @@ public class BookmarkFragment extends Fragment {
 
         //새로고침 시도 중...
         bookmarkSrl = (SwipeRefreshLayout) view.findViewById(R.id.bookmark_srl);
+        bookmarkSrl.setColorSchemeColors(getResources().getColor(R.color.Primary));
         bookmarkSrl.setOnRefreshListener(() -> {
             db.collection("users").document(user.getUid()).get().
                     addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

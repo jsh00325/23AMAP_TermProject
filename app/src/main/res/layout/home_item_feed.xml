@@ -27,7 +27,7 @@
                 android:layout_height="50dp"
                 android:src="@drawable/blank_user"
                 app:civ_border_overlay="true"
-                app:civ_border_color="@color/gray_7e7e7e"
+                app:civ_border_color="@color/Primary"
                 app:civ_border_width="1dp"
                 android:layout_marginEnd="10dp" />
 

@@ -15,10 +15,10 @@
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:background="@drawable/round_background_border_main_theme"
-        android:src="@drawable/mypage"
+        android:src="@drawable/blank_user"
         app:civ_border_color="@color/Primary"
         app:civ_border_overlay="true"
-        app:civ_border_width="2dp"
+        app:civ_border_width="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".Home.HomeFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="69dp"
+        android:gravity="center|left"
+        android:paddingStart="15dp"
+        android:text="KNU ClUB"
+        android:textColor="@color/Primary"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageButton
         android:id="@+id/feed_filter_btn"
         android:layout_width="70dp"
@@ -21,7 +33,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorDivision"
+        android:background="@color/gray_999999"
         app:layout_constraintBottom_toTopOf="@+id/home_srl" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
