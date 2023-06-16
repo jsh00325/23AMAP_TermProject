@@ -11,7 +11,7 @@
         android:layout_height="69dp"
         android:gravity="center|left"
         android:paddingStart="15dp"
-        android:text="KNU ClUB"
+        android:text="KNU CLUB"
         android:textColor="@color/Primary"
         android:textSize="36sp"
         android:textStyle="bold"
