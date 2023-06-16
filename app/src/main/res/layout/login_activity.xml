@@ -4,34 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserManagement.LoginActivity">
+    android:background="@drawable/login_background">
 
     <LinearLayout
+        android:id="@+id/enter"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:gravity="center"
+
         android:orientation="vertical"
-        android:weightSum="1670">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="250" />
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="103" />
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/idEditText_login"
             android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_margin="5dp"
-            android:layout_weight="126"
-            android:textSize="15sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/togglebtn_uncheck"
             android:elevation="2dp"
             android:fontFamily="@font/notosanskr_medium"
             android:gravity="center_vertical"
@@ -40,166 +33,120 @@
             android:inputType="text"
             android:maxLines="1"
             android:padding="20dp"
-            android:textColor="@color/black_191919" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="12" />
+            android:textColor="@color/black_191919"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/passwordEditText_login"
             android:layout_width="match_parent"
-            android:layout_height="11dp"
-            android:layout_margin="5dp"
-            android:layout_weight="126"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/togglebtn_uncheck"
             android:elevation="2dp"
             android:fontFamily="@font/notosanskr_medium"
             android:gravity="center_vertical"
             android:hint="비밀번호를 입력해주세요"
             android:includeFontPadding="false"
             android:inputType="textPassword"
+            android:maxLines="1"
             android:padding="20dp"
             android:textColor="@color/black_191919"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="12" />
+    </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="169">
+    <Button
+        android:id="@+id/loginButton"
+        android:background="@drawable/login_check"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="로그인"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@id/linear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter" />
 
-            <Button
-                android:id="@+id/loginButton"
-                android:layout_width="match_parent"
-                android:layout_height="63dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="-2dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
-                android:autoSizeMaxTextSize="100dp"
-                android:autoSizeMinTextSize="10dp"
-                android:autoSizeTextType="uniform"
-                android:fontFamily="@font/notosanskr_bold"
-                android:gravity="center"
-                android:text="로그인"
-                android:textColor="#ffffff" />
-        </RelativeLayout>
-
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton">
 
         <LinearLayout
+            android:id="@+id/linear1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="62"
-            android:orientation="horizontal"
-            android:weightSum="690">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="141" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="242"
-                android:autoSizeMaxTextSize="100dp"
-                android:autoSizeMinTextSize="10dp"
-                android:autoSizeTextType="uniform"
-                android:fontFamily="@font/notosanskr_medium"
-                android:gravity="center"
-                android:includeFontPadding="false"
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
                 android:text="비밀번호를 잊으셨나요?"
-                android:textColor="@color/black_191919" />
+                tools:layout_editor_absoluteY="549dp" />
 
+            <View
+                android:layout_width="10dp"
+                android:layout_height="match_parent" />
 
             <TextView
                 android:id="@+id/gotopasswordResetButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="140"
-                android:autoSizeMaxTextSize="100dp"
-                android:autoSizeMinTextSize="10dp"
-                android:autoSizeTextType="uniform"
-                android:fontFamily="@font/notosanskr_medium"
-                android:gravity="center"
-                android:includeFontPadding="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="70dp"
                 android:text="비밀번호 찾기"
                 android:textColor="@color/maintheme" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="160" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="314" />
+            android:layout_height="10dp"
+        />
 
         <LinearLayout
+            android:id="@+id/linear2"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="62"
-            android:orientation="horizontal"
-            android:weightSum="690">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="150" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="263"
-                android:autoSizeMaxTextSize="100dp"
-                android:autoSizeMinTextSize="10dp"
-                android:autoSizeTextType="uniform"
-                android:fontFamily="@font/notosanskr_medium"
-                android:gravity="center"
-                android:includeFontPadding="false"
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:text="아직 회원이 아니신가요?"
                 android:textColor="@color/gray_767676" />
 
             <TextView
                 android:id="@+id/goToSignUp"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="100"
-                android:autoSizeMaxTextSize="100dp"
-                android:autoSizeMinTextSize="10dp"
-                android:autoSizeTextType="uniform"
-                android:fontFamily="@font/notosanskr_medium"
-                android:gravity="center"
-                android:includeFontPadding="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:text="회원 가입"
                 android:textColor="@color/black_191919"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="31"
-                android:padding="4dp"
-                android:src="@drawable/next_btn" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="148" />
-
-
         </LinearLayout>
-
 
     </LinearLayout>
 
