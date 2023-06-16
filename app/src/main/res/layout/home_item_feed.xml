@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:text="@string/for_test_long_text"
+            android:text="내용"
             android:textSize="16sp"
             android:textColor="@color/black"
             app:readMoreColor="@color/Primary"
