@@ -15,7 +15,7 @@
         android:textColor="@color/Primary"
         android:gravity="center|left"
         android:paddingStart="15dp"
-        android:text="KNU ClUB"/>
+        android:text="KNU CLUB"/>
 
     <View
         android:layout_width="match_parent"
