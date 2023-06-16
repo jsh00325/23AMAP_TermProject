@@ -1,5 +1,6 @@
 package com.example.termproject.Post;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,11 +14,17 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.example.termproject.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,6 +47,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import android.widget.Button;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+
 public class PostActivity extends AppCompatActivity {
     private ImageButton postButton;
     private ImageButton backButton;
@@ -57,12 +68,61 @@ public class PostActivity extends AppCompatActivity {
     private String adminClub;
     private EditText editTextTextMultiLine;
 
+    public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
+
+        private List<Bitmap> imagesList;
+
+        public ImageAdapter(List<Bitmap> imagesList) {
+            this.imagesList = imagesList;
+        }
+
+        @NonNull
+        @Override
+        public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image, parent, false);
+            return new ImageViewHolder(itemView);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
+            Bitmap imageBitmap = imagesList.get(position);
+            Glide.with(holder.itemView.getContext())
+                    .load(imageBitmap)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(holder.imageView);
+        }
+
+        @Override
+        public int getItemCount() {
+            return imagesList.size();
+        }
+
+        public class ImageViewHolder extends RecyclerView.ViewHolder {
+            ImageView imageView;
+
+            public ImageViewHolder(@NonNull View itemView) {
+                super(itemView);
+                imageView = itemView.findViewById(R.id.imageView);
+                ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
+                int imageSize = (int) (itemView.getResources().getDisplayMetrics().widthPixels * 0.2); // 60% of screen width
+                layoutParams.width = imageSize;
+                layoutParams.height = imageSize;
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                imageView.setLayoutParams(layoutParams);
+            }
+        }
+    }
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_activity);
 
-        postButton = findViewById(R.id.imageButton2);
+        Button postButton = findViewById(R.id.button2);
         backButton = findViewById(R.id.imageButton);
         imageButton3 = findViewById(R.id.imageButton3);
         recyclerView = findViewById(R.id.recyclerView);
@@ -105,6 +165,7 @@ public class PostActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void showConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -296,4 +357,6 @@ public class PostActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }
