@@ -189,8 +189,8 @@ public class SignUpActivity extends AppCompatActivity {
                             public void onSuccess(Void aVoid) {
                                 Log.d(TAG, "DocumentSnapshot successfully written!");
                                 //회원 등록 성공 로직
-                                Toast.makeText(getApplicationContext(), "이메일 인증으로 회원가입을 완료하세요", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                                Toast.makeText(getApplicationContext(), "프로필을 설정할 수 있습니다", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SignUpActivity.this, Photo_sign.class);
                                 startActivity(intent);
                             }
                         })
