@@ -11,7 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.termproject.MyPage.ScrapListAdapter;
 import com.example.termproject.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,6 +39,7 @@ public class ClubPost extends Fragment {
     private ClubPostListAdapter adapter;
     private List<String> imageUrlList;
     private FirebaseFirestore db;
+    private SwipeRefreshLayout postlistSrl;
 
     public static ClubPost newInstance(int number, String name) {
         ClubPost clubpostFragment = new ClubPost();
@@ -64,6 +67,34 @@ public class ClubPost extends Fragment {
         // 리사이클러뷰 초기화
         recyclerView = view.findViewById(R.id.clubpost_recycle);
         imageUrlList = new ArrayList<>();
+
+
+        postlistSrl = (SwipeRefreshLayout)view.findViewById(R.id.postlist_srl);
+        postlistSrl.setColorSchemeColors(getResources().getColor(R.color.Primary));
+        postlistSrl.setOnRefreshListener(() -> {
+            db.collection("club_post")
+                    .whereEqualTo("club_name", name)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            imageUrlList.clear();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                List<String> imageUrls = (List<String>) document.get("imageURL");
+                                if (imageUrls != null ) {
+                                    imageUrlList.add(imageUrls.get(0));
+                                }
+                            }
+                            adapter = new ClubPostListAdapter(imageUrlList);
+                            recyclerView.setAdapter(adapter);
+                            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+                        } else {
+                            Log.d("ClubPost", "Error getting documents: ", task.getException());
+                        }
+                    });
+            postlistSrl.setRefreshing(false);
+        });
+
+
 
 
         db.collection("club_post")

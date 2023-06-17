@@ -27,9 +27,16 @@
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mypage_like"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/likelist_srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mypage_like"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.termproject.ClubApply.ClubApplyActivity;
 import com.example.termproject.ClubApply.ClubApplyWatchActivity;
 import com.example.termproject.R;
@@ -28,12 +29,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MyPageFragment extends Fragment {
 
     TextView passwordResetTextView, logoutTextView, deleteTextView, myScrapList, clubmanage;
 
     String type, admin;
     TextView profileNameTextView;
+
+    CircleImageView profileImageView;
+
     private FirebaseAuth mAuth ;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentSnapshot document;
@@ -56,8 +62,10 @@ public class MyPageFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
 
+        profileImageView = view.findViewById(R.id.mypage_profile_pic);
 
         profileNameTextView = view.findViewById(R.id.mypage_profile_name);
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // Retrieve user document from "users" collection
@@ -68,6 +76,15 @@ public class MyPageFragment extends Fragment {
                     if (document != null && document.exists()) {
                         String name = document.getString("name");
                         profileNameTextView.setText(name);
+                        String imageUrl = document.getString("imageUrl");
+
+                        // Load the image into profileImageView using Glide or any other library
+                        if (imageUrl != null && !imageUrl.isEmpty()) {
+                            Glide.with(requireContext())
+                                    .load(imageUrl)
+                                    .into(profileImageView);
+                        }
+
                     }
                 } else {
                     // Handle error

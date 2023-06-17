@@ -201,7 +201,8 @@ public class ClubpageFeed extends AppCompatActivity {
         viewPager.setAdapter(imageAdapter);
         circleIndicator.setViewPager(viewPager);
         likeCountView.setText(String.valueOf(likeCount));
-        likeBtn.setImageResource(R.drawable.heart_fill);
+        //likeBtn.setImageResource(R.drawable.heart_fill);
+        setLikeBtn(like);
         // Set club name
         clubNameView.setText(clubName);
 

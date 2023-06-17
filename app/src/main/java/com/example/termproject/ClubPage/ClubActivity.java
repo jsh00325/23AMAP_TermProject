@@ -151,9 +151,9 @@ public class ClubActivity extends AppCompatActivity {
     }
     private void setbookmark(boolean book) {
         if (book)
-            bookmark.setImageResource(R.drawable.png_bookmark_selected);
+            bookmark.setImageResource(R.drawable.bookmark_selected);
         else
-            bookmark.setImageResource(R.drawable.png_bookmark);
+            bookmark.setImageResource(R.drawable.bookmark);
     }
 
 }
