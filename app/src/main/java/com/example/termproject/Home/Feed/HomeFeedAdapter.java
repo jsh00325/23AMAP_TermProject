@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.example.termproject.ClubPage.ClubActivity;
+import com.example.termproject.ClubPage.Feed.ClubpageFeed;
 import com.example.termproject.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -101,6 +103,13 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
             }
             holder.setLikeCount(dbData.getLikeCount());
         });
+
+        holder.comment.setOnClickListener(view -> {
+            // TODO : 나중에 이미지가 아니라 게시글 아이디로 넘기기
+            Intent intent = new Intent(context, ClubpageFeed.class);
+            intent.putExtra("imageUrl", dbData.getFeedImageURLs().get(0));
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -116,7 +125,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
         private TextView clubNameView, upTimeView, likeCountView;
         private ViewPager2 postImgView;
         private CircleIndicator3 indicator;
-        private ImageButton likeBtn;
+        private ImageButton likeBtn, comment;
         private ReadMoreTextView postTextView;
 
         private HomeFeedViewHolder(@NonNull View itemView) {
@@ -130,6 +139,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
             postImgView = (ViewPager2) itemView.findViewById(R.id.home_item_viewpager);
             indicator = (CircleIndicator3) itemView.findViewById(R.id.home_item_circleIndicator);
             likeBtn = (ImageButton) itemView.findViewById(R.id.home_item_likeBtn);
+            comment = (ImageButton) itemView.findViewById(R.id.home_item_comment);
             likeCountView = (TextView) itemView.findViewById(R.id.home_item_likeCount);
             postTextView = (ReadMoreTextView) itemView.findViewById(R.id.home_item_postText);
         }

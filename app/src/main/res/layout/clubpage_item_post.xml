@@ -7,12 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".ClubPage.Feed.ClubpageFeed" >
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/clubpage_activity_comment_view">
+        app:layout_constraintBottom_toTopOf="@+id/comment_view">
 
         <LinearLayout
             android:id="@+id/clubpage_item_main"
@@ -117,7 +117,7 @@
 
             <!-- 더보기 처리를 해주는 라이브러리
             #1. https://medium.com/prnd/페이스북처럼-긴-글에-더보기-표시하는-방법-feat-readmoretextview-3bbe30a4112b -->
-            <kr.co.prnd.readmore.ReadMoreTextView
+            <TextView
                 android:id="@+id/clubpage_item_postText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -125,10 +125,7 @@
                 android:layout_marginRight="10dp"
                 android:text="내용"
                 android:textSize="16sp"
-                android:textColor="@color/black"
-                app:readMoreColor="@color/Primary"
-                app:readMoreMaxLine="2"
-                app:readMoreText="... 더보기" />
+                android:textColor="@color/black" />
 
             <View
                 android:layout_width="match_parent"
@@ -138,17 +135,19 @@
                 android:background="@color/colorDivision" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/clubpage_activity_comment_rcv"
+                android:id="@+id/comment_recycler"
+                android:overScrollMode="never"
+                android:nestedScrollingEnabled="false"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
-        android:id="@+id/clubpage_activity_comment_view"
+        android:id="@+id/comment_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/comment_input_round"
@@ -158,7 +157,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/clubpage_activity_iptcomment"
+            android:id="@+id/comment_input"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:hint="댓글을 입력하세요."
@@ -166,6 +165,7 @@
             android:layout_weight="1" />
 
         <ImageButton
+            android:id="@+id/comment_sendBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/send" />

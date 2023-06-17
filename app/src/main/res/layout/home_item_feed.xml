@@ -105,6 +105,21 @@
                 app:layout_constraintTop_toTopOf="parent" >
             </me.relex.circleindicator.CircleIndicator3>
 
+            <ImageButton
+                android:id="@+id/home_item_comment"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:background="@color/transparent"
+                android:scaleType="centerInside"
+                android:src="@drawable/chat"
+                android:contentDescription="좋아요 버튼"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- 더보기 처리를 해주는 라이브러리
