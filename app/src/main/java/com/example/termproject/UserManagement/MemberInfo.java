@@ -1,6 +1,8 @@
 package com.example.termproject.UserManagement;
 import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
+import android.widget.ImageView;
+
 import com.google.firebase.firestore.CollectionReference;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,11 +20,13 @@ public class MemberInfo {
     private String adminCategory;
     private String adminClub;
 
+    private List<String> imageUrl;
+
     public MemberInfo(){}
 
     public MemberInfo(String uid, String name, String schoolNum, String department, String phoneNum,
                       ArrayList<String> bookMark, String adminCategory,
-                      String adminClub) {
+                      String adminClub, List<String> imageUrl) {
         this.Uid = uid;
         this.name = name;
         this.schoolNum = schoolNum;
@@ -31,6 +35,7 @@ public class MemberInfo {
         this.bookMark = bookMark;
         this.adminCategory = adminCategory;
         this.adminClub = adminClub;
+        this.imageUrl = imageUrl;
     }
 
     public MemberInfo(String uid, String name, String schoolNum, String department, String phoneNum) {
@@ -43,6 +48,7 @@ public class MemberInfo {
         this.bookMark = new ArrayList<>();
         this.adminCategory = "";
         this.adminClub = "";
+        this.imageUrl = new ArrayList<>();
     }
 
     public String getName() {
@@ -104,5 +110,13 @@ public class MemberInfo {
         return adminClub;
     }
     public void setadminClub(String adminClub) { this.adminClub = adminClub;}
+
+    public List<String> getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(List<String> imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }
 
