@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.TermProject"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31">
+        tools:targetApi="31" >
         <activity
             android:name=".ClubApply.ClubApplyWatchActivity"
             android:exported="false" />
@@ -40,11 +40,12 @@
             android:name=".UserManagement.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".UserManagement.Photo_sign"
-            android:label="Photo Sign Activity" />
-        <activity
             android:name=".MyPage.ScrapListActivity"
             android:exported="true" />
+        <activity
+            android:name=".UserManagement.Photo_sign"
+            android:label="Photo Sign Activity" />
+
         <activity
             android:name=".Post.PostActivity"
             android:exported="true" />
@@ -66,14 +67,14 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Splash"
-            android:exported="true"
-            android:theme="@style/SplashTheme"></activity>
+            android:theme="@style/SplashTheme"
+            android:exported="true">
+        </activity>
         <activity
             android:name=".view.FeedImageViewer"
             android:theme="@style/Theme.MyDialog" />

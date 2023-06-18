@@ -4,12 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
@@ -18,14 +24,21 @@ import com.example.termproject.R;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import kr.co.prnd.readmore.ReadMoreTextView;
@@ -38,9 +51,8 @@ public class ClubpageFeed extends AppCompatActivity {
     private FirebaseAuth user = FirebaseAuth.getInstance();
 
     private CircleImageView clubImageView;
-    private TextView clubNameView, upTimeView, likeCountView;
+    private TextView clubNameView, upTimeView, likeCountView, postTextView;
     private ImageButton likeBtn;
-    private ReadMoreTextView postTextView;
     private ViewPager2 viewPager;
     private CircleIndicator3 circleIndicator;
     private LinearLayout clubInfoLayout;
@@ -53,6 +65,12 @@ public class ClubpageFeed extends AppCompatActivity {
     private List<String> imageUrls;
     private ClubpageFeedImageAdapter imageAdapter;
     DocumentSnapshot document;
+
+    private String DocID;
+    private RecyclerView commentRecycler;
+    private EditText commentInput;
+    private ImageButton commentSend;
+    private InputMethodManager imm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +88,23 @@ public class ClubpageFeed extends AppCompatActivity {
         viewPager = findViewById(R.id.clubpage_item_viewpager);
 
 
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        commentRecycler = findViewById(R.id.comment_recycler);
+        commentRecycler.setLayoutManager(new LinearLayoutManager(this));
+        commentRecycler.setItemAnimator(null);
+        commentInput = findViewById(R.id.comment_input);
+        commentSend = findViewById(R.id.comment_sendBtn);
+
+        commentSend.setOnClickListener(view -> {
+            if (commentInput.getText().toString().equals(""))
+                Toast.makeText(context, "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            else {
+                imm.hideSoftInputFromWindow(commentInput.getWindowToken(), 0);
+                uploadComment(commentInput.getText().toString());
+                commentInput.setText("");
+            }
+        });
+
         imageUrl = getIntent().getStringExtra("imageUrl");
         FirebaseUser user1 = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -81,6 +116,9 @@ public class ClubpageFeed extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         if (!task.getResult().isEmpty()) {
                             document = task.getResult().getDocuments().get(0);
+
+                            DocID = document.getId();
+                            initCommentView();
 
                             String clubName = document.getString("club_name");
                             List<String> imageUrls = (List<String>) document.get("imageURL");
@@ -192,8 +230,41 @@ public class ClubpageFeed extends AppCompatActivity {
 
     private String convertTimestamp(Timestamp timestamp) {
         Date date = timestamp.toDate();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.getDefault());
         return sdf.format(date);
+    }
+
+    private void initCommentView() {
+        commentRecycler.setVisibility(View.GONE);
+        List<String> commentID = new ArrayList<>();
+        Log.d("commentLoading", "현재 문서 ID : " + DocID);
+        db.collection("comment").whereEqualTo("postID", DocID).orderBy("time").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                QuerySnapshot querySnapshot = task.getResult();
+                for (QueryDocumentSnapshot document : querySnapshot)
+                    commentID.add(document.getId());
+            } else Log.d("commentLoading", "DB에서 댓글 목록 가져오기 실패");
+
+            Log.d("commentLoading", commentID.size() + "개 댓글");
+            commentRecycler.setAdapter(new ClubpageCommentAdapter(commentID));
+            commentRecycler.setVisibility(View.VISIBLE);
+        });
+    }
+
+    private void uploadComment(String s) {
+        Map<String, Object> commentData = new HashMap<>();
+        commentData.put("postID", DocID);
+        commentData.put("comment", s);
+        commentData.put("time", Timestamp.now());
+        commentData.put("userID", user.getUid());
+
+        DocumentReference newDoc = db.collection("comment").document();
+        newDoc.set(commentData).addOnSuccessListener(unused -> {
+            Log.d("commentUpload", newDoc.getId() + " 문서에 저장함.");
+            initCommentView();
+        }).addOnFailureListener(e -> {
+            Log.w("commentUpload", "댓글 DB에 입력 중 오류...", e);
+        });
     }
 }
 

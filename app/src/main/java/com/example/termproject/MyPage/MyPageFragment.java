@@ -18,6 +18,7 @@ import com.example.termproject.ClubApply.ClubApplyActivity;
 import com.example.termproject.ClubApply.ClubApplyWatchActivity;
 import com.example.termproject.R;
 import com.example.termproject.UserManagement.LoginActivity;
+import com.example.termproject.UserManagement.PasswordResetActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

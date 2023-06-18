@@ -7,7 +7,7 @@ import android.os.Handler;
 
 public class Splash extends AppCompatActivity {
 
-    private static final long SPLASH_DELAY = 1500; // 1.5초 (수정하고 싶으면 수정해도 됨.)
+    private static final long SPLASH_DELAY = 800; // 1.5초 (수정하고 싶으면 수정해도 됨.)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

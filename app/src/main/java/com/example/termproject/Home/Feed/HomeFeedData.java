@@ -9,7 +9,7 @@ public class HomeFeedData {
     private String clubImageURL = "";
     private String clubName;
     private Timestamp uploadTime;
-    private List<String> feedImageURLs;
+    private List<String> feedImageURLs, commentDocIDs;
     private String mainText;
     private boolean like;
     private int likeCount;
@@ -36,6 +36,9 @@ public class HomeFeedData {
     public int getLikeCount() {
         return likeCount;
     }
+    public List<String> getCommentDocIDs() {
+        return commentDocIDs;
+    }
 
     public void setClubImageURL(String clubImageURL) {
         this.clubImageURL = clubImageURL;
@@ -57,6 +60,9 @@ public class HomeFeedData {
     }
     public void setLikeCount(int likeCount) {
         this.likeCount = likeCount;
+    }
+    public void setCommentDocIDs(List<String> commentDocIDs) {
+        this.commentDocIDs = commentDocIDs;
     }
 
     public String convertTimestamp() {

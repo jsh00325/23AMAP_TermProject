@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.example.termproject.ClubPage.ClubActivity;
+import com.example.termproject.ClubPage.Feed.ClubpageCommentAdapter;
+import com.example.termproject.ClubPage.Feed.ClubpageFeed;
 import com.example.termproject.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,7 +27,10 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -74,8 +80,20 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
                             DocumentSnapshot doc2 = task2.getResult().getDocuments().get(0);
                             dbData.setClubImageURL(doc2.getString("image_url"));
 
-                            holder.setInformationToView(dbData);
-                            holder.endShimmer();
+                            List<String> commentID = new ArrayList<>();
+                            db.collection("comment").whereEqualTo("postID", documentID).orderBy("time").get().addOnCompleteListener(task -> {
+                                if (task.isSuccessful()){
+                                    QuerySnapshot querySnapshot = task.getResult();
+                                    for (QueryDocumentSnapshot document : querySnapshot)
+                                        commentID.add(document.getId());
+                                } else Log.d("commentLoading", "DB에서 댓글 목록 가져오기 실패");
+                                dbData.setCommentDocIDs(commentID);
+
+                                holder.setInformationToView(dbData);
+                                holder.endShimmer();
+
+                                Log.d("commentLoading", commentID.size() + "개 댓글");
+                            });
                         } Log.d("HomeFeed", "동아리 프로필 사진 접근 실패...");
                     });
             } Log.d("HomeFeed", "게시글 접근 실패...");
@@ -101,6 +119,13 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
             }
             holder.setLikeCount(dbData.getLikeCount());
         });
+
+        holder.commentArea.setOnClickListener(view -> {
+            // TODO : 나중에 이미지가 아니라 게시글 아이디로 넘기기
+            Intent intent = new Intent(context, ClubpageFeed.class);
+            intent.putExtra("imageUrl", dbData.getFeedImageURLs().get(0));
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -110,10 +135,10 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
 
     public class HomeFeedViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout mainItem;
-        private LinearLayout clubInfoLayout;
+        private LinearLayout clubInfoLayout, commentArea;
         private ShimmerFrameLayout loadItem;
         private CircleImageView clubImageView;
-        private TextView clubNameView, upTimeView, likeCountView;
+        private TextView clubNameView, upTimeView, likeCountView, commentCountView;
         private ViewPager2 postImgView;
         private CircleIndicator3 indicator;
         private ImageButton likeBtn;
@@ -130,6 +155,8 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
             postImgView = (ViewPager2) itemView.findViewById(R.id.home_item_viewpager);
             indicator = (CircleIndicator3) itemView.findViewById(R.id.home_item_circleIndicator);
             likeBtn = (ImageButton) itemView.findViewById(R.id.home_item_likeBtn);
+            commentCountView = (TextView) itemView.findViewById(R.id.home_item_commentCount);
+            commentArea = (LinearLayout) itemView.findViewById(R.id.home_item_comment_linear);
             likeCountView = (TextView) itemView.findViewById(R.id.home_item_likeCount);
             postTextView = (ReadMoreTextView) itemView.findViewById(R.id.home_item_postText);
         }
@@ -144,6 +171,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
             postTextView.setText(feedData.getMainText());
             setLikeCount(feedData.getLikeCount());
             setLikeBtn(feedData.isLike());
+            setCommentCount(feedData.getCommentDocIDs().size());
         }
 
         private void startShimmer() {
@@ -167,6 +195,13 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.HomeFe
             else if (count < 1e6) countStr = String.format("%.1fK", count / 1000.0);
             else countStr = String.format("%.1fM", count / 1000000.0);
             likeCountView.setText(countStr);
+        }
+        private void setCommentCount(int count) {
+            String countStr;
+            if (count < 1e3) countStr = Integer.toString(count);
+            else if (count < 1e6) countStr = String.format("%.1fK", count / 1000.0);
+            else countStr = String.format("%.1fM", count / 1000000.0);
+            commentCountView.setText(countStr);
         }
     }
 }

@@ -105,6 +105,42 @@
                 app:layout_constraintTop_toTopOf="parent" >
             </me.relex.circleindicator.CircleIndicator3>
 
+            <LinearLayout
+                android:id="@+id/home_item_comment_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageButton
+                    android:id="@+id/home_item_comment"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:background="@color/transparent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/chat"
+                    android:contentDescription="댓글 버튼"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/home_item_commentCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="18sp"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- 더보기 처리를 해주는 라이브러리
