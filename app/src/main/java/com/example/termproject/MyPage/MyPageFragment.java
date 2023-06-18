@@ -66,7 +66,7 @@ public class MyPageFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 //왜이러냐 이거
 
-        mypageSrl = (SwipeRefreshLayout) view.findViewById(R.id.mypage_srl);
+        mypageSrl = (SwipeRefreshLayout) view.findViewById(R.id.mypage_srl_main);
         mypageSrl.setColorSchemeColors(getResources().getColor(R.color.Primary));
         mypageSrl.setOnRefreshListener(() -> {
             if (user != null) {
