@@ -262,6 +262,7 @@ public class ClubpageFeed extends AppCompatActivity {
         commentData.put("comment", s);
         commentData.put("time", Timestamp.now());
         commentData.put("userID", user.getUid());
+        commentData.put("reportCount", 0);
 
         DocumentReference newDoc = db.collection("comment").document();
         newDoc.set(commentData).addOnSuccessListener(unused -> {

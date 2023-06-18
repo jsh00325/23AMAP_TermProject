@@ -3,6 +3,8 @@ package com.example.termproject.ClubPage.Feed;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -53,10 +56,21 @@ public class ClubpageCommentAdapter extends RecyclerView.Adapter<ClubpageComment
             if (task.isSuccessful()) {
                 DocumentSnapshot doc = task.getResult();
 
-                holder.mainText.setText(doc.getString("comment"));
-                holder.setTimeText(doc.getTimestamp("time"));
-                if (doc.getString("userID").equals(user.getUid()))
-                    holder.deleteBtn.setVisibility(View.VISIBLE);
+                if (doc.getLong("reportCount") >= 10) {
+                    holder.mainText.setText("해당 댓글은 신고를 받아 삭제되었습니다.");
+                    holder.mainText.setTextColor(Color.GRAY);
+                    holder.reportBtn.setVisibility(View.GONE);
+                    if (doc.getString("userID").equals(user.getUid()))
+                        holder.deleteBtn.setVisibility(View.VISIBLE);
+                } else {
+                    holder.mainText.setText(doc.getString("comment"));
+
+                    holder.setTimeText(doc.getTimestamp("time"));
+                    if (doc.getString("userID").equals(user.getUid())) {
+                        holder.deleteBtn.setVisibility(View.VISIBLE);
+                        holder.reportBtn.setVisibility(View.GONE);
+                    }
+                }
 
                 holder.layout.setVisibility(View.VISIBLE);
             } else Log.d("ClubpageCommentAdapter", "DB에서 불러오기 실패");
@@ -86,6 +100,21 @@ public class ClubpageCommentAdapter extends RecyclerView.Adapter<ClubpageComment
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         });
+
+        // 신고 버튼 리스너
+        holder.reportBtn.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+            builder.setTitle("댓글 신고").setMessage("이 댓글을 신고하시겠습니까?");
+
+            builder.setPositiveButton("네", (dialogInterface, i) -> {
+                docRef.update("reportCount", FieldValue.increment(1));
+            }).setNegativeButton("아니오", (dialogInterface, i) -> {
+            });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        });
     }
 
     @Override
@@ -95,12 +124,13 @@ public class ClubpageCommentAdapter extends RecyclerView.Adapter<ClubpageComment
 
     public class CommentViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout layout;
-        private TextView deleteBtn, mainText, timeText;
+        private TextView deleteBtn, mainText, timeText, reportBtn;
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
             layout = (LinearLayout) itemView.findViewById(R.id.comment_item_mainView);
             deleteBtn = (TextView) itemView.findViewById(R.id.comment_item_deleteBtn);
+            reportBtn = (TextView) itemView.findViewById(R.id.comment_item_reportBtn);
             mainText = (TextView) itemView.findViewById(R.id.comment_item_mainText);
             timeText = (TextView) itemView.findViewById(R.id.comment_item_timestamp);
         }
