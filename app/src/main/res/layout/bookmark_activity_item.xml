@@ -4,21 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="90dp">
 
 
     <!-- TODO : src의 크기가 생각보다 커졌는데, gpt가 drawble에 있는 mypage를 크기를 줄이라고 함.-->
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/bookmark_item_icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="20dp"
-        android:background="@drawable/round_background_border_main_theme"
         android:src="@drawable/blank_user"
         app:civ_border_color="@color/Primary"
         app:civ_border_overlay="true"
-        app:civ_border_width="1dp"
+        app:civ_border_width="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +52,6 @@
                 android:layout_height="wrap_content"
                 android:text="대분류"
                 android:textSize="16sp"
-                android:fontFamily="@font/notosanskr_light"
                 android:includeFontPadding="false"/>
 
             <TextView
@@ -71,7 +69,6 @@
                 android:layout_height="wrap_content"
                 android:text="소분류"
                 android:textSize="16sp"
-                android:fontFamily="@font/notosanskr_light"
                 android:includeFontPadding="false"/>
         </LinearLayout>
     </LinearLayout>

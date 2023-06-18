@@ -66,7 +66,7 @@ public class MyPageFragment extends Fragment {
         profileImageView = view.findViewById(R.id.mypage_profile_pic);
 
         profileNameTextView = view.findViewById(R.id.mypage_profile_name);
-
+        profileNameTextView.setVisibility(View.GONE);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // Retrieve user document from "users" collection
@@ -77,6 +77,7 @@ public class MyPageFragment extends Fragment {
                     if (document != null && document.exists()) {
                         String name = document.getString("name");
                         profileNameTextView.setText(name);
+                        profileNameTextView.setVisibility(View.VISIBLE);
                         String imageUrl = document.getString("imageUrl");
 
                         // Load the image into profileImageView using Glide or any other library

@@ -75,7 +75,7 @@ public class ClubActivity extends AppCompatActivity {
                     }
                 });
 
-        ImageButton dropDownMenu = findViewById(R.id.cp_item_dropdown_menu);
+
 
         nametext.setText(name);
         Log.d("ClubActivity", "Received club_name: " + name);

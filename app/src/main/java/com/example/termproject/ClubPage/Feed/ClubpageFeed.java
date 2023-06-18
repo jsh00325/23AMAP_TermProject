@@ -71,6 +71,7 @@ public class ClubpageFeed extends AppCompatActivity {
     private EditText commentInput;
     private ImageButton commentSend;
     private InputMethodManager imm;
+    private LinearLayout fullLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,6 +95,7 @@ public class ClubpageFeed extends AppCompatActivity {
         commentRecycler.setItemAnimator(null);
         commentInput = findViewById(R.id.comment_input);
         commentSend = findViewById(R.id.comment_sendBtn);
+        fullLayout = findViewById(R.id.clubpage_item_main);
 
         commentSend.setOnClickListener(view -> {
             if (commentInput.getText().toString().equals(""))
@@ -108,6 +110,7 @@ public class ClubpageFeed extends AppCompatActivity {
         imageUrl = getIntent().getStringExtra("imageUrl");
         FirebaseUser user1 = FirebaseAuth.getInstance().getCurrentUser();
 
+        fullLayout.setVisibility(View.GONE);
         db.collection("club_post")
                 .whereArrayContains("imageURL", imageUrl)
                 .limit(1)
@@ -137,6 +140,7 @@ public class ClubpageFeed extends AppCompatActivity {
                                                 final String finalClubImageURL = doc2.getString("image_url");
 
                                                 setViewData(document, imageUrl, imageUrls, finalClubImageURL, clubName, uploadTime, mainText);
+                                                fullLayout.setVisibility(View.VISIBLE);
                                             } else {
                                                 Log.d("HomeFeed", "동아리 프로필 사진 접근 실패...");
                                             }

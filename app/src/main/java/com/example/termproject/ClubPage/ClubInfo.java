@@ -48,6 +48,8 @@ public class ClubInfo extends Fragment {
         Button clubInfoButton = rootView.findViewById(R.id.club_info_button);
         TextView clubInfoDetail = rootView.findViewById(R.id.club_info_detail);
 
+        rootView.findViewById(R.id.clubinfo_full_layout).setVisibility(View.GONE);
+
         // DB에서 club_name을 이용하여 필요한 정보를 가져오는 작업 수행
         db = FirebaseFirestore.getInstance();
         Query query = db.collection("club_list").whereEqualTo("club_name", club_name);
@@ -68,6 +70,8 @@ public class ClubInfo extends Fragment {
                     //clubInfoSimple.setText(document.getString("simple_intro")); 없다
                     clubInfoButton.setText("신청 버튼");
                     clubInfoDetail.setText(document.getString("description").replace("\\n", "\n"));
+
+                    rootView.findViewById(R.id.clubinfo_full_layout).setVisibility(View.VISIBLE);
                 }
             } else {
                 // 문서 가져오기 실패 처리

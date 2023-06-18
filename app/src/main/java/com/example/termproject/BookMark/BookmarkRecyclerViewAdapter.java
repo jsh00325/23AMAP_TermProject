@@ -96,7 +96,8 @@ public class BookmarkRecyclerViewAdapter extends RecyclerView.Adapter<BookmarkRe
         }
 
         public void bindProfileImage(String image_url){
-            Glide.with(mContext).load(image_url).into(icon);
+            if (image_url.equals("")) icon.setImageResource(R.drawable.blank_user);
+            else Glide.with(mContext).load(image_url).into(icon);
             icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
 
