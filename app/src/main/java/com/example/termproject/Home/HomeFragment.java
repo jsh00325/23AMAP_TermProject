@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.termproject.ClubApply.ClubApplyActivity;
@@ -51,6 +52,7 @@ public class HomeFragment extends Fragment {
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private View view;
     private ImageButton filterBtn;
+    private TextView logo;
     private RecyclerView homeFeed;
     private SwipeRefreshLayout homeSrl;
     private FloatingActionButton homeFab;
@@ -79,6 +81,11 @@ public class HomeFragment extends Fragment {
         });
 
         homeFab = (FloatingActionButton) view.findViewById(R.id.home_fab_writePost);
+
+        logo = (TextView) view.findViewById(R.id.home_feed_logo);
+        logo.setOnClickListener(view1 -> {
+            homeFeed.smoothScrollToPosition(0);
+        });
 
 
         // 관리자 계정이 아니라면 숨기기
