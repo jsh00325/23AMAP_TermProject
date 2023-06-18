@@ -6,29 +6,24 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.termproject.ClubApply.ClubApplyActivity;
 import com.example.termproject.ClubApply.ClubApplyWatchActivity;
 import com.example.termproject.R;
 import com.example.termproject.UserManagement.LoginActivity;
 import com.example.termproject.UserManagement.PasswordResetActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -40,6 +35,7 @@ public class MyPageFragment extends Fragment {
     TextView profileNameTextView;
 
     CircleImageView profileImageView;
+    private SwipeRefreshLayout mypageSrl;
 
     private FirebaseAuth mAuth ;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -68,6 +64,65 @@ public class MyPageFragment extends Fragment {
         profileNameTextView = view.findViewById(R.id.mypage_profile_name);
         profileNameTextView.setVisibility(View.GONE);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//왜이러냐 이거
+
+        mypageSrl = (SwipeRefreshLayout) view.findViewById(R.id.mypage_srl);
+        mypageSrl.setColorSchemeColors(getResources().getColor(R.color.Primary));
+        mypageSrl.setOnRefreshListener(() -> {
+            if (user != null) {
+                // Retrieve user document from "users" collection
+                DocumentReference userRef = FirebaseFirestore.getInstance().collection("users").document(user.getUid());
+                userRef.get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document != null && document.exists()) {
+                            String name = document.getString("name");
+                            profileNameTextView.setText(name);
+                            profileNameTextView.setVisibility(View.VISIBLE);
+                            String imageUrl = document.getString("imageUrl");
+
+                            // Load the image into profileImageView using Glide or any other library
+                            if (imageUrl != null && !imageUrl.isEmpty()) {
+                                Glide.with(requireContext())
+                                        .load(imageUrl)
+                                        .into(profileImageView);
+                            }
+
+                        }
+                    } else {
+                        // Handle error
+                        // ...
+                    }
+                });
+            }
+
+            String currentUserUid = user.getUid();
+            db.collection("users")
+                    .document(currentUserUid)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            document = task.getResult();
+                            if (document != null && document.exists()) {
+                                // 현재 사용자의 문서에서 bookMark 배열 가져오기
+                                admin = (String)document.get("adminClub");
+
+                                if (admin.isEmpty()) {
+                                    clubmanage.setVisibility(View.GONE);
+                                    // Toast.makeText(getActivity(), "adminClub이 비어있습니다.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    clubmanage.setVisibility(View.VISIBLE);
+                                }
+
+                            }
+                        } else {
+                            Log.d("ClubPost", "Error getting document: ", task.getException());
+                        }
+                    });
+            mypageSrl.setRefreshing(false);
+        });
+
+
         if (user != null) {
             // Retrieve user document from "users" collection
             DocumentReference userRef = FirebaseFirestore.getInstance().collection("users").document(user.getUid());
@@ -123,6 +178,13 @@ public class MyPageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), PasswordResetActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
+        profileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), photo_signmy.class);
                 view.getContext().startActivity(intent);
             }
         });
