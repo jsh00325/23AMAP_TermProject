@@ -45,6 +45,9 @@
         <activity
             android:name=".UserManagement.Photo_sign"
             android:label="Photo Sign Activity" />
+        <activity
+            android:name=".MyPage.photo_signmy"
+            android:label="photo Signmy Activity" />
 
         <activity
             android:name=".Post.PostActivity"
