@@ -19,10 +19,18 @@ import java.util.List;
 public class ScrapListAdapter extends RecyclerView.Adapter<ScrapListAdapter.ViewHolder> {
 
     private List<String> imageUrlList;
+    private RecyclerView recyclerView;
     private Context context;
+    private boolean isDataLoaded = false;
 
-    public ScrapListAdapter(List<String> imageUrlList) {
+    public ScrapListAdapter(List<String> imageUrlList, RecyclerView recyclerView) {
         this.imageUrlList = imageUrlList;
+        this.recyclerView = recyclerView;
+        this.isDataLoaded = false; // 초기에 데이터 미로드 상태로 설정
+    }
+    public void onDataLoaded() {
+        isDataLoaded = true; // 데이터 로드 상태를 완료로 변경
+        notifyDataSetChanged(); // 어댑터에 데이터 변경을 알림
     }
 
     @NonNull
@@ -42,6 +50,9 @@ public class ScrapListAdapter extends RecyclerView.Adapter<ScrapListAdapter.View
         } else {
             holder.imageView.setImageResource(R.drawable.png_06);
         }
+        if (isDataLoaded) { // 데이터 로드가 완료된 경우에만 RecyclerView를 보이도록 설정
+            recyclerView.setVisibility(View.VISIBLE);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +65,7 @@ public class ScrapListAdapter extends RecyclerView.Adapter<ScrapListAdapter.View
                 context.startActivity(intent);
             }
         });
+
     }
 
     @Override

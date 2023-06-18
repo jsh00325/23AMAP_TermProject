@@ -45,7 +45,6 @@ public class ClubInfo extends Fragment {
         ImageView clubImage = rootView.findViewById(R.id.club_image);
         TextView profileManage = rootView.findViewById(R.id.profile_manage);
         TextView clubInfoName = rootView.findViewById(R.id.club_info_name);
-        TextView clubInfoSimple = rootView.findViewById(R.id.club_info_simple);
         Button clubInfoButton = rootView.findViewById(R.id.club_info_button);
         TextView clubInfoDetail = rootView.findViewById(R.id.club_info_detail);
 
