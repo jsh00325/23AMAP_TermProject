@@ -131,6 +131,7 @@ public class Photo_sign extends AppCompatActivity {
                     e.printStackTrace();
                 });
             }
+            //check
             //profileImageView.getDrawable() == null
             else {
                 Toast.makeText(Photo_sign.this, "기본 프로필로 설정했습니다. 이메일 인증으로 회원가입을 완료하세요.", Toast.LENGTH_SHORT).show();
